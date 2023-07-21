@@ -1,7 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -15,13 +14,29 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
-
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
 }
+
+.draggableParent {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  background-color: lightblue;
+}
+.draggableParent .draggableElement {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform-origin: center;
+  transform: translateX(0) translateY(0);
+  padding: 2.5rem 5rem;
+  background-color: tomato;
+  -webkit-user-select: none !important;
+     -moz-user-select: none !important;
+          user-select: none !important;
+}
+.draggableParent .draggableElement:focus .draggableParent .draggableElement:focus-visible, .draggableParent .draggableElement:focus-within {
+  cursor: all-scroll;
+}/*# sourceMappingURL=globals.css.map */
