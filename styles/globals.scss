@@ -18,12 +18,7 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: rgb(151, 151, 151);
 }
 
 
@@ -35,8 +30,8 @@ body {
 
   .draggableElement {
     position: absolute;
-    left: 0;
-    top: 0;
+    left: 50px;
+    top: 50px;
     transform-origin: center;
     transform: translateX(0) translateY(0);
     padding: 2.5rem 5rem;
@@ -51,6 +46,38 @@ body {
     &:focus-visible,
     &:focus-within {
       cursor: all-scroll;
+    }
+  }
+
+  .outerLine {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 0;
+    height: 100%;
+
+    &:before {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 30px;
+      height: 30px;
+      border-radius: 99999px;
+      background-color: whitesmoke;
+      transform: translateX(50%);
+      transform-origin: right;
+      scale: 0;
+      opacity: 0;
+      transition: 1.5s all ease;
+    }
+
+    &.show {
+      &:before {
+        opacity: 1;
+        top: 50px;
+        scale: 1;
+      }
     }
   }
 }

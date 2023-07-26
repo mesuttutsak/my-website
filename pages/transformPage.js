@@ -7,10 +7,18 @@ const OtherPage = () => {
   const router = useRouter();
 
   const element = useRef();
+  const outlineEl = useRef();
 
   const [dragging, setDragging] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [mousePos, setMousePos] = useState({});
+
+
+  const [outerPosition, setOuterPosition] = useState(null);
+
+  useEffect(() => {
+
+  }, [outerPosition])
 
   useEffect(() => {
     const handleMouseMove = (event) => {
@@ -35,14 +43,19 @@ const OtherPage = () => {
       let {top, right, bottom, left} = targetOfset;
       let {movementX, movementY, x, y} = mousePos;
 
-      x > browserWidth && setDragging(false);
-      y > browserHeight && setDragging(false);
+      ((left > browserWidth) || (right < 0)) ? setOuterPosition({show: true, top: top}) : setOuterPosition(null);
+
+      // x > browserWidth && setDragging(false);
+      // y > browserHeight && setDragging(false);
       
       // movementX = (( x > browserWidth ) || ( x < 0 )) || ( y > browserHeight ) || ( y < 0 ) ? 0 : movementX;
       // movementY = ( y > browserHeight ) || ( y < 0 ) ? 0 : movementY;
 
-      const dx = (left <= 0 && movementX < 0) || (right > browserWidth &&  movementX > 0) ? 0 : movementX ;
-      const dy = (top <= 0 && movementY < 0) || (bottom > browserHeight &&  movementY > 0) ? 0 : movementY ;
+      // const dx = (left <= 0 && movementX < 0) || (right > browserWidth &&  movementX > 0) ? 0 : movementX ;
+      // const dy = (top <= 0 && movementY < 0) || (bottom > browserHeight &&  movementY > 0) ? 0 : movementY ;
+      
+      const dx = movementX ;
+      const dy = movementY ;
 
       setPosition((prevState) => ({ x: prevState.x + dx , y: prevState.y + dy, }));
     }
@@ -110,6 +123,7 @@ const OtherPage = () => {
             onMouseDown={handleMouseDown}
             onMouseUp={handleMouseUp}
           >Draggable Element</div>
+          <div className={`outerLine ${outerPosition && 'show'}`} ref={outlineEl}></div>
 
         </div>
       </MainLayout>

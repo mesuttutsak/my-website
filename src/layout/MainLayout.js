@@ -2,6 +2,7 @@ import Head from 'next/head'
 import React, { useEffect } from 'react'
 
 import { useRouter } from 'next/router';
+import LightBeam from '../components/LightBeam/LightBeam';
 
 const MainLayout = ({children}) => {
   const router = useRouter();
@@ -32,7 +33,8 @@ const MainLayout = ({children}) => {
       </Head>
 
       <main>
-          {children}
+        <LightBeam/>
+        {children}
       </main>
     </>
   )
