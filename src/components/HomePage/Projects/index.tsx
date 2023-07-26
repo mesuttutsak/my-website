@@ -34,7 +34,8 @@ const projects: ProjectsProps[] = [
 
 const Projects = () => {
   return (
-    <div>
+    <div id="projects">
+      <h3>Projects</h3>
       {projects.map(
         ({ name, title, start_date, end_date, skills }: ProjectsProps, i) => (
           <>

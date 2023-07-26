@@ -21,7 +21,7 @@ const experience: ExperienceProps[] = [
   {
     company: "Mallconomy",
     website: "https://mallconomy.com/",
-    skills: [ 'Next.js', 'JavaScript', 'SASS', 'Redux', 'React.js'],
+    skills: ["Next.js", "JavaScript", "SASS", "Redux", "React.js"],
     location: "İzmir",
     working_type: "On-site",
     periods: [
@@ -69,31 +69,51 @@ const experience: ExperienceProps[] = [
 const Experience = () => {
   return (
     <div id="experience">
-      {
-        experience.map(({company, website, skills, location, working_type, periods }: ExperienceProps) => <>
-            <br/>
-            <hr/>
-            <hr/>
-            <br/>
+      <h3>Experience</h3>
+      {experience.map(
+        ({
+          company,
+          website,
+          skills,
+          location,
+          working_type,
+          periods,
+        }: ExperienceProps) => (
+          <>
+            <br />
+            <hr />
+            <hr />
+            <br />
             <p>
-                {company} <br/>
-                {website} <br/>
-                {skills.join(' · ')} <br/>
-                {location}
+              {company} <br />
+              {website} <br />
+              {skills.join(" · ")} <br />
+              {location}
             </p>
-            <hr/>
-            {periods.map( ({title, employment_type, start_date, end_date, desc}: ExperiencePeriod) => <>
-                {title} <br/>
-                {employment_type} <br/>
-                {start_date} {end_date} <br/>
-                {desc} <br/>
-            </>)}
-            <br/>
-            <hr/>
-            <hr/>
-            <br/>
-        </>)
-      }
+            <hr />
+            {periods.map(
+              ({
+                title,
+                employment_type,
+                start_date,
+                end_date,
+                desc,
+              }: ExperiencePeriod) => (
+                <>
+                  {title} <br />
+                  {employment_type} <br />
+                  {start_date} {end_date} <br />
+                  {desc} <br />
+                </>
+              )
+            )}
+            <br />
+            <hr />
+            <hr />
+            <br />
+          </>
+        )
+      )}
     </div>
   );
 };

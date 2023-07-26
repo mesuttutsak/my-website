@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
 
-import styles from "./lightBeam.module.scss";
-
 const LightBeam: React.FC = () => {
   const [position, setPosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
 
@@ -19,9 +17,9 @@ const LightBeam: React.FC = () => {
 
   return (
     <div
-      className={styles.lightBeam}
+      className={'lightBeam'}
       style={{
-        background: `radial-gradient(50vw at ${position.x}px ${position.y}px, rgba(255, 255, 255, .15), transparent 80%)`,
+        background: `radial-gradient(50vw at ${position.x}px ${position.y}px, rgba(29, 78, 216, 0.15), transparent 80%)`,
       }}
     ></div>
   );

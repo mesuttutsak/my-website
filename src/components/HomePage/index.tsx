@@ -6,12 +6,9 @@ const HomePageComponent = ({ children }: { children?: React.ReactNode }) => {
   return (
     <div>
       <About />
-      at Mallconomy.
       <br /> <br /> <br />
-      Experience <br />
       <br />
       <Experience />
-      Projects <br />
       <br />
       <Projects />
     </div>
