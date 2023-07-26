@@ -6,7 +6,7 @@ interface navListProps {
 }
 
 const navList: navListProps[] = [
-  { text: "about", path: "/" },
+  { text: "about", path: "/#about" },
   { text: "experience", path: "#experience" },
   { text: "projects", path: "#projects" },
 ];

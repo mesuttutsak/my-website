@@ -6,10 +6,7 @@ const HomePageComponent = ({ children }: { children?: React.ReactNode }) => {
   return (
     <div>
       <About />
-      <br /> <br /> <br />
-      <br />
       <Experience />
-      <br />
       <Projects />
     </div>
   );

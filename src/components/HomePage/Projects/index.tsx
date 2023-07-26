@@ -1,3 +1,4 @@
+import Surface from "@/src/core/components/Surface";
 import React from "react";
 
 interface ProjectsProps {
@@ -34,7 +35,7 @@ const projects: ProjectsProps[] = [
 
 const Projects = () => {
   return (
-    <div id="projects">
+    <Surface id="projects">
       <h3>Projects</h3>
       {projects.map(
         ({ name, title, start_date, end_date, skills }: ProjectsProps, i) => (
@@ -47,7 +48,7 @@ const Projects = () => {
           </>
         )
       )}
-    </div>
+    </Surface>
   );
 };
 

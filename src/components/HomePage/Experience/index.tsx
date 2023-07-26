@@ -1,3 +1,4 @@
+import Surface from "@/src/core/components/Surface";
 import { useEffect } from "react";
 
 interface ExperiencePeriod {
@@ -68,7 +69,7 @@ const experience: ExperienceProps[] = [
 
 const Experience = () => {
   return (
-    <div id="experience">
+    <Surface id="experience">
       <h3>Experience</h3>
       {experience.map(
         ({
@@ -80,10 +81,6 @@ const Experience = () => {
           periods,
         }: ExperienceProps) => (
           <>
-            <br />
-            <hr />
-            <hr />
-            <br />
             <p>
               {company} <br />
               {website} <br />
@@ -107,14 +104,10 @@ const Experience = () => {
                 </>
               )
             )}
-            <br />
-            <hr />
-            <hr />
-            <br />
           </>
         )
       )}
-    </div>
+    </Surface>
   );
 };
 

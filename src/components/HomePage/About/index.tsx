@@ -1,3 +1,4 @@
+import Surface from "@/src/core/components/Surface";
 import React from "react";
 
 const About = () => {
@@ -11,9 +12,9 @@ const About = () => {
     </>
   );
 
-  return <div id="about">
+  return <Surface id="about">
     {aboutElement}
-    </div>;
+    </Surface>;
 };
 
 export default About;
