@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import MainLayout from '@/src/layout/MainLayout'
 import HomePageComponent from '@/src/components/HomePage'
@@ -9,9 +8,7 @@ export default function Home() {
   return (
     <>
       <MainLayout>
-        <HomePageComponent>
-          adasda
-        </HomePageComponent>
+        <HomePageComponent />
       </MainLayout>
     </>
   )

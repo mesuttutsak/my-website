@@ -6,16 +6,34 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root {}
+}
+
+body {}
+
+.wrapper {
+  @apply flex justify-between flex-row px-24 px-24 py-10;
+}
+
+.header {
+  @apply flex flex-col max-h-screen fixed h-screen flex flex-col gap-6;
+
+  .headline {
+    @apply flex flex-col gap-3;
+  }
+
+  nav {
+
+    .navList {
+     @apply flex flex-col gap-3;
+    }
+  
+    .navListItem {
+     @apply w-full;
+    }
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.socialList {
+  @apply flex gap-2;
 }
