@@ -1,3 +1,7 @@
+import DraggableProivder, {
+  DraggableElement,
+} from "@/src/core/components/Draggable";
+import Section from "@/src/core/components/Section";
 import Surface from "@/src/core/components/Surface";
 import React from "react";
 
@@ -35,20 +39,22 @@ const projects: ProjectsProps[] = [
 
 const Projects = () => {
   return (
-    <Surface id="projects">
-      <h3>Projects</h3>
-      {projects.map(
-        ({ name, title, start_date, end_date, skills }: ProjectsProps, i) => (
-          <>
-            <p>{name}</p>
-            <p>{title}</p>
-            <p>{start_date}</p>
-            <p>{end_date}</p>
-            <p>{skills.join(" · ")}</p>
-          </>
-        )
-      )}
-    </Surface>
+    <DraggableElement>
+      <Section id="projects">
+        <h3>Projects</h3>
+        {projects.map(
+          ({ name, title, start_date, end_date, skills }: ProjectsProps, i) => (
+            <>
+              <p>{name}</p>
+              <p>{title}</p>
+              <p>{start_date}</p>
+              <p>{end_date}</p>
+              <p>{skills.join(" · ")}</p>
+            </>
+          )
+        )}
+      </Section>
+    </DraggableElement>
   );
 };
 

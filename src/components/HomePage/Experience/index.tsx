@@ -1,3 +1,5 @@
+import { DraggableElement } from "@/src/core/components/Draggable";
+import Section from "@/src/core/components/Section";
 import Surface from "@/src/core/components/Surface";
 import { useEffect } from "react";
 
@@ -69,45 +71,47 @@ const experience: ExperienceProps[] = [
 
 const Experience = () => {
   return (
-    <Surface id="experience">
-      <h3>Experience</h3>
-      {experience.map(
-        ({
-          company,
-          website,
-          skills,
-          location,
-          working_type,
-          periods,
-        }: ExperienceProps) => (
-          <>
-            <p>
-              {company} <br />
-              {website} <br />
-              {skills.join(" · ")} <br />
-              {location}
-            </p>
-            <hr />
-            {periods.map(
-              ({
-                title,
-                employment_type,
-                start_date,
-                end_date,
-                desc,
-              }: ExperiencePeriod) => (
-                <>
-                  {title} <br />
-                  {employment_type} <br />
-                  {start_date} {end_date} <br />
-                  {desc} <br />
-                </>
-              )
-            )}
-          </>
-        )
-      )}
-    </Surface>
+    <DraggableElement>
+      <Section id="experience">
+        <h3>Experience</h3>
+        {experience.map(
+          ({
+            company,
+            website,
+            skills,
+            location,
+            working_type,
+            periods,
+          }: ExperienceProps) => (
+            <>
+              <p>
+                {company} <br />
+                {website} <br />
+                {skills.join(" · ")} <br />
+                {location}
+              </p>
+              <hr />
+              {periods.map(
+                ({
+                  title,
+                  employment_type,
+                  start_date,
+                  end_date,
+                  desc,
+                }: ExperiencePeriod) => (
+                  <>
+                    {title} <br />
+                    {employment_type} <br />
+                    {start_date} {end_date} <br />
+                    {desc} <br />
+                  </>
+                )
+              )}
+            </>
+          )
+        )}
+      </Section>
+    </DraggableElement>
   );
 };
 

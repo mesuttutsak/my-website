@@ -1,13 +1,17 @@
+import Surface from "@/src/core/components/Surface";
 import About from "./About";
 import Experience from "./Experience";
+import Info from "./Info";
 import Projects from "./Projects";
 
 const HomePageComponent = ({ children }: { children?: React.ReactNode }) => {
   return (
-    <div>
-      <About />
-      <Experience />
-      <Projects />
+    <div className="homePage">
+      <Surface>
+        <About />
+        <Experience />
+        <Projects />
+      </Surface>
     </div>
   );
 };

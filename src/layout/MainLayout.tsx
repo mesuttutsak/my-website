@@ -10,13 +10,13 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
         <LightBeam />
-        <div className={`container mx-auto px-36 ${inter.className}`}>
-            <div className="wrapper">
+        <div className={`container mx-auto ${inter.className}`}>
+            {/* <div className="wrapper"> */}
                 <Header />
-                <main className="w-1/2 h-fit mx-auto overflow-hidden">
+                <main>
                     {children}
                 </main>
-            </div>
+            {/* </div> */}
         </div>
     </>
   )

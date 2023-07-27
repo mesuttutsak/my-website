@@ -1,9 +1,9 @@
 import { Chilanka } from 'next/font/google'
 import React from 'react'
 
-const Surface = ({ children, id }: { children: React.ReactNode, id?: string }) => {
+const Surface = ({ children, id, select = false }: { children: React.ReactNode, id?: string, select?: boolean }) => {
   return (
-    <div className='surface' id={id}>{children}</div>
+    <div className={`surface ${select && 'selectNone'}`} id={id}>{children}</div>
   )
 }
 
