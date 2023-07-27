@@ -1,10 +1,27 @@
-import { Chilanka } from 'next/font/google'
-import React from 'react'
+'use client'
 
-const Surface = ({ children, id, select = false }: { children: React.ReactNode, id?: string, select?: boolean }) => {
+import React from "react";
+
+const Surface = ({
+  children,
+  id,
+  theme = "",
+  fit = false,
+  select = false,
+  size= ""
+}: {
+  children: React.ReactNode;
+  theme?: string;
+  id?: string;
+  select?: boolean;
+  size?: string;
+  fit?: boolean
+}) => {
   return (
-    <div className={`surface ${select && 'selectNone'}`} id={id}>{children}</div>
-  )
-}
+    <div className={`surface ${theme}  ${!!size && `size_${size}`} ${fit && 'fit'} ${select && "selectNone"}`} id={id}>
+      {children}
+    </div>
+  );
+};
 
-export default Surface
+export default Surface;

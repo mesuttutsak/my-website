@@ -7,7 +7,7 @@ import Projects from "./Projects";
 const HomePageComponent = ({ children }: { children?: React.ReactNode }) => {
   return (
     <div className="homePage">
-      <Surface>
+      <Surface id="homePage">
         <About />
         <Experience />
         <Projects />

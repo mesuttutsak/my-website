@@ -30,18 +30,22 @@ main {
 header {
   @apply w-1/2 h-fit mx-auto;
 
-  .headline {
-    @apply flex flex-col gap-3;
-  }
+  .header{
+    @apply flex flex-row justify-between items-center;
 
-  nav {
-
-    .navList {
-     @apply flex flex-row gap-3;
+    .headline {
+      @apply flex flex-col gap-3;
     }
   
-    .navListItem {
-     @apply w-full;
+    nav {
+  
+      .navList {
+       @apply flex flex-row gap-5;
+      }
+    
+      .navListItem {
+       @apply w-full;
+      }
     }
   }
 }
@@ -71,7 +75,20 @@ header {
 }
 
 .surface {
-  @apply shadow-lg bg-white relative p-5 text-black rounded-[24px];
+  @apply shadow-lg bg-white relative p-5 text-black rounded-[12px];
+
+  &.size_ {
+    &small { @apply p-3; }
+    
+  }
+
+  &.fit {
+    @apply w-fit max-w-fit;
+  }
+
+  &.dark {
+    @apply text-white bg-black;
+  }
 
   &.selectNone {
     user-select: none;
@@ -79,9 +96,48 @@ header {
 
   & ~ .surface {
     &::before {
-      content: "";
-      @apply absolute top-0 left-1/2 border border-gray-400 h-4;
+      @apply content-[''] absolute top-0 left-1/2 border border-gray-400 h-4;
       transform: translateY(calc(-100% - 1px));
     }
   }
+}
+.tooltipParent {
+  @apply relative;
+
+  .tooltip {
+    @apply absolute top-0 left-1/2 -translate-y-1/2 -translate-x-1/2 rounded-full shadow-md py-2 px-3 bg-opacity-50 bg-white opacity-0 ease-in duration-300 select-none;
+  }
+
+  &:hover{ 
+    .tooltip {
+      @apply -translate-y-full left-1/2 opacity-100 ;
+    }
+  }
+}
+
+  .headline {
+    @apply relative pl-3 whitespace-nowrap w-full block;
+    &::before {
+      @apply content-[''] -translate-y-1/2 absolute left-0 top-1/2 w-1 h-1 bg-slate-500; 
+    }
+  }
+
+section#about {
+  @apply flex flex-col gap-10;
+
+  .content {
+    @apply flex flex-row gap-4;
+    
+    .left {
+      @apply flex flex-col justify-start gap-3 w-auto;
+    }
+  
+    .right {
+      @apply min-w-[160px];
+    }
+  }
+}
+
+.surface#homePage {
+  @apply flex flex-col gap-6;
 }

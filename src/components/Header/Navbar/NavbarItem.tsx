@@ -10,9 +10,9 @@ interface navItemProps {
 
 const NavbarItem: React.FC<navItemProps> = ({ text, path, icon: Icon }) => {
   return (
-    <li className="navbarListItem">
+    <li className="navbarListItem tooltipParent">
       <Link href={path}>
-        {Icon && <Icon size={25} />}
+        {Icon && <Icon size={40} fill={`fill-amber-600`} />}
       </Link>
       <span className="tooltip">{text}</span>
     </li>
