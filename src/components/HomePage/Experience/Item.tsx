@@ -45,8 +45,8 @@ const Item = ({ data }: any) => {
                             start_date,
                             end_date,
                             desc,
-                        }: ExperiencePeriod) => (
-                            <li className='flex justify-between items-center'>
+                        } : ExperiencePeriod) => (
+                            <li key={title} className='flex justify-between items-center'>
                                 <Text >{title} - {employment_type}</Text> <Text>{start_date} - {end_date}</Text>
                             </li>
                         )

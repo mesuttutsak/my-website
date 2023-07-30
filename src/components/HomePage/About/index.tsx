@@ -1,12 +1,32 @@
 import { DraggableElement } from "@/src/core/components/Draggable";
 import Section, { Headline } from "@/src/core/components/Section";
 
-import React from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import SocialList from "../../SocialList";
 import Image from "next/image";
 import Text from "@/src/core/components/Text";
+import Button from "@/src/core/components/Button";
+
+import {IoIosCopy} from "react-icons/io";
+import {FaCheck} from "react-icons/fa";
 
 const About = () => {
+
+  const [copied, setCopied] = useState('')
+
+  useLayoutEffect(() => {
+    if (copied !== '') {
+      copyText(copied)
+      setTimeout(() => {
+        setCopied('');
+      }, 1000);
+    }
+  }, [copied])
+
+  function copyText(text:string) {
+    navigator.clipboard.writeText(text);
+  }
+
   const aboutElement: React.ReactElement = (
     <>
       <div className="content">
@@ -29,7 +49,15 @@ const About = () => {
 
           <div className="bottom">
             <SocialList />
-            {/* <Badge text={'Email'} /> */}
+            
+            <Button onClick={() => setCopied('ttsk.mesut@gmail.com')}>
+              {
+                copied ?
+                 <span className="text-green-500"> <FaCheck size={16}/> </span> :
+                 <span className="text-gray-600"> <IoIosCopy size={16}/> </span>
+              }
+              Copy Email
+            </Button>
           </div>
         </div>
 

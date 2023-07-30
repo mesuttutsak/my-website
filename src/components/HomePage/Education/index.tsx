@@ -53,25 +53,25 @@ const Education = () => {
                     <Text>{start_date} - {end_date}</Text>
                 </div>
                 <div className="row">
-                 <Text>{department} - {grade}</Text>
+                    <Text>{department} - {grade}</Text>
                 </div>
             </Surface>
             <Surface inOrder customClassname={['flex flex-col gap-6']}>
                 {sertificate.map((obj: SertificateProps, i) => {
-                    const {title, period} = obj
-                    
+                    const { title, period } = obj
+
                     return (
-                    <div className="flex flex-col gap-3" >
-                    <Text tag="h4" >{title}</Text>
-                        <ul className="flex flex-col gap-2 ml-3 pl-3">
-                            {period.map(e => <li className="d-block">
-                                <Text>{e}</Text>
+                        <div key={'p_' + i} className="flex flex-col gap-3" >
+                            <Text tag="h4" >{title}</Text>
+                            <ul className="flex flex-col gap-2 ml-3 pl-3">
+                                {period.map((e, i) => <li key={'p2_' + i} className="d-block">
+                                    <Text>{e}</Text>
                                 </li>)}
-                        </ul>
-                    </div>)
+                            </ul>
+                        </div>)
                 })
                 }
-                
+
             </Surface>
         </Section>
     );

@@ -17,7 +17,7 @@ const socialList: SocialListProps[] = [
 const SocialList = () => {
   return (
     <div className="socialList">
-      {socialList.map( (e, i) => <SocialItem key={i} icon={e?.icon} text={e.text} url={e.url}/>)}
+      {socialList.map( (e, i) => <SocialItem key={'s_' + i} icon={e?.icon} text={e.text} url={e.url}/>)}
     </div>
   )
 }

@@ -1,0 +1,28 @@
+$bg_primary: white !important;
+$bg_secondary: #f6f8fa !important;
+
+$dots_bg: #aaacbb !important;
+
+$color_primary: #353849 !important;
+$color_secondary: #aaacbb !important;
+$color_dark: #0d0d12 !important;
+
+$border_color_primary: #ebeef3 !important;
+$border_color_secondary: #ebeef3 !important;
+
+.bg_primary {background-color: $bg_primary !important;}
+.bg_secondary {background-color: $bg_secondary !important;}
+
+.dots_bg {background-color: $dots_bg !important;}
+
+.color_primary {color: $color_primary !important;}
+.color_secondary {color: $color_secondary !important;}
+.color_dark {color: $color_dark !important;}
+
+.border_color_dark {
+    border-color: $color_dark !important;
+}
+
+.border_color_primary {
+    border-color: $border_color_primary !important;
+}

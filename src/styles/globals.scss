@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import './variables.scss';
+
 html {
   *::-webkit-scrollbar {
     display: none;
@@ -9,7 +11,8 @@ html {
 }
 
 body {
-  @apply bg-gray-200 leading-relaxed text-white bg-gray-100 overflow-auto;
+  @apply bg-slate-200 leading-relaxed text-white bg-slate-100 overflow-auto;
+  background-color: #f6f8fa;
   background-image: radial-gradient(rgb(175, 167, 167) 1px, transparent 0);
   background-position: left top;
   background-size: 2rem 2rem;
@@ -23,6 +26,7 @@ body {
 main {
   @apply lg:w-1/2 w-full h-fit mx-auto;
 }
+
 
 .wrapper {
   @apply flex justify-between flex-row;
@@ -45,16 +49,22 @@ header {
       }
 
       .navListItem {
-        @apply w-full;
-        color: #7b88a9;
+        @apply w-full color_secondary;
       }
     }
   }
 }
 
+.button {
+  @apply whitespace-nowrap tracking-tight transition flex flex-row items-center justify-center gap-2 shadow color_dark border border border_color_primary rounded-[6px] py-2 px-3 text-base font-medium leading-none;
+
+  &:active {
+    @apply shadow-sm;
+  }
+}
+
 .socialList {
-  @apply flex sm:justify-start justify-center items-center gap-4;
-  color: #7b88a9;
+  @apply flex sm:justify-start justify-center items-center gap-6 color_primary;
 }
 
 .lightBeam {
@@ -127,7 +137,7 @@ header {
     li {
       @apply relative ml-3 pl-4;
       &:before {
-        @apply content-[''] bg-gray-300  w-2 h-2 rounded-full absolute top-1/2 left-0 -translate-y-1/2 -translate-x-1/2;
+        @apply content-[''] bg-slate-300  w-2 h-2 rounded-full absolute top-1/2 left-0 -translate-y-1/2 -translate-x-1/2;
       }
 
       & + li  {
@@ -154,12 +164,10 @@ header {
 }
 
 .headline {
-  @apply relative text-lg leading-6 font-normal pl-5 whitespace-nowrap w-full block;
-  color: #353849;
+  @apply relative text-lg leading-6 font-normal pl-5 whitespace-nowrap w-full block color_primary;
 
   &::before {
-    @apply content-[''] rounded-full -translate-y-1/2 absolute left-0 top-1/2 w-[.5rem] h-[.5rem];
-    background-color: #a4abb8;
+    @apply content-[''] dots_bg rounded-full -translate-y-1/2 absolute left-0 top-1/2 w-[.5rem] h-[.5rem];
   }
 }
 
@@ -168,10 +176,10 @@ header {
 }
 
 section {
-  @apply bg-gray-200 shadow-sm rounded-[12px] p-6;
+  @apply shadow-sm bg_secondary rounded-[12px] p-6;
 
   &[data-theme = light] {
-    @apply bg-white shadow-none;
+    @apply bg_primary shadow-none;
   }
 
   &#about {
@@ -185,7 +193,7 @@ section {
         
         .top {}
         .middle {}
-        .bottom { @apply flex justify-between;}
+        .bottom { @apply gap-6 flex sm:justify-between justify-center;}
       }
 
       .right {
@@ -242,8 +250,8 @@ section {
   &[data-fw = extrabold] { @apply font-extrabold};
   &[data-fw = black] { @apply font-black; };
 
-  &[data-c = dark] { color: #353849 !important;}
-  &[data-c = lightdark] { color: #7b88a9 !important; }
+  &[data-c = dark] { @apply color_primary;}
+  &[data-c = lightdark] { @apply color_secondary; }
 }
 
 
@@ -261,7 +269,7 @@ section {
   &[data-fs = xxxxxl] { @apply text-5xl;}
 }
 
-h1 { @apply text-4xl font-semibold; @include textProperties(); }
-h2 { @apply text-base font-semibold; @include textProperties(); }
-h4 { @apply text-lg leading-7 font-normal; @include textProperties(); }
-p { @apply text-base leading-7 font-normal; color: #7b88a9 !important; @include textProperties(); }
+h1 { @apply tracking-tight text-4xl font-semibold; @include textProperties(); }
+h2 { @apply tracking-tight text-base font-semibold; @include textProperties(); }
+h4 { @apply tracking-tight text-lg leading-7 font-normal; @include textProperties(); }
+p { @apply tracking-tight text-base leading-7 font-normal color_secondary; @include textProperties(); }

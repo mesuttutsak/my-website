@@ -46,7 +46,7 @@ const HonnorAndAwards = () => {
         const { short_name, regulated_by_name, url } = regulated_by;
 
         return (
-          <Surface customClassname={['flex flex-col']}>
+          <Surface key={'exp_' + regulated_by} customClassname={['flex flex-col']}>
             <Text tag="h4" customClassname={['mb-1']} >{name}</Text>
             <Text>{degree} {title && '- ' + title} </Text>
             {/* <Link href={url} target={'_blank'}>Regulated by : {short_name}</Link> */}

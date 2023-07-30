@@ -75,8 +75,8 @@ const Experience = () => {
           <Text tag="h3">Experience</Text>
         </Headline>
         {experience.map(
-          (job: ExperienceProps) => (
-            <Item data={job} />
+          (job: ExperienceProps, i) => (
+            <Item key={'j_' + i} data={job} />
           )
         )}
       </Section>

@@ -26,7 +26,7 @@ const Navbar = () => {
     <nav className="nav">
       <ul className="navList">
         {navList.map(({text, icon, path}, i) => (
-          <NavbarItem key={i} text={text} icon={icon} path={path}  />
+          <NavbarItem key={'nav_' + i} text={text} icon={icon} path={path}  />
         ))}
       </ul>
     </nav>
