@@ -42,17 +42,16 @@ const About = () => {
 
           <div className="middle">
             <Text>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry.
+              I'm live in Izmir and Istanbul. I was formerly Interior Architect becomes Frontend Developer now.
             </Text>
           </div>
 
           <div className="bottom">
             <SocialList />
-            
+
             <Button onClick={() => setCopied('ttsk.mesut@gmail.com')}>
               {
-                copied ?
+                copied !== "" ?
                  <span className="text-green-500"> <FaCheck size={16}/> </span> :
                  <span className="text-gray-600"> <IoIosCopy size={16}/> </span>
               }

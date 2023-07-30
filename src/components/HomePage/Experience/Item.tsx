@@ -29,7 +29,15 @@ const Item = ({ data }: any) => {
         <Surface inOrder customClassname={['flex', 'flex-col', 'gap-6']}>
             <div className="flex flex-row z-[2]">
                 <div className="flex-auto">
-                    <Text tag="h4" customClassname={['mb-2']} ><Link href={website} target='_blank' >{company}</Link> - {periods[0].title}</Text>
+                    <div className='flex flex-wrap justify-between mb-2 gap-x-3'>
+                        <Text tag="h4" customClassname={['sm:inline-block']} ><Link href={website} target='_blank' >{company}</Link> - {periods[0].title}</Text>
+                        { periods.length == 1 &&
+                            <Text customClassname={['whitespace-nowrap']}>
+                                {periods[0].start_date} {periods[0].end_date && '- ' + periods[0].end_date}
+                            </Text>
+                        }
+                    </div>
+
                     <Text>Skills:  {skills.join(" · ")} </Text>
                 </div>
             </div>
@@ -46,8 +54,8 @@ const Item = ({ data }: any) => {
                             end_date,
                             desc,
                         } : ExperiencePeriod) => (
-                            <li key={title} className='flex justify-between items-center'>
-                                <Text >{title} - {employment_type}</Text> <Text>{start_date} - {end_date}</Text>
+                            <li key={title} className='flex flex-wrap justify-between items-center'>
+                                <Text >{title} - {employment_type}</Text> <Text customClassname={['whitespace-nowrap']}>{start_date} - {end_date}</Text>
                             </li>
                         )
                     )}

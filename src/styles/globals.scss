@@ -90,7 +90,7 @@ header {
 
 #education {
   .row {
-    @apply flex flex-row justify-between;
+    @apply flex flex-wrap flex-row justify-between;
   }
 }
 
@@ -270,6 +270,6 @@ section {
 }
 
 h1 { @apply tracking-tight text-4xl font-semibold; @include textProperties(); }
-h2 { @apply tracking-tight text-base font-semibold; @include textProperties(); }
-h4 { @apply tracking-tight text-lg leading-7 font-normal; @include textProperties(); }
-p { @apply tracking-tight text-base leading-7 font-normal color_secondary; @include textProperties(); }
+h2 { @apply tracking-tight sm:text-base text-sm font-semibold; @include textProperties(); }
+h4 { @apply tracking-tight sm:text-lg text-base sm:leading-7 leading-6 font-normal; @include textProperties(); }
+p { @apply tracking-tight sm:text-base sm:leading-7 leading-6 font-normal color_secondary; @include textProperties(); }
