@@ -39,8 +39,7 @@ const projects: ProjectsProps[] = [
 
 const Projects = () => {
   return (
-    <DraggableElement>
-      <Section id="projects">
+      <Section id="projects" draggable>
         <h3>Projects</h3>
         {projects.map(
           ({ name, title, start_date, end_date, skills }: ProjectsProps, i) => (
@@ -54,7 +53,6 @@ const Projects = () => {
           )
         )}
       </Section>
-    </DraggableElement>
   );
 };
 

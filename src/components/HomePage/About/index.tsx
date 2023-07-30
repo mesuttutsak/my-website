@@ -1,35 +1,47 @@
 import { DraggableElement } from "@/src/core/components/Draggable";
-import Section from "@/src/core/components/Section";
+import Section, { Headline } from "@/src/core/components/Section";
 
 import React from "react";
 import SocialList from "../../SocialList";
 import Image from "next/image";
+import Text from "@/src/core/components/Text";
 
 const About = () => {
   const aboutElement: React.ReactElement = (
     <>
-      <div className="headline">
-        <h2>Frontend Developer</h2>
-      </div>
       <div className="content">
         <div className="left">
-          <h1>Mesut Tutsak</h1>
-          <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry.
-          </p>
-          <SocialList />
+          <div className="top">
+            <Text tag="h1">
+              Mesut Tutsak
+            </Text>
+            <Text fontWeight="medium" color="dark" >
+              Frontend Developer
+            </Text>
+          </div>
+
+          <div className="middle">
+            <Text>
+              Lorem Ipsum is simply dummy text of the printing and typesetting
+              industry.
+            </Text>
+          </div>
+
+          <div className="bottom">
+            <SocialList />
+            {/* <Badge text={'Email'} /> */}
+          </div>
         </div>
-        
+
         <div className="right">
-          {/* <Image src={'https://api.readyplayer.me/v1/avatars/64c24e9b588332d805c4721f.png'} width={160} height={160} alt="rpm-avatar" /> */}
-          <Image
-            className="shadow-lg rounded-full bg-slate-50 "
-            src={"/images/avatar.png"}
-            width={160}
-            height={160}
-            alt="rpm-avatar"
-          />
+          <div className="img">
+            <Image
+              src={"/images/profile.jpg"}
+              width={190}
+              height={190}
+              alt="profile"
+            />
+          </div>
         </div>
       </div>
     </>
@@ -37,9 +49,7 @@ const About = () => {
 
   return (
     <>
-      <DraggableElement>
-        <Section id="about">{aboutElement}</Section>
-      </DraggableElement>
+      <Section id="about" theme="light" >{aboutElement}</Section>
     </>
   );
 };

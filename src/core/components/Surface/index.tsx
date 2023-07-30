@@ -8,17 +8,21 @@ const Surface = ({
   theme = "",
   fit = false,
   select = false,
-  size= ""
+  size = "",
+  inOrder = false,
+  customClassname = []
 }: {
   children: React.ReactNode;
   theme?: string;
   id?: string;
   select?: boolean;
   size?: string;
-  fit?: boolean
+  fit?: boolean;
+  inOrder?: boolean;
+  customClassname?: string[]
 }) => {
   return (
-    <div className={`surface ${theme}  ${!!size && `size_${size}`} ${fit && 'fit'} ${select && "selectNone"}`} id={id}>
+    <div className={`surface ${theme}  ${!!size ? `size_${size}` : ''} ${inOrder ? `inOrder` : ''} ${fit ? 'fit' : ""} ${select ? "selectNone" : ""} ${customClassname?.length > 0 ? customClassname.map(e => e).join(' ') : ""}`} id={id}>
       {children}
     </div>
   );

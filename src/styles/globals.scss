@@ -9,18 +9,19 @@ html {
 }
 
 body {
-  // @apply bg-slate-900 leading-relaxed text-white selection:bg-teal-300 selection:text-teal-900 overflow-auto;
-  
-  @apply bg-slate-200 leading-relaxed text-white selection:bg-teal-300 selection:text-teal-900 overflow-auto;
-
-  background-image: radial-gradient(rgba(0,16,36,30%) 1px, transparent 0);
+  @apply bg-gray-200 leading-relaxed text-white bg-gray-100 overflow-auto;
+  background-image: radial-gradient(rgb(175, 167, 167) 1px, transparent 0);
   background-position: left top;
   background-size: 2rem 2rem;
   background-repeat: repeat;
+
+  &:before {
+    @apply content-[''] absolute left-0 top-0 w-screen h-screen;
+  }
 }
 
 main {
-  @apply w-1/2 h-fit mx-auto;
+  @apply lg:w-1/2 w-full h-fit mx-auto;
 }
 
 .wrapper {
@@ -28,30 +29,32 @@ main {
 }
 
 header {
-  @apply w-1/2 h-fit mx-auto;
+  @apply fixed z-50 w-full max-w-[1280px] h-fit left-1/2 -translate-x-1/2;
 
-  .header{
-    @apply flex flex-row justify-between items-center;
+  .headerWrap {
+    @apply flex flex-row justify-between items-center w-1/2 left-1/2 -translate-x-1/2;
 
     .headline {
       @apply flex flex-col gap-3;
     }
-  
+
     nav {
-  
+
       .navList {
-       @apply flex flex-row gap-5;
+        @apply flex flex-row gap-8;
       }
-    
+
       .navListItem {
-       @apply w-full;
+        @apply w-full;
+        color: #7b88a9;
       }
     }
   }
 }
 
 .socialList {
-  @apply flex gap-2;
+  @apply flex sm:justify-start justify-center items-center gap-4;
+  color: #7b88a9;
 }
 
 .lightBeam {
@@ -60,11 +63,12 @@ header {
 }
 
 .homePage {
-  @apply flex flex-col gap-4 py-6;
+  @apply flex flex-col gap-4;
 }
 
 #info {
-  @apply flex flex-row gap-3 ;
+  @apply flex flex-row gap-3;
+
   .img {
     @apply rounded-full overflow-hidden shadow-lg inline-block;
   }
@@ -74,12 +78,20 @@ header {
   }
 }
 
+#education {
+  .row {
+    @apply flex flex-row justify-between;
+  }
+}
+
 .surface {
-  @apply shadow-lg bg-white relative p-5 text-black rounded-[12px];
+  @apply shadow-md bg-white relative p-5 text-black rounded-[12px] z-[2];
 
   &.size_ {
-    &small { @apply p-3; }
-    
+    &small {
+      @apply p-3;
+    }
+
   }
 
   &.fit {
@@ -94,50 +106,162 @@ header {
     user-select: none;
   }
 
-  & ~ .surface {
-    &::before {
-      @apply content-[''] absolute top-0 left-1/2 border border-gray-400 h-4;
-      transform: translateY(calc(-100% - 1px));
+  &.inOrder  {
+    & + .surface {
+      &::before {
+        @apply content-[''] absolute top-0 left-1/2 shadow-md border border-gray-400 h-3 z-[0];
+        transform: translateY(calc(-100% - 2px));
+      }
+    }
+  }
+
+  #headerWrap {
+    @apply py-5 px-6;
+  }
+}
+
+#experience {
+
+  ul.periods {
+    @apply relative flex flex-col gap-3;
+    li {
+      @apply relative ml-3 pl-4;
+      &:before {
+        @apply content-[''] bg-gray-300  w-2 h-2 rounded-full absolute top-1/2 left-0 -translate-y-1/2 -translate-x-1/2;
+      }
+
+      & + li  {
+        &:after {
+          @apply content-[''] border border-gray-300 h-6 absolute top-[6px] left-0 -translate-y-full -translate-x-1/2;
+        }
+      }
     }
   }
 }
+
 .tooltipParent {
   @apply relative;
 
   .tooltip {
-    @apply absolute top-0 left-1/2 -translate-y-1/2 -translate-x-1/2 rounded-full shadow-md py-2 px-3 bg-opacity-50 bg-white opacity-0 ease-in duration-300 select-none;
+    @apply absolute pointer-events-none top-0 left-1/2 -translate-y-1/2 -translate-x-1/2 rounded-full shadow-md py-1 px-3 bg-opacity-50 bg-white opacity-0 ease-in duration-300 select-none;
   }
 
-  &:hover{ 
+  &:hover {
     .tooltip {
-      @apply -translate-y-full left-1/2 opacity-100 ;
+      @apply -translate-y-full -top-2 left-1/2 opacity-100;
     }
   }
 }
 
-  .headline {
-    @apply relative pl-3 whitespace-nowrap w-full block;
-    &::before {
-      @apply content-[''] -translate-y-1/2 absolute left-0 top-1/2 w-1 h-1 bg-slate-500; 
-    }
-  }
+.headline {
+  @apply relative text-lg leading-6 font-normal pl-5 whitespace-nowrap w-full block;
+  color: #353849;
 
-section#about {
-  @apply flex flex-col gap-10;
-
-  .content {
-    @apply flex flex-row gap-4;
-    
-    .left {
-      @apply flex flex-col justify-start gap-3 w-auto;
-    }
-  
-    .right {
-      @apply min-w-[160px];
-    }
+  &::before {
+    @apply content-[''] rounded-full -translate-y-1/2 absolute left-0 top-1/2 w-[.5rem] h-[.5rem];
+    background-color: #a4abb8;
   }
 }
 
 .surface#homePage {
-  @apply flex flex-col gap-6;
+  @apply flex flex-col sm:rounded-[12px] rounded-none gap-6 p-3;
 }
+
+section {
+  @apply bg-gray-200 shadow-sm rounded-[12px] p-6;
+
+  &[data-theme = light] {
+    @apply bg-white shadow-none;
+  }
+
+  &#about {
+    @apply flex flex-col gap-10;
+
+    .content {
+      @apply flex sm:flex-row flex-col-reverse items-center gap-5;
+
+      .left {
+        @apply flex flex-col flex-auto justify-center sm:text-start text-center gap-6 w-auto;
+        
+        .top {}
+        .middle {}
+        .bottom { @apply flex justify-between;}
+      }
+
+      .right {
+        @apply flex items-center;
+        .img {
+          @apply rounded-full      shadow-xl p-0 overflow-hidden bg-white min-w-[190px];
+          img {
+            @apply translate-y-1;
+          }
+        }
+      }
+    }
+  }
+}
+
+.draggableElement {
+  &.draggable {
+    @apply z-40 select-none;
+
+    &>* {
+      @apply transition-all shadow-lg;
+    }
+  }
+}
+
+@mixin textProperties() {
+  &[data-fs = xs] { @apply text-xs}
+  &[data-fs = sm] { @apply text-sm}
+  &[data-fs = md], &[data-fs = base] { @apply text-base}
+  &[data-fs = lg] { @apply text-lg}
+  &[data-fs = xl] { @apply text-xl}
+  &[data-fs = xxl] { @apply text-2xl}
+  &[data-fs = xxxl] { @apply text-3xl}
+  &[data-fs = xxxxl] { @apply text-4xl}
+  &[data-fs = xxxxxl] { @apply text-5xl}
+
+  &[data-fw = thin] { @apply font-thin};
+  &[data-fw = extralight] { @apply font-extralight};
+  &[data-fw = light] { @apply font-light};
+  &[data-fw = normal] { @apply font-normal};
+  &[data-fw = medium] { @apply font-medium};
+  &[data-fw = semibold] { @apply font-semibold};
+  &[data-fw = bold] { @apply font-bold};
+  &[data-fw = extrabold] { @apply font-extrabold};
+  &[data-fw = black] { @apply font-black};
+
+  &[data-fw = thin] { @apply font-thin}
+  &[data-fw = extralight] { @apply font-extralight};
+  &[data-fw = light] { @apply font-light};
+  &[data-fw = normal] { @apply font-normal};
+  &[data-fw = medium] { @apply font-medium};
+  &[data-fw = semibold] { @apply font-semibold};
+  &[data-fw = bold] { @apply font-bold};
+  &[data-fw = extrabold] { @apply font-extrabold};
+  &[data-fw = black] { @apply font-black; };
+
+  &[data-c = dark] { color: #353849 !important;}
+  &[data-c = lightdark] { color: #7b88a9 !important; }
+}
+
+
+.text {
+  color: #353849;
+
+  &[data-fs = xs] { @apply text-xs;}
+  &[data-fs = sm] { @apply text-sm;}
+  &[data-fs = md], &[data-fs = base] { @apply text-base;}
+  &[data-fs = lg] { @apply text-lg;}
+  &[data-fs = xl] { @apply text-xl;}
+  &[data-fs = xxl] { @apply text-2xl;}
+  &[data-fs = xxxl] { @apply text-3xl;}
+  &[data-fs = xxxxl] { @apply text-4xl;}
+  &[data-fs = xxxxxl] { @apply text-5xl;}
+}
+
+h1 { @apply text-4xl font-semibold; @include textProperties(); }
+h2 { @apply text-base font-semibold; @include textProperties(); }
+h4 { @apply text-lg leading-7 font-normal; @include textProperties(); }
+p { @apply text-base leading-7 font-normal; color: #7b88a9 !important; @include textProperties(); }

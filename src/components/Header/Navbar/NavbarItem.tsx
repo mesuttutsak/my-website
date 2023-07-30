@@ -1,3 +1,4 @@
+import Text from "@/src/core/components/Text";
 import Link from "next/link";
 import { IconType } from "react-icons";
 
@@ -10,11 +11,11 @@ interface navItemProps {
 
 const NavbarItem: React.FC<navItemProps> = ({ text, path, icon: Icon }) => {
   return (
-    <li className="navbarListItem tooltipParent">
+    <li className="navListItem tooltipParent">
       <Link href={path}>
-        {Icon && <Icon size={40} fill={`fill-amber-600`} />}
+        {Icon && <Icon size={32} />}
       </Link>
-      <span className="tooltip">{text}</span>
+      <Text customClassname={["tooltip"]}>{text}</Text>
     </li>
   );
 };

@@ -6,19 +6,18 @@ import { FaGithub, FaLinkedin, FaTwitter, FaInstagram } from "react-icons/fa";
 interface SocialListProps {
   icon: IconType;
   text: string | null;
+  url: string;
 }
 
 const socialList: SocialListProps[] = [
-  {icon: FaGithub, text: null},
-  {icon: FaLinkedin, text: null},
-  {icon: FaInstagram , text: null},
-  {icon: FaTwitter, text: null},
+  {icon: FaGithub, text: null, url: 'https://github.com/mesuttutsak'},
+  {icon: FaLinkedin, text: null, url: 'https://www.linkedin.com/in/mesut-tutsak-a82a25148/'}
 ]
 
 const SocialList = () => {
   return (
     <div className="socialList">
-      {socialList.map( (e, i) => <SocialItem key={i} icon={e?.icon} text={e.text}/>)}
+      {socialList.map( (e, i) => <SocialItem key={i} icon={e?.icon} text={e.text} url={e.url}/>)}
     </div>
   )
 }

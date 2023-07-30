@@ -3,6 +3,8 @@ import About from "./About";
 import Experience from "./Experience";
 import Info from "./Info";
 import Projects from "./Projects";
+import Education from "./Education";
+import HonnorAndAwards from "./HonnorAndAwards";
 
 const HomePageComponent = ({ children }: { children?: React.ReactNode }) => {
   return (
@@ -10,7 +12,8 @@ const HomePageComponent = ({ children }: { children?: React.ReactNode }) => {
       <Surface id="homePage">
         <About />
         <Experience />
-        <Projects />
+        <HonnorAndAwards />
+        <Education />
       </Surface>
     </div>
   );

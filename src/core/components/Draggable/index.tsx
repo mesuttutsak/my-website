@@ -13,16 +13,7 @@ export const DraggableElement = ({
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [mousePos, setMousePos]: any = useState({});
 
-  console.log(dragging);
-
   useEffect(() => {
-    console.log(dragging);
-  }, [dragging])
-  
-
-  useEffect(() => {
-    // console.log(children.props);
-    
     const handleMouseMove = (event: any) => {
       setMousePos(event);
     };
@@ -95,7 +86,7 @@ export const DraggableElement = ({
 
   return (
     <div
-      className={`draggableElement ${dragging && 'z-50' }`}
+      className={`draggableElement ${dragging && 'draggable' }`}
       ref={dragableEl}
       onMouseMoveCapture={handleMouseMove}
       onMouseDown={handleMouseDown}

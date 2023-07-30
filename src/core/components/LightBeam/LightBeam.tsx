@@ -20,7 +20,7 @@ const LightBeam: React.FC = () => {
       className={'lightBeam'}
       
       style={{
-        background: `radial-gradient(40vw at ${position.x}px ${position.y}px, rgba(226, 232, 240, 1), transparent 50%)`,
+        background: `radial-gradient(100vw at ${position.x}px ${position.y}px, rgba(241, 245, 249, 1), transparent 50%)`,
       }}
     ></div>
   );

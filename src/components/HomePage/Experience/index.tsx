@@ -1,7 +1,6 @@
-import { DraggableElement } from "@/src/core/components/Draggable";
-import Section from "@/src/core/components/Section";
-import Surface from "@/src/core/components/Surface";
-import { useEffect } from "react";
+import Section, { Headline } from "@/src/core/components/Section";
+import Item from "./Item";
+import Text from "@/src/core/components/Text";
 
 interface ExperiencePeriod {
   title: string;
@@ -31,8 +30,8 @@ const experience: ExperienceProps[] = [
       {
         title: "Frontend Developer",
         employment_type: "Full Time",
-        start_date: "2022-02-4",
-        end_date: "2022-02-12",
+        start_date: "2022-02",
+        end_date: "2022-02",
         desc: "",
       },
     ],
@@ -40,22 +39,22 @@ const experience: ExperienceProps[] = [
   {
     company: "Ikona Creative",
     website: "https://ikonacreative.com/",
-    skills: [],
+    skills: ['React', 'JavaScript', 'CSS', 'jQuery', 'Bootstrap', 'HTML5'],
     location: "İzmir",
     working_type: "On-site",
     periods: [
       {
         title: "Frontend Developer",
         employment_type: "Full Time",
-        start_date: "2022-02-4",
-        end_date: "2022-02-12",
+        start_date: "2022-02",
+        end_date: "2022-02",
         desc: "",
       },
       {
         title: "Frontend Developer",
         employment_type: "Part Time",
-        start_date: "2022-02-3",
-        end_date: "2022-02-3",
+        start_date: "2022-02",
+        end_date: "2022-02",
         desc: "",
       },
       {
@@ -71,47 +70,16 @@ const experience: ExperienceProps[] = [
 
 const Experience = () => {
   return (
-    <DraggableElement>
-      <Section id="experience">
-        <h3>Experience</h3>
+      <Section id="experience" customClassname={['flex flex-col gap-4']}>
+        <Headline>
+          <Text tag="h3">Experience</Text>
+        </Headline>
         {experience.map(
-          ({
-            company,
-            website,
-            skills,
-            location,
-            working_type,
-            periods,
-          }: ExperienceProps) => (
-            <>
-              <p>
-                {company} <br />
-                {website} <br />
-                {skills.join(" · ")} <br />
-                {location}
-              </p>
-              <hr />
-              {periods.map(
-                ({
-                  title,
-                  employment_type,
-                  start_date,
-                  end_date,
-                  desc,
-                }: ExperiencePeriod) => (
-                  <>
-                    {title} <br />
-                    {employment_type} <br />
-                    {start_date} {end_date} <br />
-                    {desc} <br />
-                  </>
-                )
-              )}
-            </>
+          (job: ExperienceProps) => (
+            <Item data={job} />
           )
         )}
       </Section>
-    </DraggableElement>
   );
 };
 
