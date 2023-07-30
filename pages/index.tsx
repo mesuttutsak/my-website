@@ -15,11 +15,11 @@ export default function Home() {
         <meta name="author" content="Mesut Tutsak" />
 
         {/* <!-- Favicon --> */}
-        <link rel="icon" href="hhtps://mesuttutsak.dev/favico.ico" sizes="any" />
-        <link rel="apple-touch-icon" sizes="180x180" href="hhtps://mesuttutsak.dev/apple-touch-icon.png"/>
-        <link rel="icon" type="image/png" sizes="32x32" href="hhtps://mesuttutsak.dev/favicon-32x32.png"/>
-        <link rel="icon" type="image/png" sizes="16x16" href="hhtps://mesuttutsak.dev/favicon-16x16.png"/>
-        <link rel="manifest" href="hhtps://mesuttutsak.dev/site.webmanifest"/>
+        <link rel="icon" href="https://www.mesuttutsak.dev/favicon.ico" sizes="any" />
+        <link rel="apple-touch-icon" sizes="180x180" href="https://www.mesuttutsak.dev/apple-touch-icon.png"/>
+        <link rel="icon" type="image/png" sizes="32x32" href="https://www.mesuttutsak.dev/favicon-32x32.png"/>
+        <link rel="icon" type="image/png" sizes="16x16" href="https://www.mesuttutsak.dev/favicon-16x16.png"/>
+        <link rel="manifest" href="https://www.mesuttutsak.dev/site.webmanifest"/>
       </Head>
       <MainLayout>
         <HomePageComponent />
