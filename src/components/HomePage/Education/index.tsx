@@ -65,7 +65,7 @@ const Education = () => {
                             <Text tag="h4" >{title}</Text>
                             <ul className="flex flex-col gap-2 ml-3 pl-3">
                                 {period.map((e, i) => <li key={'p2_' + i} className="d-block">
-                                    <Text>{e}</Text>
+                                    <Text fontSize="sm">{e}</Text>
                                 </li>)}
                             </ul>
                         </div>)
