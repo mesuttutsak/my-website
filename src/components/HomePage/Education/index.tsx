@@ -30,12 +30,12 @@ const information: InformationProps = {
         {
             title: 'High Honor Certificate x4',
             period: [
-                '2018-2019 - Güz:3,65 - Bahar:3,51 (High Honor Certificate x 2)',
-                '2019-2020 - Güz:3,55 - Bahar:4,00 (High Honor Certificate x 2)']
+                '2018-2019 - Autumn:3,65 - Spring:3,51 (High Honor Certificate x 2)',
+                '2019-2020 - Autumn:3,55 - Spring:4,00 (High Honor Certificate x 2)']
         },
         {
             title: 'Honor Certificate x2',
-            period: ['2017-2018 Güz:3,00 - Bahar:3.33 (Honor Certificate x 2)']
+            period: ['2017-2018 Autumn:3,00 - Spring:3.33 (Honor Certificate x 2)']
         }
     ]
 }

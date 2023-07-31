@@ -39,7 +39,7 @@ const HonnorAndAwards = () => {
   return (
     <Section id="honnorAndAwards" customClassname={['flex flex-col gap-4']}>
       <Headline>
-        <Text tag="h3">Honnor & Awards</Text>
+        <Text tag="h3">Awards</Text>
       </Headline>
       {experience.map((award: HonnorAndAwardsProps, i) => {
         const { name, degree, title, regulated_by } = award;
