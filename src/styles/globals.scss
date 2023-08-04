@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import './variables.scss';
+@import "./variables.scss";
 
 html {
   *::-webkit-scrollbar {
@@ -27,7 +27,6 @@ main {
   @apply lg:w-1/2 w-full h-fit mx-auto;
 }
 
-
 .wrapper {
   @apply flex justify-between flex-row;
 }
@@ -43,7 +42,6 @@ header {
     }
 
     nav {
-
       .navList {
         @apply flex flex-row gap-8;
       }
@@ -68,7 +66,6 @@ header {
 }
 
 .lightBeam {
-
   @apply fixed left-0 top-0 w-screen h-screen inset-0 pointer-events-none z-[-1];
 }
 
@@ -101,7 +98,6 @@ header {
     &small {
       @apply p-3;
     }
-
   }
 
   &.fit {
@@ -116,7 +112,7 @@ header {
     user-select: none;
   }
 
-  &.inOrder  {
+  &.inOrder {
     & + .surface {
       &::before {
         @apply content-[''] absolute top-0 left-1/2 shadow-md border border-gray-400 h-3 z-[0];
@@ -127,25 +123,6 @@ header {
 
   #headerWrap {
     @apply py-5 px-6;
-  }
-}
-
-#experience {
-
-  ul.periods {
-    @apply relative flex flex-col gap-3;
-    li {
-      @apply relative ml-3 pl-4;
-      &:before {
-        @apply content-[''] bg-slate-300  w-2 h-2 rounded-full absolute top-1/2 left-0 -translate-y-1/2 -translate-x-1/2;
-      }
-
-      & + li  {
-        &:after {
-          @apply content-[''] border border-gray-300 h-6 absolute top-[6px] left-0 -translate-y-full -translate-x-1/2;
-        }
-      }
-    }
   }
 }
 
@@ -164,7 +141,7 @@ header {
 }
 
 .headline {
-  @apply relative text-lg leading-6 font-normal pl-5 whitespace-nowrap w-full block color_primary;
+  @apply relative text-lg leading-6 font-medium pl-5 whitespace-nowrap w-full block color_primary;
 
   &::before {
     @apply content-[''] dots_bg rounded-full -translate-y-1/2 absolute left-0 top-1/2 w-[.5rem] h-[.5rem];
@@ -178,7 +155,7 @@ header {
 section {
   @apply shadow-sm bg_secondary rounded-[12px] p-6;
 
-  &[data-theme = light] {
+  &[data-theme="light"] {
     @apply bg_primary shadow-none;
   }
 
@@ -190,10 +167,14 @@ section {
 
       .left {
         @apply flex flex-col flex-auto justify-center sm:text-start text-center gap-6 w-auto;
-        
-        .top {}
-        .middle {}
-        .bottom { @apply gap-6 flex sm:justify-between justify-center;}
+
+        .top {
+        }
+        .middle {
+        }
+        .bottom {
+          @apply gap-6 flex sm:justify-between justify-center;
+        }
       }
 
       .right {
@@ -207,69 +188,198 @@ section {
       }
     }
   }
+
+  &#honnorAndAwards {
+    @apply flex flex-col gap-4;
+  }
+  &#experience {
+    @apply flex flex-col gap-4;
+
+    .item {
+      @apply flex flex-col;
+
+      .itemContainer {
+        @apply flex flex-row z-[2];
+
+        .itemWrap {
+          @apply flex-auto;
+
+          .heading {
+            @apply flex flex-wrap justify-between gap-x-3;
+          }
+
+        }
+      }
+
+      ul.periods {
+        @apply relative flex flex-col gap-3 mt-2;
+        li {
+          @apply relative ml-3 pl-4 flex flex-wrap justify-between items-center;
+          &:before {
+            @apply content-[''] bg-slate-300  w-2 h-2 rounded-full absolute top-1/2 left-0 -translate-y-1/2 -translate-x-1/2;
+          }
+  
+          & + li {
+            &:after {
+              @apply content-[''] border border-gray-300 h-6 absolute top-[6px] left-0 -translate-y-full -translate-x-1/2;
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 .draggableElement {
   &.draggable {
     @apply z-40 select-none;
 
-    &>* {
+    & > * {
       @apply transition-all shadow-lg;
     }
   }
 }
 
 @mixin textProperties() {
-  &[data-fs = xs] { @apply text-xs}
-  &[data-fs = sm] { @apply text-sm}
-  &[data-fs = md], &[data-fs = base] { @apply text-base}
-  &[data-fs = lg] { @apply text-lg}
-  &[data-fs = xl] { @apply text-xl}
-  &[data-fs = xxl] { @apply text-2xl}
-  &[data-fs = xxxl] { @apply text-3xl}
-  &[data-fs = xxxxl] { @apply text-4xl}
-  &[data-fs = xxxxxl] { @apply text-5xl}
+  &[data-fs="xs"] {
+    @apply text-xs;
+  }
+  &[data-fs="sm"] {
+    @apply text-sm;
+  }
+  &[data-fs="md"],
+  &[data-fs="base"] {
+    @apply text-base;
+  }
+  &[data-fs="lg"] {
+    @apply text-lg;
+  }
+  &[data-fs="xl"] {
+    @apply text-xl;
+  }
+  &[data-fs="xxl"] {
+    @apply text-2xl;
+  }
+  &[data-fs="xxxl"] {
+    @apply text-3xl;
+  }
+  &[data-fs="xxxxl"] {
+    @apply text-4xl;
+  }
+  &[data-fs="xxxxxl"] {
+    @apply text-5xl;
+  }
 
-  &[data-fw = thin] { @apply font-thin};
-  &[data-fw = extralight] { @apply font-extralight};
-  &[data-fw = light] { @apply font-light};
-  &[data-fw = normal] { @apply font-normal};
-  &[data-fw = medium] { @apply font-medium};
-  &[data-fw = semibold] { @apply font-semibold};
-  &[data-fw = bold] { @apply font-bold};
-  &[data-fw = extrabold] { @apply font-extrabold};
-  &[data-fw = black] { @apply font-black};
+  &[data-fw="thin"] {
+    @apply font-thin;
+  }
+  &[data-fw="extralight"] {
+    @apply font-extralight;
+  }
+  &[data-fw="light"] {
+    @apply font-light;
+  }
+  &[data-fw="normal"] {
+    @apply font-normal;
+  }
+  &[data-fw="medium"] {
+    @apply font-medium;
+  }
+  &[data-fw="semibold"] {
+    @apply font-semibold;
+  }
+  &[data-fw="bold"] {
+    @apply font-bold;
+  }
+  &[data-fw="extrabold"] {
+    @apply font-extrabold;
+  }
+  &[data-fw="black"] {
+    @apply font-black;
+  }
 
-  &[data-fw = thin] { @apply font-thin}
-  &[data-fw = extralight] { @apply font-extralight};
-  &[data-fw = light] { @apply font-light};
-  &[data-fw = normal] { @apply font-normal};
-  &[data-fw = medium] { @apply font-medium};
-  &[data-fw = semibold] { @apply font-semibold};
-  &[data-fw = bold] { @apply font-bold};
-  &[data-fw = extrabold] { @apply font-extrabold};
-  &[data-fw = black] { @apply font-black; };
+  &[data-fw="thin"] {
+    @apply font-thin;
+  }
+  &[data-fw="extralight"] {
+    @apply font-extralight;
+  }
+  &[data-fw="light"] {
+    @apply font-light;
+  }
+  &[data-fw="normal"] {
+    @apply font-normal;
+  }
+  &[data-fw="medium"] {
+    @apply font-medium;
+  }
+  &[data-fw="semibold"] {
+    @apply font-semibold;
+  }
+  &[data-fw="bold"] {
+    @apply font-bold;
+  }
+  &[data-fw="extrabold"] {
+    @apply font-extrabold;
+  }
+  &[data-fw="black"] {
+    @apply font-black;
+  }
 
-  &[data-c = dark] { @apply color_primary;}
-  &[data-c = lightdark] { @apply color_secondary; }
+  &[data-c="dark"] {
+    @apply color_primary;
+  }
+  &[data-c="lightdark"] {
+    @apply color_secondary;
+  }
 }
-
 
 .text {
   color: #353849;
 
-  &[data-fs = xs] { @apply text-xs;}
-  &[data-fs = sm] { @apply text-sm;}
-  &[data-fs = md], &[data-fs = base] { @apply text-base;}
-  &[data-fs = lg] { @apply text-lg;}
-  &[data-fs = xl] { @apply text-xl;}
-  &[data-fs = xxl] { @apply text-2xl;}
-  &[data-fs = xxxl] { @apply text-3xl;}
-  &[data-fs = xxxxl] { @apply text-4xl;}
-  &[data-fs = xxxxxl] { @apply text-5xl;}
+  &[data-fs="xs"] {
+    @apply text-xs;
+  }
+  &[data-fs="sm"] {
+    @apply text-sm;
+  }
+  &[data-fs="md"],
+  &[data-fs="base"] {
+    @apply text-base;
+  }
+  &[data-fs="lg"] {
+    @apply text-lg;
+  }
+  &[data-fs="xl"] {
+    @apply text-xl;
+  }
+  &[data-fs="xxl"] {
+    @apply text-2xl;
+  }
+  &[data-fs="xxxl"] {
+    @apply text-3xl;
+  }
+  &[data-fs="xxxxl"] {
+    @apply text-4xl;
+  }
+  &[data-fs="xxxxxl"] {
+    @apply text-5xl;
+  }
 }
 
-h1 { @apply tracking-tight text-4xl font-semibold; @include textProperties(); }
-h2 { @apply tracking-tight sm:text-base text-sm font-semibold; @include textProperties(); }
-h4 { @apply tracking-tight sm:text-lg text-base sm:leading-7 leading-6 font-normal; @include textProperties(); }
-p { @apply tracking-tight sm:text-base sm:leading-7 leading-6 font-normal color_secondary; @include textProperties(); }
+h1 {
+  @apply tracking-tight text-4xl font-semibold;
+  @include textProperties();
+}
+h2 {
+  @apply tracking-tight sm:text-base text-sm font-semibold;
+  @include textProperties();
+}
+h4 {
+  @apply tracking-tight sm:text-lg text-base sm:leading-7 leading-6 font-normal;
+  @include textProperties();
+}
+p {
+  @apply tracking-tight sm:text-base sm:leading-7 leading-6 font-normal color_secondary;
+  @include textProperties();
+}

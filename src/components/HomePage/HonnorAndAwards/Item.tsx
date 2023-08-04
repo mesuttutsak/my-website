@@ -1,4 +1,5 @@
 import Surface from '@/src/core/components/Surface';
+import Text from '@/src/core/components/Text';
 import Link from 'next/link';
 import React from 'react';
 
@@ -29,7 +30,7 @@ const Item = ({ data }: any) => {
             <div className="flex flex-row z-[2]">
                 <div className="flex-auto">
                     <h4> {company} - {periods[0].title} </h4>
-                    <p> Skills:  {skills.join(" · ")} </p>
+                    <Text fontSize='sm'><b>Skills:</b> {skills.join(" · ")} </Text>
                 </div>
                 <div className="flex items-center h-100 flex-initial">
                     <Link href={website} target='_blank' className='cursor-pointer p-2 rounded-full shadow-md'><BiLinkExternal size={16} /></Link>

@@ -70,7 +70,7 @@ const experience: ExperienceProps[] = [
 
 const Experience = () => {
   return (
-      <Section id="experience" customClassname={['flex flex-col gap-4']}>
+      <Section id="experience" customClassname={['']}>
         <Headline>
           <Text tag="h3">Experience</Text>
         </Headline>

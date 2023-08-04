@@ -37,7 +37,7 @@ const experience: HonnorAndAwardsProps[] = [
 
 const HonnorAndAwards = () => {
   return (
-    <Section id="honnorAndAwards" customClassname={['flex flex-col gap-4']}>
+    <Section id="honnorAndAwards" >
       <Headline>
         <Text tag="h3">Awards</Text>
       </Headline>
@@ -46,9 +46,9 @@ const HonnorAndAwards = () => {
         const { short_name, regulated_by_name, url } = regulated_by;
 
         return (
-          <Surface key={'exp_' + regulated_by} customClassname={['flex flex-col']}>
-            <Text tag="h4" customClassname={['mb-1']} >{name}</Text>
-            <Text>{degree} {title && '- ' + title} </Text>
+          <Surface key={'exp_' + regulated_by}>
+            <Text tag="h4">{name}</Text>
+            <Text fontSize="sm">{degree} {title && '- ' + title} </Text>
             {/* <Link href={url} target={'_blank'}>Regulated by : {short_name}</Link> */}
           </Surface>
         )
