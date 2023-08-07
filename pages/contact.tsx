@@ -5,15 +5,13 @@ import Head from "next/head";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-import HomePageComponent from "@/src/components/HomePage";
 import Surface from "@/src/core/components/Surface";
 import MainLayout from "@/src/layout/MainLayout";
 import { Headline } from "@/src/core/components/Section";
 import Text from "@/src/core/components/Text";
-import FormGroup from "@/src/core/components/FormGroup";
 
 import FormComponent from "@/src/core/components/FormComponent";
-import Label from "@/src/core/components/Label";
+import FormGroup from "@/src/core/components/FormGroup";
 
 interface FormValues {
   name: string;
@@ -117,7 +115,7 @@ const Contact = () => {
                     fieldObject={{
                       type: "text",
                     }}
-                    
+
                     name="email"
                   />
 
@@ -130,7 +128,7 @@ const Contact = () => {
                     fieldObject={{
                       type: "textarea",
                     }}
-                    
+
                     name="message"
                   />
 
