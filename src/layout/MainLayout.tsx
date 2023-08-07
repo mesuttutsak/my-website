@@ -11,7 +11,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
         {/* <LightBeam /> */}
-        <div className={renderClasses(['mainLAyout', inter.className])}>
+        <div className={renderClasses(['mainLayout', inter.className])}>
             {/* <div className="wrapper"> */}
                 {/* <Header /> */}
                 <main>

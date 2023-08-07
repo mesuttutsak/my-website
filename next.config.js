@@ -14,7 +14,7 @@ const nextConfig = {
   },
   env: {
     MAIL_SERVICE_ID: "service_d1zkcqc",
-    MAIL_TEMPLATE_ID: "template_stoeqvg",
+    MAIL_TEMPLATE_ID: "template_cr45tip",
     MAIL_USER_ID: "mZL0YZsa31vcuSh1K",
   },
 };

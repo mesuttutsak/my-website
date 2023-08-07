@@ -13,23 +13,23 @@ import Text from "@/src/core/components/Text";
 import FormComponent from "@/src/core/components/FormComponent";
 import FormGroup from "@/src/core/components/FormGroup";
 
-import emailjs from 'emailjs-com';
+import emailjs from '@emailjs/browser';
 
 interface FormValues {
-  name: string;
-  email: string;
+  from_name: string;
+  from_email: string;
   message: string;
 }
 
 const initialValues: FormValues = {
-  name: "",
-  email: "",
+  from_name: "",
+  from_email: "",
   message: "",
 };
 
 const validationSchema = Yup.object().shape({
-  name: Yup.string().required("Ad alanı zorunludur"),
-  email: Yup.string()
+  from_name: Yup.string().required("Ad alanı zorunludur"),
+  from_email: Yup.string()
     .email("Geçerli bir e-posta giriniz")
     .required("E-posta alanı zorunludur"),
   message: Yup.string().required("Mesaj alanı zorunludur"),
@@ -40,21 +40,19 @@ const onSubmit = (values: FormValues, { setSubmitting }: any) => {
   let services_id:any = process?.env?.MAIL_SERVICE_ID;
   let template_id:any =  process?.env?.MAIL_TEMPLATE_ID;
   let user_id = process?.env?.MAIL_USER_ID;
-  let template_params:any =  JSON.stringify(values, null, 2);
+  let template_params:any =  values;
 
   console.log(services_id,
     template_id,
     template_params,
     user_id);
 
-  emailjs.sendForm(services_id, template_id , template_params, user_id)
+  emailjs.send(services_id, template_id , template_params, user_id)
   .then((result) => {
       console.log('result -- ', result.text);
   }, (error) => {
       console.log('error -- ', error.text); 
   });
-
-  console.log('oldu');
 
 
   setSubmitting(false);
@@ -125,7 +123,7 @@ const Contact = () => {
                     fieldObject={{
                       type: "text",
                     }}
-                    name="name"
+                    name="from_name"
                   />
 
                   <FormGroup
@@ -138,7 +136,7 @@ const Contact = () => {
                       type: "text",
                     }}
 
-                    name="email"
+                    name="from_email"
                   />
 
                   <FormGroup
@@ -160,6 +158,7 @@ const Contact = () => {
                 </FormComponent>
               )}
             </Formik>
+            
           </Surface>
         </div>
       </MainLayout>
