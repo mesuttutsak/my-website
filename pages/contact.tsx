@@ -20,7 +20,7 @@ const Contact = () => {
         <link rel="manifest" href="https://www.mesuttutsak.dev/site.webmanifest"/>
       </Head>
       <MainLayout>
-       <span className='bg-red px-2 rounded-xl'>contact layout</span>
+       <span className='bg-black w-100 p-2 rounded-xl'>contact layout</span>
       </MainLayout>
     </>
   )
