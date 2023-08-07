@@ -13,6 +13,8 @@ import Text from "@/src/core/components/Text";
 import FormComponent from "@/src/core/components/FormComponent";
 import FormGroup from "@/src/core/components/FormGroup";
 
+import emailjs from 'emailjs-com';
+
 interface FormValues {
   name: string;
   email: string;
@@ -34,7 +36,27 @@ const validationSchema = Yup.object().shape({
 });
 
 const onSubmit = (values: FormValues, { setSubmitting }: any) => {
-  alert(JSON.stringify(values, null, 2));
+
+  let services_id:any = process?.env?.MAIL_SERVICE_ID;
+  let template_id:any =  process?.env?.MAIL_TEMPLATE_ID;
+  let user_id = process?.env?.MAIL_USER_ID;
+  let template_params:any =  JSON.stringify(values, null, 2);
+
+  console.log(services_id,
+    template_id,
+    template_params,
+    user_id);
+
+  emailjs.sendForm(services_id, template_id , template_params, user_id)
+  .then((result) => {
+      console.log('result -- ', result.text);
+  }, (error) => {
+      console.log('error -- ', error.text);
+  });
+
+  console.log('oldu');
+
+
   setSubmitting(false);
 };
 

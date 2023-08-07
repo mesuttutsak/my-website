@@ -382,3 +382,7 @@ form {
   }
 }
 
+.mainLayout {
+  @apply xl:container mx-auto xl:px-6 sm:p-12 p-0;
+}
+
