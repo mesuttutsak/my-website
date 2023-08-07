@@ -1,29 +1,150 @@
-import HomePageComponent from '@/src/components/HomePage';
-import MainLayout from '@/src/layout/MainLayout';
-import Head from 'next/head';
-import React from 'react';
+import React from "react";
+
+import Head from "next/head";
+
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+
+import HomePageComponent from "@/src/components/HomePage";
+import Surface from "@/src/core/components/Surface";
+import MainLayout from "@/src/layout/MainLayout";
+import { Headline } from "@/src/core/components/Section";
+import Text from "@/src/core/components/Text";
+import FormGroup from "@/src/core/components/FormGroup";
+
+import FormComponent from "@/src/core/components/FormComponent";
+import Label from "@/src/core/components/Label";
+
+interface FormValues {
+  name: string;
+  email: string;
+  message: string;
+}
+
+const initialValues: FormValues = {
+  name: "",
+  email: "",
+  message: "",
+};
+
+const validationSchema = Yup.object().shape({
+  name: Yup.string().required("Ad alanı zorunludur"),
+  email: Yup.string()
+    .email("Geçerli bir e-posta giriniz")
+    .required("E-posta alanı zorunludur"),
+  message: Yup.string().required("Mesaj alanı zorunludur"),
+});
+
+const onSubmit = (values: FormValues, { setSubmitting }: any) => {
+  alert(JSON.stringify(values, null, 2));
+  setSubmitting(false);
+};
 
 const Contact = () => {
   return (
     <>
       <Head>
         <title>Mesut Tutsak - Frontend Developer</title>
-        <meta name="description" content="Benim adım Mesut Tutsak, bir Frontend Developer'ım ve bu benim kişisel websitesidir." />
-        <meta name="keywords" content="Mesut Tutsak, Frontend Developer, web developer, websitesi, frontend, HTML, CSS, JavaScript" />
+        <meta
+          name="description"
+          content="Benim adım Mesut Tutsak, bir Frontend Developer'ım ve bu benim kişisel websitesidir."
+        />
+        <meta
+          name="keywords"
+          content="Mesut Tutsak, Frontend Developer, web developer, websitesi, frontend, HTML, CSS, JavaScript"
+        />
         <meta name="author" content="Mesut Tutsak" />
 
         {/* <!-- Favicon --> */}
-        <link rel="icon" href="https://www.mesuttutsak.dev/favicon.ico" sizes="any" />
-        <link rel="apple-touch-icon" sizes="180x180" href="https://www.mesuttutsak.dev/apple-touch-icon.png"/>
-        <link rel="icon" type="image/png" sizes="32x32" href="https://www.mesuttutsak.dev/favicon-32x32.png"/>
-        <link rel="icon" type="image/png" sizes="16x16" href="https://www.mesuttutsak.dev/favicon-16x16.png"/>
-        <link rel="manifest" href="https://www.mesuttutsak.dev/site.webmanifest"/>
+        <link
+          rel="icon"
+          href="https://www.mesuttutsak.dev/favicon.ico"
+          sizes="any"
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="https://www.mesuttutsak.dev/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="https://www.mesuttutsak.dev/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="https://www.mesuttutsak.dev/favicon-16x16.png"
+        />
+        <link
+          rel="manifest"
+          href="https://www.mesuttutsak.dev/site.webmanifest"
+        />
       </Head>
       <MainLayout>
-       <span className='bg-black w-100 p-2 rounded-xl'>contact layout</span>
+        <div className="contactPage">
+          <Surface id="contactPage">
+            <Headline>
+              <Text tag="h3">Experience</Text>
+            </Headline>
+
+            <Formik
+              initialValues={initialValues}
+              validationSchema={validationSchema}
+              onSubmit={onSubmit}
+            >
+              {({ isSubmitting }: any) => (
+                <FormComponent>
+                  <FormGroup
+                    labelObject={{
+                      children: <>Name</>,
+                      htmlFor: "Name",
+                    }}
+                    fieldObject={{
+                      type: "text",
+                    }}
+                    name="name"
+                  />
+
+                  <FormGroup
+                    labelObject={{
+                      children: <>Email</>,
+                      htmlFor: "email",
+                    }}
+
+                    fieldObject={{
+                      type: "text",
+                    }}
+                    
+                    name="email"
+                  />
+
+                  <FormGroup
+                    labelObject={{
+                      children: <>Message</>,
+                      htmlFor: "message",
+                    }}
+
+                    fieldObject={{
+                      type: "textarea",
+                    }}
+                    
+                    name="message"
+                  />
+
+                  <button type="submit" disabled={isSubmitting}>
+                    Gönder
+                  </button>
+                </FormComponent>
+              )}
+            </Formik>
+          </Surface>
+        </div>
       </MainLayout>
     </>
-  )
-}
+  );
+};
 
-export default Contact
+export default Contact;

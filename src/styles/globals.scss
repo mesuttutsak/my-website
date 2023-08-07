@@ -336,50 +336,49 @@ section {
 
 .text {
   color: #353849;
-
-  &[data-fs="xs"] {
-    @apply text-xs;
-  }
-  &[data-fs="sm"] {
-    @apply text-sm;
-  }
-  &[data-fs="md"],
-  &[data-fs="base"] {
-    @apply text-base;
-  }
-  &[data-fs="lg"] {
-    @apply text-lg;
-  }
-  &[data-fs="xl"] {
-    @apply text-xl;
-  }
-  &[data-fs="xxl"] {
-    @apply text-2xl;
-  }
-  &[data-fs="xxxl"] {
-    @apply text-3xl;
-  }
-  &[data-fs="xxxxl"] {
-    @apply text-4xl;
-  }
-  &[data-fs="xxxxxl"] {
-    @apply text-5xl;
-  }
 }
 
 h1 {
   @apply tracking-tight text-4xl font-semibold;
   @include textProperties();
 }
+
 h2 {
   @apply tracking-tight sm:text-base text-sm font-semibold;
   @include textProperties();
 }
+
 h4 {
   @apply tracking-tight sm:text-lg text-base sm:leading-7 leading-6 font-normal;
   @include textProperties();
 }
+
 p {
   @apply tracking-tight sm:text-base sm:leading-7 leading-6 font-normal color_secondary;
   @include textProperties();
 }
+
+form {
+  @apply flex flex-col gap-3;
+
+  .formGroup {
+    @apply flex flex-col gap-1;
+    label {
+      @apply block w-full font-bold;
+    }
+    
+    input,
+    textarea {
+      @apply py-3 px-4 border-0 outline-0 bg-slate-100 rounded-lg w-full;
+    } 
+
+    .inputError {
+      @apply tracking-tight sm:text-base sm:leading-7 leading-6 font-normal bg-red-100 border border-red-400 text-red-700 px-2 py-1 rounded-lg;
+    }
+  }
+
+  button[type=submit] {
+    @apply bg-black text-white py-3 px-4 rounded-lg font-bold;
+  }
+}
+
