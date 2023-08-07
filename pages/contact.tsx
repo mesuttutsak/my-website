@@ -20,7 +20,7 @@ const Contact = () => {
         <link rel="manifest" href="https://www.mesuttutsak.dev/site.webmanifest"/>
       </Head>
       <MainLayout>
-        deneme
+        contact layout
       </MainLayout>
     </>
   )
