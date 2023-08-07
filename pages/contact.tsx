@@ -51,7 +51,7 @@ const onSubmit = (values: FormValues, { setSubmitting }: any) => {
   .then((result) => {
       console.log('result -- ', result.text);
   }, (error) => {
-      console.log('error -- ', error.text);
+      console.log('error -- ', error.text); 
   });
 
   console.log('oldu');
