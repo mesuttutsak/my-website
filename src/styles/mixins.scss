@@ -1,0 +1,95 @@
+
+
+@mixin textProperties() {
+    &[data-fs="xs"] {
+      @apply text-xs;
+    }
+    &[data-fs="sm"] {
+      @apply text-sm;
+    }
+    &[data-fs="md"],
+    &[data-fs="base"] {
+      @apply text-base;
+    }
+    &[data-fs="lg"] {
+      @apply text-lg;
+    }
+    &[data-fs="xl"] {
+      @apply text-xl;
+    }
+    &[data-fs="xxl"] {
+      @apply text-2xl;
+    }
+    &[data-fs="xxxl"] {
+      @apply text-3xl;
+    }
+    &[data-fs="xxxxl"] {
+      @apply text-4xl;
+    }
+    &[data-fs="xxxxxl"] {
+      @apply text-5xl;
+    }
+  
+    &[data-fw="thin"] {
+      @apply font-thin;
+    }
+    &[data-fw="extralight"] {
+      @apply font-extralight;
+    }
+    &[data-fw="light"] {
+      @apply font-light;
+    }
+    &[data-fw="normal"] {
+      @apply font-normal;
+    }
+    &[data-fw="medium"] {
+      @apply font-medium;
+    }
+    &[data-fw="semibold"] {
+      @apply font-semibold;
+    }
+    &[data-fw="bold"] {
+      @apply font-bold;
+    }
+    &[data-fw="extrabold"] {
+      @apply font-extrabold;
+    }
+    &[data-fw="black"] {
+      @apply font-black;
+    }
+  
+    &[data-fw="thin"] {
+      @apply font-thin;
+    }
+    &[data-fw="extralight"] {
+      @apply font-extralight;
+    }
+    &[data-fw="light"] {
+      @apply font-light;
+    }
+    &[data-fw="normal"] {
+      @apply font-normal;
+    }
+    &[data-fw="medium"] {
+      @apply font-medium;
+    }
+    &[data-fw="semibold"] {
+      @apply font-semibold;
+    }
+    &[data-fw="bold"] {
+      @apply font-bold;
+    }
+    &[data-fw="extrabold"] {
+      @apply font-extrabold;
+    }
+    &[data-fw="black"] {
+      @apply font-black;
+    }
+  
+    &[data-c="dark"] {
+      @apply color_primary;
+    }
+    &[data-c="lightdark"] {
+      @apply color_secondary;
+    }
+  }

@@ -1,9 +1,9 @@
 import React from "react";
 import { renderClasses } from "../../utils/renderClasses";
 
-interface TextProps {
-    children: React.ReactNode,
-    tag?: string,
+export interface LabelProps {
+    children?: React.ReactNode,
+    htmlFor: string,
     textAlign?: string,
     fontSize?: string,
     fontWeight?: string,
@@ -11,29 +11,28 @@ interface TextProps {
     customClassname?: string[]
   }
 
-const Text = ({
+const Label = ({
   children,
-  textAlign = "start",
-  tag = "",
+  htmlFor = "",
   customClassname = [],
   fontSize = "",
   fontWeight = "",
   color = "",
-}: TextProps ) => {
-    const Tag : any = tag ? tag : 'p';
+}: LabelProps ) => {
   return (
-    <Tag
+    <label
       className={renderClasses([
         'text',
         ...customClassname,
       ])}
+      htmlFor={htmlFor}
       data-fs = {fontSize}
       data-fw = {fontWeight}
       data-c = {color}
     >
       {children}
-    </Tag>
+    </label>
   );
 };
 
-export default Text;
+export default Label;

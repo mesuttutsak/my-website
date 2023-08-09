@@ -9,11 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emailjs/browser": "^3.11.0",
     "@types/react-dom": "18.2.7",
     "@types/react-icons": "^3.0.0",
     "autoprefixer": "10.4.14",
+    "emailjs-com": "^3.2.0",
     "eslint": "8.45.0",
     "eslint-config-next": "13.4.12",
+    "formik": "^2.4.3",
     "i": "^0.3.7",
     "next": "13.4.12",
     "npm": "^9.8.1",
@@ -23,7 +26,8 @@
     "react-icons": "^4.10.1",
     "sass": "^1.64.1",
     "tailwindcss": "3.3.3",
-    "typescript": "5.1.6"
+    "typescript": "5.1.6",
+    "yup": "^1.2.0"
   },
   "devDependencies": {
     "@types/node": "20.4.5",
