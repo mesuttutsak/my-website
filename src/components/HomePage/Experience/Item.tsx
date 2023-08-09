@@ -34,8 +34,8 @@ const Item = ({ data }: any) => {
                             <Text tag="h4" customClassname={['sm:inline-block']} >
                                 <Link href={website} target='_blank' >{company}</Link>
                             </Text>
-                            <span className='px-2'>-</span>
-                            <Text fontSize='md' tag="h4" customClassname={['sm:inline-block']} >{periods[0].title}</Text>
+                            <span className='sm:inline-block hidden px-2'>-</span>
+                            <Text fontSize='md' tag="h4" customClassname={['inline-block']} >{periods[0].title}</Text>
                         </div>
                         { periods.length == 1 &&
                             <Text fontSize='sm' customClassname={['whitespace-nowrap']}>

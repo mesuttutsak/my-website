@@ -9,6 +9,10 @@ import Button from "@/src/core/components/Button";
 
 import {IoIosCopy} from "react-icons/io";
 import {FaCheck} from "react-icons/fa";
+import {LuMails} from "react-icons/lu";
+
+import { copyText } from "@/src/core/utils/copyText";
+import Link from "next/link";
 
 const About = () => {
 
@@ -19,13 +23,9 @@ const About = () => {
       copyText(copied)
       setTimeout(() => {
         setCopied('');
-      }, 1000);
+      }, 2000);
     }
   }, [copied])
-
-  function copyText(text:string) {
-    navigator.clipboard.writeText(text);
-  }
 
   const aboutElement: React.ReactElement = (
     <>
@@ -49,14 +49,20 @@ const About = () => {
           <div className="bottom">
             <SocialList />
 
-            <Button onClick={() => setCopied('ttsk.mesut@gmail.com')}>
-              {
-                copied !== "" ?
-                 <span className="text-green-500"> <FaCheck size={16}/> </span> :
-                 <span className="text-gray-600"> <IoIosCopy size={16}/> </span>
-              }
-              Copy Email
-            </Button>
+            <div className="contact">
+              <Button onClick={() => setCopied('ttsk.mesut@gmail.com')} isDisabled={copied !== ""}>
+                <span className="copiedIcon">
+                  <FaCheck className={`text-green-500 icon tick ${copied !== "" && 'tickAnimation'}`} size={16}/>
+                  <IoIosCopy className={`text-gray-600 icon default ${copied !== "" && 'tickAnimationReverse'}`} size={16}/>
+                </span>
+                Copy Email
+              </Button>
+
+              <Link className="button dark" href={'/contact'} prefetch={true}>
+                  <LuMails className={`text-white `} size={16}/>
+                Contact Me
+                </Link>
+            </div>
           </div>
         </div>
 

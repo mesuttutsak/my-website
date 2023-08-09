@@ -19,8 +19,6 @@ const Text = ({
   fontSize = "",
   fontWeight = "",
   color = "",
-//   lineHeight = null,
-//   fontWeight = null,
 }: TextProps ) => {
     const Tag : any = tag ? tag : 'p';
   return (

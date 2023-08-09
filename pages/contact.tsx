@@ -1,19 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 
 import Head from "next/head";
+import { useRouter } from 'next/router'
 
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
+
+import emailjs from "@emailjs/browser";
 
 import Surface from "@/src/core/components/Surface";
 import MainLayout from "@/src/layout/MainLayout";
-import { Headline } from "@/src/core/components/Section";
+import Section, { Headline } from "@/src/core/components/Section";
 import Text from "@/src/core/components/Text";
-
-import FormComponent from "@/src/core/components/FormComponent";
 import FormGroup from "@/src/core/components/FormGroup";
+import Button from "@/src/core/components/Button";
+import Link from "next/link";
 
-import emailjs from '@emailjs/browser';
+import { BiChevronLeftCircle } from "react-icons/bi";
+
 
 interface FormValues {
   from_name: string;
@@ -21,44 +25,56 @@ interface FormValues {
   message: string;
 }
 
-const initialValues: FormValues = {
-  from_name: "",
-  from_email: "",
-  message: "",
-};
+const Contact = () => {
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
-const validationSchema = Yup.object().shape({
-  from_name: Yup.string().required("Ad alanı zorunludur"),
-  from_email: Yup.string()
-    .email("Geçerli bir e-posta giriniz")
-    .required("E-posta alanı zorunludur"),
-  message: Yup.string().required("Mesaj alanı zorunludur"),
-});
+  const initialValues: FormValues = {
+    from_name: "",
+    from_email: "",
+    message: "",
+  };
 
-const onSubmit = (values: FormValues, { setSubmitting }: any) => {
-
-  let services_id:any = process?.env?.MAIL_SERVICE_ID;
-  let template_id:any =  process?.env?.MAIL_TEMPLATE_ID;
-  let user_id = process?.env?.MAIL_USER_ID;
-  let template_params:any =  values;
-
-  console.log(services_id,
-    template_id,
-    template_params,
-    user_id);
-
-  emailjs.send(services_id, template_id , template_params, user_id)
-  .then((result) => {
-      console.log('result -- ', result.text);
-  }, (error) => {
-      console.log('error -- ', error.text); 
+  const validationSchema = Yup.object().shape({
+    from_name: Yup.string().required("Ad alanı zorunludur"),
+    from_email: Yup.string()
+      .email("Geçerli bir e-posta giriniz")
+      .required("E-posta alanı zorunludur"),
+    message: Yup.string().required("Mesaj alanı zorunludur"),
   });
 
+  const onSubmit = (
+    values: FormValues,
+    { setSubmitting, resetForm }: any,
+  ) => {
+    setIsLoading(true);
 
-  setSubmitting(false);
-};
+    let services_id: any = process?.env?.MAIL_SERVICE_ID;
+    let template_id: any = process?.env?.MAIL_TEMPLATE_ID;
+    let user_id = process?.env?.MAIL_USER_ID;
+    let template_params: any = values;
 
-const Contact = () => {
+    emailjs
+      .send(services_id, template_id, template_params, user_id)
+      .then(
+        (res) => {
+          console.log("result -- ", res.text);
+          resetForm();
+        },
+        (err) => {
+          console.log("error -- ", err.text);
+        }
+      )
+      .catch((err) => {
+        console.log("error -- ", err.text);
+      })
+      .finally(() => {
+        setIsLoading(false)
+      });
+
+    setSubmitting(false);
+  };
+
   return (
     <>
       <Head>
@@ -102,65 +118,62 @@ const Contact = () => {
         />
       </Head>
       <MainLayout>
-        <div className="contactPage">
-          <Surface id="contactPage">
-            <Headline>
-              <Text tag="h3">Experience</Text>
-            </Headline>
+          <Surface>
+            <Section theme="light"  id="contactPage">
 
-            <Formik
-              initialValues={initialValues}
-              validationSchema={validationSchema}
-              onSubmit={onSubmit}
-            >
-              {({ isSubmitting }: any) => (
-                <FormComponent>
-                  <FormGroup
-                    labelObject={{
-                      children: <>Name</>,
-                      htmlFor: "Name",
-                    }}
-                    fieldObject={{
-                      type: "text",
-                    }}
-                    name="from_name"
-                  />
+              <div className="mb-5">
+                <Link href={'/'} prefetch={true}>
+                  <BiChevronLeftCircle size={24} />
+                </Link>
+                <Text tag="h1" customClassname={['mt-4']}>Let&apos;s talk</Text>
+                <Text> if you want to know your ideas or my ideas</Text>
+              </div>
 
-                  <FormGroup
-                    labelObject={{
-                      children: <>Email</>,
-                      htmlFor: "email",
-                    }}
+              <Formik
+                initialValues={initialValues}
+                validationSchema={validationSchema}
+                onSubmit={onSubmit}
+              >
+                {({ isSubmitting }: any) => (
+                  <Form>
+                    <div className="flex flex-row flex-1 gap-6">
+                      <FormGroup
+                        fieldObject={{
+                          type: "text",
+                          placeholder: "Name *",
+                        }}
+                        name="from_name"
+                      />
 
-                    fieldObject={{
-                      type: "text",
-                    }}
+                      <FormGroup
+                        fieldObject={{
+                          type: "text",
+                          placeholder: "Email *",
+                        }}
+                        name="from_email"
+                      />
+                    </div>
 
-                    name="from_email"
-                  />
+                    <FormGroup
+                      fieldObject={{
+                        type: "textarea",
+                        placeholder: "Message *",
+                      }}
+                      name="message"
+                    />
 
-                  <FormGroup
-                    labelObject={{
-                      children: <>Message</>,
-                      htmlFor: "message",
-                    }}
-
-                    fieldObject={{
-                      type: "textarea",
-                    }}
-
-                    name="message"
-                  />
-
-                  <button type="submit" disabled={isSubmitting}>
-                    Gönder
-                  </button>
-                </FormComponent>
-              )}
-            </Formik>
-            
+                    <Button
+                      type="submit"
+                      isLoading={isLoading}
+                      isDisabled={isLoading}
+                    >
+                      Gönder
+                    </Button>
+                  </Form>
+                )}
+              </Formik>
+            </Section>
           </Surface>
-        </div>
       </MainLayout>
     </>
   );
