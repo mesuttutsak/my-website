@@ -149,7 +149,7 @@ const Contact = () => {
             >
               {({ isSubmitting }: any) => (
                 <Form>
-                  <div className="flex flex-row flex-1 gap-3
+                  <div className="flex flex-row flex-1 gap-3">
                     <FormGroup
                       fieldObject={{
                         type: "text",
