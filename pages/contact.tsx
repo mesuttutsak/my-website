@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 
 import Head from "next/head";
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
 
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
+
+import toast, { Toaster } from "react-hot-toast";
 
 import emailjs from "@emailjs/browser";
 
@@ -17,7 +19,6 @@ import Button from "@/src/core/components/Button";
 import Link from "next/link";
 
 import { BiChevronLeftCircle } from "react-icons/bi";
-
 
 interface FormValues {
   from_name: string;
@@ -43,10 +44,7 @@ const Contact = () => {
     message: Yup.string().required("Mesaj alanı zorunludur"),
   });
 
-  const onSubmit = (
-    values: FormValues,
-    { setSubmitting, resetForm }: any,
-  ) => {
+  const onSubmit = (values: FormValues, { setSubmitting, resetForm }: any) => {
     setIsLoading(true);
 
     let services_id: any = process?.env?.MAIL_SERVICE_ID;
@@ -54,23 +52,35 @@ const Contact = () => {
     let user_id = process?.env?.MAIL_USER_ID;
     let template_params: any = values;
 
-    emailjs
+    const postMail = emailjs
       .send(services_id, template_id, template_params, user_id)
       .then(
         (res) => {
-          console.log("result -- ", res.text);
           resetForm();
         },
         (err) => {
-          console.log("error -- ", err.text);
+          console.log(err);
         }
       )
       .catch((err) => {
-        console.log("error -- ", err.text);
+        console.log(err);
       })
       .finally(() => {
-        setIsLoading(false)
+        setIsLoading(false);
       });
+
+    toast.promise(
+      postMail,
+      {
+        loading: "Submitting...",
+        success: "Successfully sent.",
+        error: (err) => err,
+      },
+      {
+        duration: 1000,
+        position: "top-right",
+      }
+    );
 
     setSubmitting(false);
   };
@@ -118,62 +128,66 @@ const Contact = () => {
         />
       </Head>
       <MainLayout>
-          <Surface>
-            <Section theme="light"  id="contactPage">
+        <Surface>
+          <Section theme="light" id="contactPage">
+            <div className="mb-5">
+              <Link href={"/"} prefetch={true}>
+                <BiChevronLeftCircle size={24} />
+              </Link>
 
-              <div className="mb-5">
-                <Link href={'/'} prefetch={true}>
-                  <BiChevronLeftCircle size={24} />
-                </Link>
-                <Text tag="h1" customClassname={['mt-4']}>Let&apos;s contact</Text>
-                <Text> if you want to know your ideas or my ideas</Text>
-              </div>
+              <Text tag="h1" customClassname={["mt-4"]}>
+                Let&apos;s contact
+              </Text>
 
-              <Formik
-                initialValues={initialValues}
-                validationSchema={validationSchema}
-                onSubmit={onSubmit}
-              >
-                {({ isSubmitting }: any) => (
-                  <Form>
-                    <div className="flex flex-row flex-1 gap-6">
-                      <FormGroup
-                        fieldObject={{
-                          type: "text",
-                          placeholder: "Name *",
-                        }}
-                        name="from_name"
-                      />
+              <Text> if you want to know your ideas or my ideas</Text>
+            </div>
 
-                      <FormGroup
-                        fieldObject={{
-                          type: "text",
-                          placeholder: "Email *",
-                        }}
-                        name="from_email"
-                      />
-                    </div>
+            <Formik
+              initialValues={initialValues}
+              validationSchema={validationSchema}
+              onSubmit={onSubmit}
+            >
+              {({ isSubmitting }: any) => (
+                <Form>
+                  <div className="flex flex-row flex-1 gap-6">
+                    <FormGroup
+                      fieldObject={{
+                        type: "text",
+                        placeholder: "Name *",
+                      }}
+                      name="from_name"
+                    />
 
                     <FormGroup
                       fieldObject={{
-                        type: "textarea",
-                        placeholder: "Message *",
+                        type: "text",
+                        placeholder: "Email *",
                       }}
-                      name="message"
+                      name="from_email"
                     />
+                  </div>
 
-                    <Button
-                      type="submit"
-                      isLoading={isLoading}
-                      isDisabled={isLoading}
-                    >
-                      Gönder
-                    </Button>
-                  </Form>
-                )}
-              </Formik>
-            </Section>
-          </Surface>
+                  <FormGroup
+                    fieldObject={{
+                      type: "textarea",
+                      placeholder: "Message *",
+                    }}
+                    name="message"
+                  />
+
+                  <Button
+                    type="submit"
+                    isLoading={isLoading}
+                    isDisabled={isLoading}
+                  >
+                    Gönder
+                  </Button>
+                </Form>
+              )}
+            </Formik>
+            <Toaster />
+          </Section>
+        </Surface>
       </MainLayout>
     </>
   );
