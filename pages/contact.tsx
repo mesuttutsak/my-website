@@ -125,7 +125,7 @@ const Contact = () => {
                 <Link href={'/'} prefetch={true}>
                   <BiChevronLeftCircle size={24} />
                 </Link>
-                <Text tag="h1" customClassname={['mt-4']}>Let&apos;s talk</Text>
+                <Text tag="h1" customClassname={['mt-4']}>Let&apos;s contact</Text>
                 <Text> if you want to know your ideas or my ideas</Text>
               </div>
 
