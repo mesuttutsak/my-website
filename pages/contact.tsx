@@ -177,6 +177,7 @@ const Contact = () => {
 
                   <Button
                     type="submit"
+                    size="large"
                     isLoading={isLoading}
                     isDisabled={isLoading}
                   >
