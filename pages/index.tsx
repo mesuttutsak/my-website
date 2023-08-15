@@ -16,10 +16,17 @@ export default function Home() {
 
         {/* <!-- Favicon --> */}
         <link rel="icon" href="https://www.mesuttutsak.dev/favicon.ico" sizes="any" />
+
         <link rel="apple-touch-icon" sizes="180x180" href="https://www.mesuttutsak.dev/apple-touch-icon.png"/>
+
+        <link rel="icon" type="image/png" sizes="512x512" href="https://www.mesuttutsak.dev/android-chrome-192x192.png"/>
+        <link rel="icon" type="image/png" sizes="192x192" href="https://www.mesuttutsak.dev/favicon-32x32.png"/>
         <link rel="icon" type="image/png" sizes="32x32" href="https://www.mesuttutsak.dev/favicon-32x32.png"/>
         <link rel="icon" type="image/png" sizes="16x16" href="https://www.mesuttutsak.dev/favicon-16x16.png"/>
+
+        {/* <!-- Manifest --> */}
         <link rel="manifest" href="https://www.mesuttutsak.dev/site.webmanifest"/>
+        <link rel="manifest" href="https://www.mesuttutsak.dev/manifest.json" />
       </Head>
       <MainLayout>
         <HomePageComponent />
