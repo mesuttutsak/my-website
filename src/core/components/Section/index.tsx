@@ -1,7 +1,7 @@
 import React from 'react';
 import { DraggableElement } from '../Draggable';
 
-interface SectionProps {
+export interface SectionProps {
   children: React.ReactNode,
   id?: string,
   theme?: string,

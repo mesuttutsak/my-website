@@ -59,8 +59,8 @@ const Item = ({ data }: any) => {
                             start_date,
                             end_date,
                             desc,
-                        } : ExperiencePeriod) => (
-                            <li key={title}>
+                        } : ExperiencePeriod, i:Number) => (
+                            <li key={title+i}>
                                 <Text fontSize='md'>{title} - {employment_type}</Text> <Text fontSize='sm' customClassname={['whitespace-nowrap']}>{start_date} - {end_date}</Text>
                             </li>
                         )
