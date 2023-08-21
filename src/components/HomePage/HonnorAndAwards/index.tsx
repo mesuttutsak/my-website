@@ -46,7 +46,7 @@ const HonnorAndAwards = () => {
         const { short_name, regulated_by_name, url } = regulated_by;
 
         return (
-          <Surface key={'exp_' + regulated_by}>
+          <Surface key={'exp_' + regulated_by + degree + title}>
             <Text tag="h4">{name}</Text>
             <Text fontSize="sm">{degree} {title && '- ' + title} </Text>
             {/* <Link href={url} target={'_blank'}>Regulated by : {short_name}</Link> */}

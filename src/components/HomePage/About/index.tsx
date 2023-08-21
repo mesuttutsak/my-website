@@ -58,7 +58,7 @@ const About = () => {
                 Copy Email
               </Button>
 
-              <Link className="button" data-theme = "dark" href={'/contact'} prefetch={true}>
+              <Link className="button" data-theme = "dark" href={'/contact'}>
                   <LuMails className={`text-white `} size={16}/>
                 Contact Me
               </Link>
@@ -73,6 +73,7 @@ const About = () => {
               width={190}
               height={190}
               alt="profile"
+              priority
             />
           </div>
         </div>
