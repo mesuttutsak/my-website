@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useLayoutEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 
 export const DraggableElement = ({
   children,
@@ -31,7 +31,7 @@ export const DraggableElement = ({
     }
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (dragging) {
       requestAnimationFrame(dragAnimation);
     } else {

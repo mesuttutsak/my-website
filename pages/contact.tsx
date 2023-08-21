@@ -117,7 +117,7 @@ const Contact = () => {
         <Surface>
           <Section theme="light" id="contactPage">
             <div className="mb-5">
-              <Link href={"/"} prefetch={true}>
+              <Link href={"/"} >
                 <BiChevronLeftCircle size={24} />
               </Link>
 

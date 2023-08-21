@@ -1,7 +1,7 @@
 import { DraggableElement } from "@/src/core/components/Draggable";
 import Section, { Headline } from "@/src/core/components/Section";
 
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import SocialList from "../../SocialList";
 import Image from "next/image";
 import Text from "@/src/core/components/Text";
@@ -18,7 +18,7 @@ const About = () => {
 
   const [copied, setCopied] = useState('')
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (copied !== '') {
       copyText(copied)
       setTimeout(() => {
@@ -35,6 +35,7 @@ const About = () => {
             <Text tag="h1">
               Mesut Tutsak
             </Text>
+            
             <Text fontWeight="medium" color="dark" >
               Frontend Developer
             </Text>
@@ -58,7 +59,7 @@ const About = () => {
                 Copy Email
               </Button>
 
-              <Link className="button dark" href={'/contact'} prefetch={true}>
+              <Link className="button dark" href={'/contact'}>
                   <LuMails className={`text-white `} size={16}/>
                 Contact Me
                 </Link>
@@ -73,6 +74,7 @@ const About = () => {
               width={190}
               height={190}
               alt="profile"
+              priority
             />
           </div>
         </div>
