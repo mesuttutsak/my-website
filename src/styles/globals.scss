@@ -25,7 +25,7 @@ body {
 }
 
 main {
-  @apply lg:w-1/2 w-full h-fit mx-auto;
+  @apply xl:w-1/2 w-full h-fit mx-auto;
 }
 
 .wrapper {
@@ -51,6 +51,25 @@ header {
         @apply w-full color_secondary;
       }
     }
+  }
+}
+
+.loadingContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 96px);
+  & > * {
+    animation: rotation 2s ;
+  }
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }
 
@@ -314,7 +333,7 @@ form {
 }
 
 .mainLayout {
-  @apply xl:container mx-auto xl:px-6 sm:p-12 p-0;
+  @apply 2xl:container mx-auto xl:px-6 sm:p-12 p-0;
 }
 
 .copiedIcon {

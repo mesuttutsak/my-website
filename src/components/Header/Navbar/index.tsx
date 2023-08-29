@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import NavbarItem from "./NavbarItem";
 
 import { IconType } from "react-icons";

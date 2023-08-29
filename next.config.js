@@ -17,6 +17,7 @@ const nextConfig = {
     MAIL_TEMPLATE_ID: "template_cr45tip",
     MAIL_USER_ID: "mZL0YZsa31vcuSh1K",
   },
+  appDirectory: true,
 };
 
 module.exports = nextConfig;
