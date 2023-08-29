@@ -4,18 +4,11 @@ import React from 'react'
 import '@/src/styles/globals.scss'
 import MainLayout from '@/src/layout/MainLayout'
 
-async function delay() {
-    setTimeout(() => {
-        return;
-    }, 10000);
-}
-
-export default async function RootLayout({
+export default function RootLayout({
     children,
 }: {
     children: React.ReactNode
 }) {
-    await delay();
      return (
         <html lang="en">
 
