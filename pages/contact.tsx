@@ -117,7 +117,7 @@ const Contact = () => {
         <Surface>
           <Section theme="light" id="contactPage">
             <div className="mb-5">
-              <Link href={"/"} >
+            <Link href={"/"} >
                 <BiChevronLeftCircle size={24} />
               </Link>
 
@@ -163,6 +163,7 @@ const Contact = () => {
 
                   <Button
                     type="submit"
+                    size="large"
                     isLoading={isLoading}
                     isDisabled={isLoading}
                   >

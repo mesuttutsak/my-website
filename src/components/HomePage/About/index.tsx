@@ -62,7 +62,7 @@ const About = () => {
               <Link className="button dark" href={'/contact'}>
                   <LuMails className={`text-white `} size={16}/>
                 Contact Me
-                </Link>
+              </Link>
             </div>
           </div>
         </div>
