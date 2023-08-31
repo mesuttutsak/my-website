@@ -33,7 +33,7 @@ export const DraggableElement = ({
     }
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (dragging) {
       requestAnimationFrame(dragAnimation);
     } else {

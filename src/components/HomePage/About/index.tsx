@@ -16,6 +16,17 @@ import CopiedButton from "@/src/core/components/Button/CopiedButton";
 
 const About = () => {
 
+  const [copied, setCopied] = useState('')
+
+  useLayoutEffect(() => {
+    if (copied !== '') {
+      copyText(copied)
+      setTimeout(() => {
+        setCopied('');
+      }, 2000);
+    }
+  }, [copied])
+
   const aboutElement: React.ReactElement = (
     <>
       <div className="content">
@@ -24,6 +35,7 @@ const About = () => {
             <Text tag="h1">
               Mesut Tutsak
             </Text>
+            
             <Text fontWeight="medium" color="dark" >
               Frontend Developer
             </Text>
@@ -41,7 +53,7 @@ const About = () => {
             <div className="contact">
               <CopiedButton />
 
-              <Link className="button" data-theme = "dark" href={'/contact'}>
+              <Link className="button dark" href={'/contact'}>
                   <LuMails className={`text-white `} size={16}/>
                 Contact Me
               </Link>
