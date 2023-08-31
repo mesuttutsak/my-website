@@ -1,24 +1,24 @@
 import { DraggableElement } from "@/src/core/components/Draggable";
 import Section, { Headline } from "@/src/core/components/Section";
 
-import React, { useEffect, useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import SocialList from "../../SocialList";
 import Image from "next/image";
 import Text from "@/src/core/components/Text";
 import Button from "@/src/core/components/Button";
 
-import {IoIosCopy} from "react-icons/io";
 import {FaCheck} from "react-icons/fa";
 import {LuMails} from "react-icons/lu";
 
 import { copyText } from "@/src/core/utils/copyText";
 import Link from "next/link";
+import CopiedButton from "@/src/core/components/Button/CopiedButton";
 
 const About = () => {
 
   const [copied, setCopied] = useState('')
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (copied !== '') {
       copyText(copied)
       setTimeout(() => {
@@ -51,17 +51,10 @@ const About = () => {
             <SocialList />
 
             <div className="contact">
-              <Button onClick={() => setCopied('ttsk.mesut@gmail.com')} isDisabled={copied !== ""}>
-                <span className="copiedIcon">
-                  <FaCheck className={`text-green-500 icon tick ${copied !== "" && 'tickAnimation'}`} size={16}/>
-                  <IoIosCopy className={`text-gray-600 icon default ${copied !== "" && 'tickAnimationReverse'}`} size={16}/>
-                </span>
-                Copy Email
-              </Button>
+              <CopiedButton />
 
               <Link className="button dark" href={'/contact'}>
-                  <LuMails className={`text-white `} size={16}/>
-                Contact Me
+                  Contact Me
               </Link>
             </div>
           </div>

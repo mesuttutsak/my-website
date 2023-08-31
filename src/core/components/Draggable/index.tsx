@@ -1,4 +1,6 @@
-import React, { useRef, useState, useEffect } from "react";
+'use client'
+
+import React, { useRef, useState, useEffect, useLayoutEffect } from "react";
 
 export const DraggableElement = ({
   children,

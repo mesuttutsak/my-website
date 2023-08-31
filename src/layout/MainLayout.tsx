@@ -1,6 +1,3 @@
-import Header from "../components/Header"
-import LightBeam from "../core/components/LightBeam/LightBeam"
-
 import { Inter } from 'next/font/google';
 import { renderClasses } from "../core/utils/renderClasses";
 

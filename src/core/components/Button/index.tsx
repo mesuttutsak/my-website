@@ -1,3 +1,4 @@
+'use client'
 import React, { useEffect } from "react";
 import { ImSpinner8 } from "react-icons/im";
 import { renderClasses } from "../../utils/renderClasses";
