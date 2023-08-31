@@ -87,7 +87,8 @@ header {
 
   &[data-size = large ] { @apply py-3 px-4; }
 
-  &[data-theme = dark ] {
+  &[data-theme = dark ],
+  &.dark {
     @apply bg-black py-3 px-4 text-white;
     .loading {
       @apply bg-black text-white;

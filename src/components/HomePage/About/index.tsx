@@ -54,8 +54,7 @@ const About = () => {
               <CopiedButton />
 
               <Link className="button dark" href={'/contact'}>
-                  <LuMails className={`text-white `} size={16}/>
-                Contact Me
+                  Contact Me
               </Link>
             </div>
           </div>
