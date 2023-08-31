@@ -43,7 +43,7 @@ const About = () => {
 
           <div className="middle">
             <Text>
-              I&apos;m live in Izmir and Istanbul. I was formerly Interior Architect becomes Frontend Developer now.
+              I&apos;m live in Istanbul. I was formerly Interior Architect becomes Frontend Developer now.
             </Text>
           </div>
 
