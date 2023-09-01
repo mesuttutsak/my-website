@@ -9,7 +9,7 @@ export default function RootLayout({
 }: {
     children: React.ReactNode
 }) {
-     return (
+    return (
         <html lang="en">
 
             <Head>
@@ -26,9 +26,10 @@ export default function RootLayout({
                 <link rel="manifest" href="https://www.mesuttutsak.dev/site.webmanifest" />
             </Head>
             <body>
-
-                <MainLayout>{children}
-                </MainLayout></body>
+                <MainLayout>
+                    {children}
+                </MainLayout>
+            </body>
         </html>
     )
 }
