@@ -2,36 +2,35 @@
 import React, { useEffect } from "react";
 import { ImSpinner8 } from "react-icons/im";
 import { renderClasses } from "../../utils/renderClasses";
-
-import styles from "./button.module.scss";
+import { log } from "console";
 
 interface ButtonProps {
   children?: React.ReactNode;
-  type?: "button" | "submit" | "reset" | undefined;
+  type?: "button" | "submit" | undefined;
   theme?: "light" | "dark" | undefined;
-  size?: "small" | "large" | undefined;
+  size?: "small" | "default" | "large" | undefined;
   isDisabled?: boolean;
   isLoading?: boolean;
   onClick?: () => void;
-  customClassname?: string[];
+  className?: string[];
 }
 
 const Button = ({
   children,
   type = "button",
-  theme,
+  theme = "light",
   size,
   isLoading,
   isDisabled = false,
   onClick,
-  customClassname = [],
+  className : customClassname = [],
 }: ButtonProps) => {
 
-  function accrType(btnType : ButtonProps['type']) {
+  function accrType(btnType: ButtonProps['type']) {
     let obj;
 
-    if (!btnType) obj = {theme: theme, size: size}
-    else if (btnType == 'submit') obj = {theme: "dark", size: "large"}
+    if (!btnType || btnType === 'button') obj = { theme: theme, size: size }
+    else if (btnType == 'submit') obj = { theme: "dark", size: "large" }
 
     return obj;
   }
@@ -49,7 +48,7 @@ const Button = ({
 
       {isLoading && (
         <div className="loading">
-          <ImSpinner8 size="20" color="white" />
+          <ImSpinner8 size="20" color={theme === "light" ? "black" : "white" } />
         </div>
       )}
     </button>

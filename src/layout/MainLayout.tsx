@@ -1,4 +1,7 @@
+import SocialList from '../components/SocialList';
+
 import { Inter } from 'next/font/google';
+
 import { renderClasses } from "../core/utils/renderClasses";
 
 const inter = Inter({ subsets: ['latin'] });
@@ -12,6 +15,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
             {/* <div className="wrapper"> */}
                 {/* <Header /> */}
                 <main>
+                    {/* <SocialList /> */}
                     {children}
                 </main>
             {/* </div> */}
