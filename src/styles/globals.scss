@@ -124,7 +124,12 @@ header {
 }
 
 .lightBeam {
-  @apply fixed left-0 top-0 w-screen h-screen inset-0 pointer-events-none z-[-1];
+  @apply opacity-0 fixed left-0 top-0 w-screen h-screen inset-0 pointer-events-none z-[-1];
+  transition: all .75s ease-in-out;
+
+  &.show {
+    @apply opacity-100;
+  }
 }
 
 .homePage {
