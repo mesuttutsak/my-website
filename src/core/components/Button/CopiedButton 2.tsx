@@ -12,7 +12,6 @@ const CopiedButton = () => {
     const [copied, setCopied] = useState('')
 
     useLayoutEffect(() => {
-      console.log(copied);
       if (copied !== '') {
         copyText(copied)
         setTimeout(() => {
