@@ -92,4 +92,47 @@
     &[data-c="lightdark"] {
       @apply color_secondary;
     }
+
+    &[data-lh="3"] {
+      @apply leading-3;
+    }
+    &[data-lh="4"] {
+      @apply leading-4;
+    }
+    &[data-lh="5"] {
+      @apply leading-5;
+    }
+    &[data-lh="6"] {
+      @apply leading-6;
+    }
+    &[data-lh="7"] {
+      @apply leading-7;
+    }
+    &[data-lh="8"] {
+      @apply leading-8;
+    }
+    &[data-lh="9"] {
+      @apply leading-9;
+    }
+    &[data-lh="10"] {
+      @apply leading-10;
+    }
+    &[data-lh="none"] {
+      @apply leading-none;
+    }
+    &[data-lh="tight"] {
+      @apply leading-none;
+    }
+    &[data-lh="snug"] {
+      @apply leading-none;
+    }
+    &[data-lh="normal"] {
+      @apply leading-none;
+    }
+    &[data-lh="relaxed"] {
+      @apply leading-none;
+    }
+    &[data-lh="loose"] {
+      @apply leading-none;
+    }
   }
