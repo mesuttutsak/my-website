@@ -21,17 +21,33 @@ interface ExperienceProps {
 
 const experience: ExperienceProps[] = [
   {
+    company: "Konzek Teknoloji",
+    website: "https://www.konzek.com/",
+    skills: ["JavaScript", "React.js", "CSS", "Redux"],
+    location: "Istanbul",
+    working_type: "On-site",
+    periods: [
+      {
+        title: "Frontend Developer",
+        employment_type: "Full Time",
+        start_date: "Oct 2023",
+        end_date: "Present",
+        desc: "",
+      },
+    ],
+  },
+  {
     company: "Mallconomy",
     website: "https://mallconomy.com/",
     skills: ["Next.js", "JavaScript", "SASS", "Redux", "React.js"],
-    location: "İzmir",
+    location: "Izmir",
     working_type: "On-site",
     periods: [
       {
         title: "Frontend Developer",
         employment_type: "Full Time",
         start_date: "Dec 2022",
-        end_date: "Present",
+        end_date: "Aug 2023",
         desc: "",
       },
     ],
@@ -40,7 +56,7 @@ const experience: ExperienceProps[] = [
     company: "Ikona Creative",
     website: "https://ikonacreative.com/",
     skills: ['React', 'JavaScript', 'CSS', 'jQuery', 'Bootstrap', 'HTML5'],
-    location: "İzmir",
+    location: "Izmir",
     working_type: "On-site",
     periods: [
       {
