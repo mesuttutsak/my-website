@@ -17,10 +17,10 @@
     "classnames": "^2.3.2",
     "emailjs-com": "^3.2.0",
     "eslint": "8.45.0",
-    "eslint-config-next": "13.4.12",
+    "eslint-config-next": "14.2.4",
     "formik": "^2.4.3",
     "i": "^0.3.7",
-    "next": "13.4.12",
+    "next": "14.2.4",
     "npm": "^9.8.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -28,6 +28,7 @@
     "react-icons": "^4.11.0",
     "tailwindcss": "3.3.3",
     "typescript": "5.1.6",
+    "yarn": "^1.22.22",
     "yup": "^1.2.0"
   },
   "devDependencies": {
