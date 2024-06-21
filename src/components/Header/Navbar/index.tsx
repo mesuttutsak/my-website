@@ -1,17 +1,13 @@
-import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+
+import { navListProps } from "./navbar.types";
+
 import NavbarItem from "./NavbarItem";
 
-import { IconType } from "react-icons";
 import { VscAccount } from "react-icons/vsc";
 import { BsStars } from "react-icons/bs";
 import { SiDocsdotrs } from "react-icons/si";
 
-interface navListProps {
-  text: string;
-  icon: IconType;
-  path: string;
-}
 
 const Navbar = () => {
   const router = useRouter();

@@ -1,24 +1,10 @@
-import DraggableProivder, {
-  DraggableElement,
-} from "@/src/core/components/Draggable";
+import React from "react";
+
+import { HonnorAndAwardsProps } from "./honnorAndAwards.types";
+
 import Section, { Headline } from "@/src/core/components/Section";
 import Surface from "@/src/core/components/Surface";
 import Text from "@/src/core/components/Text";
-import Link from "next/link";
-import React from "react";
-
-interface RegulatedByProps {
-  short_name: string;
-  regulated_by_name: string;
-  url: string;
-}
-
-interface HonnorAndAwardsProps {
-  name: string;
-  regulated_by: RegulatedByProps;
-  degree: string;
-  title?: string | null;
-}
 
 const experience: HonnorAndAwardsProps[] = [
   {

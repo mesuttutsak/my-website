@@ -1,26 +1,13 @@
+import React from 'react';
+
+import { ExperiencePeriod } from '../Experience/expreience.types';
+
 import Surface from '@/src/core/components/Surface';
 import Text from '@/src/core/components/Text';
 import Link from 'next/link';
-import React from 'react';
 
 import { BiLinkExternal } from "react-icons/bi";
 
-interface ExperiencePeriod {
-    title: string;
-    employment_type: "Part Time" | "Full Time" | "Intership";
-    start_date: string;
-    end_date?: string;
-    desc: string;
-}
-
-interface ExperienceProps {
-    company: string;
-    website: string;
-    skills: string[];
-    location: string;
-    working_type: "On-site" | "Remote" | "Hybrid";
-    periods: ExperiencePeriod[];
-}
 
 const Item = ({ data }: any) => {
     const { company, website, skills, location, working_type, periods, } = data;

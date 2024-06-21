@@ -1,17 +1,9 @@
-import DraggableProivder, {
-  DraggableElement,
-} from "@/src/core/components/Draggable";
-import Section from "@/src/core/components/Section";
-import Surface from "@/src/core/components/Surface";
 import React from "react";
 
-interface ProjectsProps {
-  name: string;
-  title: string;
-  start_date: string;
-  end_date: string;
-  skills: string[];
-}
+import { ProjectsProps } from "./projects.types";
+
+import Section from "@/src/core/components/Section";
+
 
 const projects: ProjectsProps[] = [
   {

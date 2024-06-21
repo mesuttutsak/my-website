@@ -1,6 +1,5 @@
 'use client'
-import SocialList from '../components/SocialList';
-
+import { ReactNode } from 'react';
 import { Inter } from 'next/font/google';
 
 import { renderClasses } from "../core/utils/renderClasses";
@@ -8,7 +7,7 @@ import LightBeam from '../core/components/LightBeam/LightBeam';
 
 const inter = Inter({ subsets: ['latin'] });
 
-const MainLayout = ({ children }: { children: React.ReactNode }) => {
+const MainLayout = ({ children }: { children: ReactNode }) => {
   
   return (
     <>

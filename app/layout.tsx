@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import React from 'react'
+import React, { ReactNode } from 'react'
 
 import '@/src/styles/globals.scss'
 import MainLayout from '@/src/layout/MainLayout'
@@ -7,7 +7,7 @@ import MainLayout from '@/src/layout/MainLayout'
 export default function RootLayout({
     children,
 }: {
-    children: React.ReactNode
+    children: ReactNode
 }) {
     return (
         <html lang="en">

@@ -1,23 +1,8 @@
+import { ExperienceProps } from "./expreience.types";
+
 import Section, { Headline } from "@/src/core/components/Section";
 import Item from "./Item";
 import Text from "@/src/core/components/Text";
-
-interface ExperiencePeriod {
-  title: string;
-  employment_type: "Part Time" | "Full Time" | "Intership";
-  start_date: string;
-  end_date?: string;
-  desc: string;
-}
-
-interface ExperienceProps {
-  company: string;
-  website: string;
-  skills: string[];
-  location: string;
-  working_type: "On-site" | "Remote" | "Hybrid";
-  periods: ExperiencePeriod[];
-}
 
 const experience: ExperienceProps[] = [
   {

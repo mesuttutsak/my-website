@@ -1,14 +1,9 @@
-import { DraggableElement } from "@/src/core/components/Draggable";
-import Section, { Headline } from "@/src/core/components/Section";
+import Section from "@/src/core/components/Section";
 
-import React, { useLayoutEffect, useState } from "react";
+import React, { ReactElement, useLayoutEffect, useState } from "react";
 import SocialList from "../../SocialList";
 import Image from "next/image";
 import Text from "@/src/core/components/Text";
-import Button from "@/src/core/components/Button";
-
-import {FaCheck} from "react-icons/fa";
-import {LuMails} from "react-icons/lu";
 
 import { copyText } from "@/src/core/utils/copyText";
 import Link from "next/link";
@@ -27,7 +22,7 @@ const About = () => {
     }
   }, [copied])
 
-  const aboutElement: React.ReactElement = (
+  const aboutElement: ReactElement = (
     <>
       <div className="content">
         <div className="left">
