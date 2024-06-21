@@ -1,19 +1,8 @@
 'use client'
-import React, { useEffect } from "react";
+import React from "react";
 import { ImSpinner8 } from "react-icons/im";
 import { renderClasses } from "../../utils/renderClasses";
-import { log } from "console";
-
-interface ButtonProps {
-  children?: React.ReactNode;
-  type?: "button" | "submit" | undefined;
-  theme?: "light" | "dark" | undefined;
-  size?: "small" | "default" | "large" | undefined;
-  isDisabled?: boolean;
-  isLoading?: boolean;
-  onClick?: () => void;
-  className?: string[];
-}
+import { ButtonProps } from "./button.types";
 
 const Button = ({
   children,

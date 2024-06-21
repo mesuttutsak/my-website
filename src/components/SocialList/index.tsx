@@ -1,13 +1,8 @@
 import SocialItem from "./Item";
 
-import { IconType } from "react-icons";
-import { FaGithub, FaLinkedin, FaTwitter, FaInstagram } from "react-icons/fa";
+import { SocialListProps } from "./socialList.types";
 
-interface SocialListProps {
-  icon: IconType;
-  text: string | null;
-  url: string;
-}
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 const socialList: SocialListProps[] = [
   {icon: FaGithub, text: null, url: 'https://github.com/mesuttutsak'},

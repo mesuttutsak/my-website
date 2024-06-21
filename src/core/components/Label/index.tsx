@@ -1,15 +1,8 @@
 import React from "react";
-import { renderClasses } from "../../utils/renderClasses";
 
-export interface LabelProps {
-    children?: React.ReactNode,
-    htmlFor: string,
-    textAlign?: string,
-    fontSize?: string,
-    fontWeight?: string,
-    color?: string,
-    customClassname?: string[]
-  }
+import { LabelProps } from "./label.types";
+
+import { renderClasses } from "../../utils/renderClasses";
 
 const Label = ({
   children,

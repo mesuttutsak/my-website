@@ -1,15 +1,9 @@
 import React from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import Label, { LabelProps } from "../Label";
 
-interface FormGroupProps {
-  labelObject?: LabelProps;
-  fieldObject: {
-    type?: string;
-    placeholder?: string;
-  };
-  name: string;
-}
+import { FormGroupProps } from "./formGroup.types";
+
+import { Field, ErrorMessage } from "formik";
+import Label from "../Label";
 
 const FormGroup = ({ labelObject, fieldObject : {type = "text", placeholder = ''}, name }: FormGroupProps) => {
   return (

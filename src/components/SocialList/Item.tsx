@@ -1,13 +1,7 @@
 import Link from 'next/link';
-import React, { ReactNode } from 'react'
+import React from 'react'
 
-import { IconType } from "react-icons";
-
-interface SocialItemProps {
-  url?: string
-  icon?: IconType;
-  text?: string | null;
-}
+import { SocialItemProps } from './socialList.types';
 
 const SocialItem: React.FC<SocialItemProps> = ({
     url = "",

@@ -1,24 +1,9 @@
-import DraggableProivder, {
-    DraggableElement,
-} from "@/src/core/components/Draggable";
+import { InformationProps, SertificateProps } from "./education.types";
+
 import Section, { Headline } from "@/src/core/components/Section";
 import Surface from "@/src/core/components/Surface";
 import Text from "@/src/core/components/Text";
 import React from "react";
-
-interface InformationProps {
-    name: string;
-    department: string;
-    grade: number;
-    start_date: string;
-    end_date: string;
-    sertificate: SertificateProps[];
-}
-
-interface SertificateProps {
-    title: string;
-    period: string[];
-}
 
 const information: InformationProps = {
     name: "Cyprus International University",

@@ -1,15 +1,8 @@
 import React from "react";
+
 import { renderClasses } from "../../utils/renderClasses";
 
-interface TextProps {
-    children: React.ReactNode,
-    tag?: string,
-    textAlign?: string,
-    fontSize?: string,
-    fontWeight?: string,
-    color?: string,
-    customClassname?: string[]
-  }
+import { TextProps } from "./text.types";
 
 const Text = ({
   children,

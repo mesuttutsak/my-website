@@ -1,15 +1,8 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import { DraggableElement } from '../Draggable';
+import { SectionProps } from './section.types';
 
-export interface SectionProps {
-  children: React.ReactNode,
-  id?: string,
-  theme?: string,
-  draggable?: boolean,
-  customClassname?: string[]
-}
-
-export const Headline = ({children, } : {children: React.ReactNode}) => (<div className="headline">{children}</div>)
+export const Headline = ({ children, }: { children: ReactNode }) => (<div className="headline">{children}</div>)
 
 const Section = ({ children, id, draggable, theme = "deafult", customClassname = [] }: SectionProps) => {
 

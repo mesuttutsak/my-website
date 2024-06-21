@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect, useLayoutEffect } from 'react';
+import { useState, useLayoutEffect } from 'react';
 import { renderClasses } from '../../utils/renderClasses';
 
 const LightBeam: React.FC = () => {

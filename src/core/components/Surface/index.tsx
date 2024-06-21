@@ -2,6 +2,8 @@
 
 import React from "react";
 
+import { SurfaceProps } from "./surface.types";
+
 const Surface = ({
   children,
   id,
@@ -11,16 +13,7 @@ const Surface = ({
   size = "",
   inOrder = false,
   customClassname = []
-}: {
-  children: React.ReactNode;
-  theme?: string;
-  id?: string;
-  select?: boolean;
-  size?: string;
-  fit?: boolean;
-  inOrder?: boolean;
-  customClassname?: string[]
-}) => {
+}: SurfaceProps ) => {
   return (
     <div className={`surface ${theme}  ${!!size ? `size_${size}` : ''} ${inOrder ? `inOrder` : ''} ${fit ? 'fit' : ""} ${select ? "selectNone" : ""} ${customClassname?.length > 0 ? customClassname.map(e => e).join(' ') : ""}`} id={id}>
       {children}

@@ -1,5 +1,3 @@
-import React from 'react'
-
 import Surface from '../Surface';
 import { RiLoader4Line } from "react-icons/ri";
 
