@@ -8,7 +8,7 @@ const experience: ExperienceProps[] = [
   {
     company: "Konzek Teknoloji",
     website: "https://www.konzek.com/",
-    skills: ["JavaScript", "React.js", "CSS", "Redux"],
+    skills: ["React.js", "Express.js", "Redux(Toolkit)", "JavaScript", "Node.js", "Website Localization", "CSS", ],
     location: "Istanbul",
     working_type: "On-site",
     periods: [
