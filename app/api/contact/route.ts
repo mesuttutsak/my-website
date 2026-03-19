@@ -1,54 +1,14 @@
 import { NextResponse } from "next/server";
 
-import type { ContactMessageInput } from "@/src/features/portfolio/types";
-import { hasFirebaseAdminConfig } from "@/src/lib/firebase-admin";
-import { createContactMessage } from "@/src/server/contact";
-
-const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-function validateContactPayload(payload: unknown): ContactMessageInput | null {
-  if (!payload || typeof payload !== "object") {
-    return null;
-  }
-
-  const { from_name, from_email, message } = payload as Record<string, unknown>;
-
-  if (
-    typeof from_name !== "string" ||
-    typeof from_email !== "string" ||
-    typeof message !== "string"
-  ) {
-    return null;
-  }
-
-  const normalizedPayload = {
-    from_name: from_name.trim(),
-    from_email: from_email.trim(),
-    message: message.trim(),
-  };
-
-  if (
-    !normalizedPayload.from_name ||
-    !normalizedPayload.from_email ||
-    !normalizedPayload.message
-  ) {
-    return null;
-  }
-
-  if (
-    normalizedPayload.from_name.length > 100 ||
-    normalizedPayload.from_email.length > 320 ||
-    normalizedPayload.message.length > 2000
-  ) {
-    return null;
-  }
-
-  if (!emailPattern.test(normalizedPayload.from_email)) {
-    return null;
-  }
-
-  return normalizedPayload;
-}
+import {
+  getContactValidationMessage,
+  parseContactMessageInput,
+} from "@/src/features/contact/schema";
+import {
+  ContactProviderError,
+  hasEmailJsConfig,
+  sendContactMessage,
+} from "@/src/server/contact";
 
 export async function POST(request: Request) {
   let payload: unknown;
@@ -62,32 +22,47 @@ export async function POST(request: Request) {
     );
   }
 
-  const validatedPayload = validateContactPayload(payload);
-
-  if (!validatedPayload) {
-    return NextResponse.json(
-      { message: "Lutfen tum alanlari gecerli sekilde doldurun." },
-      { status: 400 }
-    );
-  }
-
   try {
-    await createContactMessage(validatedPayload);
+    const validatedPayload = await parseContactMessageInput(payload);
+
+    await sendContactMessage(validatedPayload);
 
     return NextResponse.json(
-      { message: "Mesajin basariyla kaydedildi." },
+      { message: "Mesajin basariyla gonderildi." },
       { status: 201 }
     );
   } catch (error) {
-    console.error("Failed to store contact message.", error);
+    if (error instanceof ContactProviderError) {
+      console.error("Failed to send contact message.", error);
 
-    return NextResponse.json(
-      {
-        message: hasFirebaseAdminConfig
-          ? "Mesaj kaydedilirken bir hata olustu."
-          : "Firebase ayarlari tamamlanmamis.",
-      },
-      { status: 500 }
-    );
+      return NextResponse.json(
+        {
+          message:
+            error.code === "config"
+              ? "EmailJS ayarlari tamamlanmamis."
+              : error.code === "restricted_environment"
+                ? "EmailJS hesabinda non-browser API access kapali. Dashboard uzerinden etkinlestirmen gerekiyor."
+                : "Mesaj gonderilirken bir hata olustu.",
+        },
+        { status: 500 }
+      );
+    }
+
+    const validationMessage = getContactValidationMessage(error);
+
+    if (validationMessage !== "Lutfen tum alanlari gecerli sekilde doldurun.") {
+      return NextResponse.json({ message: validationMessage }, { status: 400 });
+    }
+
+    if (!hasEmailJsConfig) {
+      return NextResponse.json(
+        { message: "EmailJS ayarlari tamamlanmamis." },
+        { status: 500 }
+      );
+    }
+
+    console.error("Failed to validate contact message.", error);
+
+    return NextResponse.json({ message: validationMessage }, { status: 400 });
   }
 }

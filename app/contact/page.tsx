@@ -1,12 +1,13 @@
 'use client'
 
 import { Formik, Form, FormikHelpers } from "formik";
-import * as Yup from "yup";
 import toast, { Toaster } from "react-hot-toast";
 import Link from "next/link";
 import { BiChevronLeftCircle } from "react-icons/bi";
 
-import type { ContactMessageInput } from "@/src/features/portfolio/types";
+import { submitContactMessage } from "@/src/features/contact/client";
+import { contactMessageSchema } from "@/src/features/contact/schema";
+import type { ContactMessageInput } from "@/src/features/contact/types";
 import { useAsyncAction } from "@/src/shared/hooks/useAsyncAction";
 import Button from "@/src/ui/Button";
 import FormGroup from "@/src/ui/FormGroup";
@@ -23,35 +24,10 @@ const Contact = () => {
     message: "",
   };
 
-  const validationSchema = Yup.object().shape({
-    from_name: Yup.string().required("Ad alanı zorunludur"),
-    from_email: Yup.string()
-      .email("Geçerli bir e-posta giriniz")
-      .required("E-posta alanı zorunludur"),
-    message: Yup.string().required("Mesaj alanı zorunludur"),
-  });
-
   const { run: submitMessage, isLoading } = useAsyncAction(
     async (values: FormValues, resetForm: () => void) => {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
-      });
-
-      const payload = (await response.json().catch(() => null)) as {
-        message?: string;
-      } | null;
-
-      if (!response.ok) {
-        throw new Error(payload?.message ?? "Mesaj gonderilemedi.");
-      }
-
+      await submitContactMessage(values);
       resetForm();
-
-      return payload;
     }
   );
 
@@ -67,7 +43,7 @@ const Contact = () => {
       postMessage,
       {
         loading: "Mesaj gonderiliyor...",
-        success: "Mesajin kaydedildi.",
+        success: "Mesajin gonderildi.",
         error: (error) =>
           error instanceof Error ? error.message : "Mesaj gonderilemedi.",
       },
@@ -97,7 +73,7 @@ const Contact = () => {
 
             <Formik
               initialValues={initialValues}
-              validationSchema={validationSchema}
+              validationSchema={contactMessageSchema}
               onSubmit={onSubmit}
             >
               {() => (

@@ -1,19 +1,14 @@
 import "server-only";
 
-import { FieldValue } from "firebase-admin/firestore";
+import type { ContactMessageInput } from "@/src/features/contact/types";
+import {
+  ContactProviderError,
+  hasEmailJsConfig,
+  sendWithEmailJs,
+} from "@/src/server/contact-providers/emailjs";
 
-import type { ContactMessageInput } from "@/src/features/portfolio/types";
-import { getRequiredFirestoreDb } from "@/src/lib/firebase-admin";
+export { ContactProviderError, hasEmailJsConfig };
 
-const contactCollection =
-  process.env.FIREBASE_CONTACT_COLLECTION ?? "contactMessages";
-
-export async function createContactMessage(input: ContactMessageInput) {
-  const db = getRequiredFirestoreDb();
-
-  await db.collection(contactCollection).add({
-    ...input,
-    status: "new",
-    createdAt: FieldValue.serverTimestamp(),
-  });
+export async function sendContactMessage(input: ContactMessageInput) {
+  await sendWithEmailJs(input);
 }

@@ -80,9 +80,3 @@ export interface PortfolioPageData {
   content: PortfolioContent;
   catalogs: ExperienceCatalogs;
 }
-
-export interface ContactMessageInput {
-  from_name: string;
-  from_email: string;
-  message: string;
-}
