@@ -2,17 +2,16 @@
 import { ReactNode } from 'react';
 import { Inter } from 'next/font/google';
 
-import { renderClasses } from "../core/utils/renderClasses";
-import LightBeam from '../core/components/LightBeam/LightBeam';
+import { cn } from "@/src/shared/lib/cn";
+import LightBeam from "@/src/ui/LightBeam";
 
 const inter = Inter({ subsets: ['latin'] });
 
 const MainLayout = ({ children }: { children: ReactNode }) => {
-  
   return (
     <>
         <LightBeam />
-        <div className={renderClasses(['mainLayout', inter.className])}>
+        <div className={cn('mainLayout', inter.className)}>
             {/* <div className="wrapper"> */}
                 {/* <Header /> */}
                 <main>

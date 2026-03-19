@@ -1,6 +1,6 @@
 import { navItemProps } from "./navbar.types";
 
-import Text from "@/src/core/components/Text";
+import Text from "@/src/ui/Text";
 import Link from "next/link";
 
 const NavbarItem: React.FC<navItemProps> = ({ text, path, icon: Icon }) => {

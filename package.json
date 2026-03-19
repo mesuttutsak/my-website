@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "seed:firestore": "node scripts/seed-firestore.mjs",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
@@ -18,6 +19,7 @@
     "emailjs-com": "^3.2.0",
     "eslint": "8.45.0",
     "eslint-config-next": "14.2.4",
+    "firebase-admin": "^13.7.0",
     "formik": "^2.4.3",
     "i": "^0.3.7",
     "next": "14.2.4",

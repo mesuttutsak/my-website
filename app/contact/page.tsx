@@ -1,35 +1,22 @@
 'use client'
-import React, { useState } from "react";
 
-import { useRouter } from "next/navigation";
-
-import { Formik, Form } from "formik";
+import { Formik, Form, FormikHelpers } from "formik";
 import * as Yup from "yup";
-
 import toast, { Toaster } from "react-hot-toast";
-
-import emailjs from "@emailjs/browser";
-
-import Surface from "@/src/core/components/Surface";
-import MainLayout from "@/src/layout/MainLayout";
-import Section, { Headline } from "@/src/core/components/Section";
-import Text from "@/src/core/components/Text";
-import FormGroup from "@/src/core/components/FormGroup";
-import Button from "@/src/core/components/Button";
 import Link from "next/link";
-
 import { BiChevronLeftCircle } from "react-icons/bi";
 
-interface FormValues {
-  from_name: string;
-  from_email: string;
-  message: string;
-}
+import type { ContactMessageInput } from "@/src/features/portfolio/types";
+import { useAsyncAction } from "@/src/shared/hooks/useAsyncAction";
+import Button from "@/src/ui/Button";
+import FormGroup from "@/src/ui/FormGroup";
+import Section from "@/src/ui/Section";
+import Surface from "@/src/ui/Surface";
+import Text from "@/src/ui/Text";
+
+type FormValues = ContactMessageInput;
 
 const Contact = () => {
-  const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
-
   const initialValues: FormValues = {
     from_name: "",
     from_email: "",
@@ -44,37 +31,45 @@ const Contact = () => {
     message: Yup.string().required("Mesaj alanı zorunludur"),
   });
 
-  const onSubmit = (values: FormValues, { setSubmitting, resetForm }: any) => {
-    setIsLoading(true);
-
-    let services_id: any = process?.env?.MAIL_SERVICE_ID;
-    let template_id: any = process?.env?.MAIL_TEMPLATE_ID;
-    let user_id = process?.env?.MAIL_USER_ID;
-    let template_params: any = values;
-
-    const postMail = emailjs
-      .send(services_id, template_id, template_params, user_id)
-      .then(
-        (res) => {
-          resetForm();
+  const { run: submitMessage, isLoading } = useAsyncAction(
+    async (values: FormValues, resetForm: () => void) => {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-        (err) => {
-          console.log(err);
-        }
-      )
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        setIsLoading(false);
+        body: JSON.stringify(values),
       });
 
+      const payload = (await response.json().catch(() => null)) as {
+        message?: string;
+      } | null;
+
+      if (!response.ok) {
+        throw new Error(payload?.message ?? "Mesaj gonderilemedi.");
+      }
+
+      resetForm();
+
+      return payload;
+    }
+  );
+
+  const onSubmit = async (
+    values: FormValues,
+    { setSubmitting, resetForm }: FormikHelpers<FormValues>
+  ) => {
+    const postMessage = submitMessage(values, resetForm).finally(() => {
+      setSubmitting(false);
+    });
+
     toast.promise(
-      postMail,
+      postMessage,
       {
-        loading: "Submitting...",
-        success: "Successfully sent.",
-        error: (err) => err,
+        loading: "Mesaj gonderiliyor...",
+        success: "Mesajin kaydedildi.",
+        error: (error) =>
+          error instanceof Error ? error.message : "Mesaj gonderilemedi.",
       },
       {
         duration: 1000,
@@ -82,7 +77,7 @@ const Contact = () => {
       }
     );
 
-    setSubmitting(false);
+    await postMessage.catch(() => undefined);
   };
 
   return (
@@ -105,7 +100,7 @@ const Contact = () => {
               validationSchema={validationSchema}
               onSubmit={onSubmit}
             >
-              {({ isSubmitting }: any) => (
+              {() => (
                 <Form>
                   <div className="flex flex-row flex-1 gap-3">
                     <FormGroup

@@ -1,5 +1,4 @@
-import PageLoading from '@/src/core/components/PageLoading'
-import React from 'react'
+import PageLoading from '@/src/ui/PageLoading'
 
 const loading = () => {
   return (

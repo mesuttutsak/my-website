@@ -1,5 +1,3 @@
-import { useRouter } from "next/navigation";
-
 import { navListProps } from "./navbar.types";
 
 import NavbarItem from "./NavbarItem";
@@ -8,10 +6,7 @@ import { VscAccount } from "react-icons/vsc";
 import { BsStars } from "react-icons/bs";
 import { SiDocsdotrs } from "react-icons/si";
 
-
 const Navbar = () => {
-  const router = useRouter();
-
   const navList: navListProps[] = [
     { text: "about", icon: VscAccount, path: "/#"  },
     { text: "experience", icon: BsStars, path: "#experience" },

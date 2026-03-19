@@ -9,12 +9,19 @@ const nextConfig = {
         port: "",
         pathname: "/v1/avatars/**",
       },
+      {
+        protocol: "https",
+        hostname: "firebasestorage.googleapis.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "storage.googleapis.com",
+        port: "",
+        pathname: "/**",
+      },
     ],
-  },
-  env: {
-    MAIL_SERVICE_ID: "service_d1zkcqc",
-    MAIL_TEMPLATE_ID: "template_cr45tip",
-    MAIL_USER_ID: "mZL0YZsa31vcuSh1K",
   },
 };
 
