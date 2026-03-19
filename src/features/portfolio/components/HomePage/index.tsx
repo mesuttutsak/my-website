@@ -19,7 +19,7 @@ const HomePageComponent = ({
         <About about={content.about} socialLinks={content.socialLinks} />
         <Experience items={content.experiences} catalogs={catalogs} />
         <HonnorAndAwards awards={content.awards} />
-        <Education education={content.education} />
+        <Education educations={content.educations} />
       </Surface>
     </div>
   );

@@ -5,13 +5,13 @@ import Surface from "@/src/ui/Surface";
 import Text from "@/src/ui/Text";
 
 interface EducationProps {
-    education: EducationContent;
+    educations: EducationContent;
 }
 
-const Education = ({ education }: EducationProps) => {
-    const { name, department, grade, startDate, endDate, certificates } = education;
+const Education = ({ educations }: EducationProps) => {
+    const { name, department, grade, startDate, endDate, certificates } = educations;
     return (
-        <Section id="education" customClassname={['flex flex-col gap-4']}>
+        <Section id="educations" customClassname={['flex flex-col gap-4']}>
             <Headline>
                 <Text tag="h3">Education</Text>
             </Headline>
