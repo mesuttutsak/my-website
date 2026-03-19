@@ -1,7 +1,6 @@
-import React from "react";
 import Navbar from "./Navbar";
 
-import Surface from "@/src/core/components/Surface";
+import Surface from "@/src/ui/Surface";
 
 const Header = () => {
   return (

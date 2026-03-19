@@ -1,12 +1,10 @@
-import React from 'react'
+import HomePageComponent from "@/src/features/portfolio/components/HomePage";
+import { getPortfolioPageData } from "@/src/server/portfolio";
 
-import HomePageComponent from '@/src/components/HomePage'
+const HomePage = async () => {
+  const pageData = await getPortfolioPageData();
 
-const HomePage = () => {
-  return (<>
-    <HomePageComponent />
-    </>
-  )
-}
+  return <HomePageComponent content={pageData.content} catalogs={pageData.catalogs} />;
+};
 
-export default HomePage
+export default HomePage;
