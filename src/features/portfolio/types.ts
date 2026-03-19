@@ -7,9 +7,10 @@ import type {
 
 export type SocialPlatform = "github" | "linkedin" | "website" | "other";
 export type FirebaseDateTimeString = string;
+export type CustomString = string & {};
 
 export interface SocialLink {
-  platform: SocialPlatform | string;
+  platform: SocialPlatform | CustomString;
   url: string;
   text?: string | null;
 }
