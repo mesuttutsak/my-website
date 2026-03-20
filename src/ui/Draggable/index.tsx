@@ -1,107 +1,270 @@
 'use client'
 
-import React, { useRef, useState, useEffect } from "react";
+import type { PointerEvent as ReactPointerEvent, ReactNode } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+
+import { useSiteSettings } from "@/src/features/site-settings/context";
+import { getDraggableLayoutStorageKey } from "@/src/features/site-settings/storage";
+import { cn } from "@/src/shared/lib/cn";
+import styles from "./Draggable.module.scss";
+
+interface Position {
+  x: number;
+  y: number;
+}
+
+interface DragSession {
+  pointerId: number;
+  pointerStart: Position;
+  positionStart: Position;
+  bounds: {
+    minDeltaX: number;
+    maxDeltaX: number;
+    minDeltaY: number;
+    maxDeltaY: number;
+  };
+}
+
+interface DraggableElementProps {
+  children: ReactNode;
+  customClassname?: string[];
+  disabled?: boolean;
+  initialPosition?: Position;
+  storageKey?: string;
+}
+
+const defaultPosition: Position = { x: 0, y: 0 };
+
+function clamp(value: number, min: number, max: number) {
+  return Math.min(Math.max(value, min), max);
+}
+
+function isDragHandleTarget(target: EventTarget | null) {
+  return target instanceof Element
+    ? Boolean(target.closest("[data-drag-handle='true']"))
+    : false;
+}
 
 export const DraggableElement = ({
   children,
-  customClassname = []
-}: {
-  children: React.ReactNode,
-  customClassname?: string[]
-}) => {
-  const dragableEl: any = useRef();
+  customClassname = [],
+  disabled = false,
+  initialPosition = defaultPosition,
+  storageKey,
+}: DraggableElementProps) => {
+  const elementRef = useRef<HTMLDivElement | null>(null);
+  const frameRef = useRef<number | null>(null);
+  const dragSessionRef = useRef<DragSession | null>(null);
+  const hasHydratedRef = useRef(false);
+  const positionRef = useRef<Position>(initialPosition);
+  const [isDragging, setIsDragging] = useState(false);
+  const { isDragEnabled, layoutResetVersion } = useSiteSettings();
+  const isDragDisabled = disabled || !isDragEnabled;
 
-  const [dragging, setDragging] = useState(false);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [mousePos, setMousePos]: any = useState({});
+  const applyPosition = useCallback((position: Position) => {
+    positionRef.current = position;
+
+    if (!elementRef.current) {
+      return;
+    }
+
+    elementRef.current.style.transform = `translate3d(${position.x}px, ${position.y}px, 0)`;
+  }, []);
+
+  const persistPosition = useCallback(() => {
+    if (!storageKey || typeof window === "undefined") {
+      return;
+    }
+
+    window.localStorage.setItem(
+      getDraggableLayoutStorageKey(storageKey),
+      JSON.stringify(positionRef.current)
+    );
+  }, [storageKey]);
+
+  const endDragging = useCallback(() => {
+    dragSessionRef.current = null;
+    setIsDragging(false);
+  }, []);
 
   useEffect(() => {
-    const handleMouseMove = (event: any) => {
-      setMousePos(event);
-    };
+    if (typeof window === "undefined") {
+      return;
+    }
 
-    window.addEventListener("mousemove", handleMouseMove);
+    if (!storageKey) {
+      applyPosition(initialPosition);
+      return;
+    }
 
+    try {
+      const rawValue = window.localStorage.getItem(
+        getDraggableLayoutStorageKey(storageKey)
+      );
+
+      if (!rawValue) {
+        applyPosition(initialPosition);
+        return;
+      }
+
+      const parsedValue = JSON.parse(rawValue) as Partial<Position>;
+
+      if (
+        typeof parsedValue.x === "number" &&
+        typeof parsedValue.y === "number"
+      ) {
+        applyPosition({ x: parsedValue.x, y: parsedValue.y });
+        return;
+      }
+    } catch {
+      // Ignore malformed localStorage values and fallback to defaults.
+    }
+
+    applyPosition(initialPosition);
+  }, [applyPosition, initialPosition, storageKey]);
+
+  useEffect(() => {
+    if (!hasHydratedRef.current) {
+      hasHydratedRef.current = true;
+      return;
+    }
+
+    if (storageKey && typeof window !== "undefined") {
+      window.localStorage.removeItem(getDraggableLayoutStorageKey(storageKey));
+    }
+
+    applyPosition(initialPosition);
+  }, [applyPosition, initialPosition, layoutResetVersion, storageKey]);
+
+  useEffect(() => {
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
+      if (frameRef.current !== null) {
+        window.cancelAnimationFrame(frameRef.current);
+      }
     };
   }, []);
 
   useEffect(() => {
-    if (!dragging || !dragableEl.current) {
+    if (isDragDisabled && isDragging && elementRef.current) {
+      if (dragSessionRef.current) {
+        persistPosition();
+      }
+
+      endDragging();
+    }
+  }, [endDragging, isDragDisabled, isDragging, persistPosition]);
+
+  const schedulePositionUpdate = () => {
+    if (frameRef.current !== null) {
       return;
     }
 
-    const frameId = requestAnimationFrame(() => {
-      dragableEl.current.style.transform = `translateX(${position.x}px) translateY(${position.y}px)`;
+    frameRef.current = window.requestAnimationFrame(() => {
+      frameRef.current = null;
+
+      if (!elementRef.current) {
+        return;
+      }
+
+      const { x, y } = positionRef.current;
+      elementRef.current.style.transform = `translate3d(${x}px, ${y}px, 0)`;
     });
+  };
 
-    return () => {
-      cancelAnimationFrame(frameId);
+  const handlePointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (
+      isDragDisabled ||
+      event.button !== 0 ||
+      !isDragHandleTarget(event.target)
+    ) {
+      return;
+    }
+
+    const element = event.currentTarget;
+    const rect = element.getBoundingClientRect();
+
+    dragSessionRef.current = {
+      pointerId: event.pointerId,
+      pointerStart: {
+        x: event.clientX,
+        y: event.clientY,
+      },
+      positionStart: { ...positionRef.current },
+      bounds: {
+        minDeltaX: -rect.left,
+        maxDeltaX: window.innerWidth - rect.right,
+        minDeltaY: -rect.top,
+        maxDeltaY: window.innerHeight - rect.bottom,
+      },
     };
-  }, [dragging, position]);
 
-  const handleMouseDown = (event: any) => {
-    setDragging(true);
+    element.setPointerCapture(event.pointerId);
+    setIsDragging(true);
   };
 
-  const handleMouseUp = (event: any) => {
-    setDragging(false);
-  };
+  const handlePointerMove = (event: ReactPointerEvent<HTMLDivElement>) => {
+    const dragSession = dragSessionRef.current;
 
-  const handleMouseMove = (event: any) => {
-    const { movementX, movementY, clientX, clientY, view, target } = event;
-    const { innerWidth: browserWidth, innerHeight: browserHeight } = view;
-    const { offsetHeight: elmHeight, offsetWidth } = target;
-
-    let targetOfset = target.getBoundingClientRect();
-    let { top, right, bottom, left } = targetOfset;
-
-    if (dragging) {
-      const dx =
-        (left <= 0 && movementX < 0) || (right > browserWidth && movementX > 0)
-          ? 0
-          : movementX;
-      const dy =
-        (top <= 0 && movementY < 0) || (bottom > browserHeight && movementY > 0)
-          ? 0
-          : movementY;
+    if (!dragSession || dragSession.pointerId !== event.pointerId) {
+      return;
     }
+
+    const deltaX = clamp(
+      event.clientX - dragSession.pointerStart.x,
+      dragSession.bounds.minDeltaX,
+      dragSession.bounds.maxDeltaX
+    );
+    const deltaY = clamp(
+      event.clientY - dragSession.pointerStart.y,
+      dragSession.bounds.minDeltaY,
+      dragSession.bounds.maxDeltaY
+    );
+
+    positionRef.current = {
+      x: dragSession.positionStart.x + deltaX,
+      y: dragSession.positionStart.y + deltaY,
+    };
+
+    schedulePositionUpdate();
   };
 
-  useEffect(() => {
-    if (dragging) {
-      const { innerWidth: browserWidth, innerHeight: browserHeight } = window;
-      let targetOfset = dragableEl?.current?.getBoundingClientRect();
-      let { top, right, bottom, left } = targetOfset;
-      let { movementX, movementY, x, y } = mousePos;
-
-      const dx = movementX;
-      const dy = movementY;
-
-      setPosition((prevState) => ({
-        x: prevState.x + dx,
-        y: prevState.y + dy,
-      }));
+  const handlePointerUp = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
     }
-  }, [mousePos, dragging]);
+
+    persistPosition();
+    endDragging();
+  };
+
+  const handlePointerCancel = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+
+    persistPosition();
+    endDragging();
+  };
 
   return (
     <div
-      className={`draggableElement ${dragging && 'draggable' }`}
-      ref={dragableEl}
-      onMouseMoveCapture={handleMouseMove}
-      onMouseDown={handleMouseDown}
-      onMouseUp={handleMouseUp}
+      className={cn(styles.draggableElement, ...customClassname)}
+      data-dragging={isDragging}
+      data-disabled={isDragDisabled}
       draggable={false}
+      onLostPointerCapture={() => {
+        persistPosition();
+        endDragging();
+      }}
+      onPointerCancel={handlePointerCancel}
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerUp}
+      ref={elementRef}
     >
       {children}
     </div>
   );
 };
 
-const DraggableProvider = ({ children }: { children: React.ReactNode }) => {
-  return <div className="draggableProvider">{children}</div>;
-};
-
-export default DraggableProvider;
+export default DraggableElement;

@@ -5,6 +5,7 @@ import HonnorAndAwards from "./HonnorAndAwards";
 import type { ExperienceCatalogs } from "@/src/features/portfolio/catalogs";
 import type { PortfolioContent } from "@/src/features/portfolio/types";
 import Surface from "@/src/ui/Surface";
+import styles from "./HomePage.module.scss";
 
 const HomePageComponent = ({
   content,
@@ -14,12 +15,12 @@ const HomePageComponent = ({
   catalogs: ExperienceCatalogs;
 }) => {
   return (
-    <div className="homePage">
-      <Surface id="homePage">
+    <div className={styles.homePage}>
+      <Surface customClassname={[styles.homePageSurface]} id="homePage">
         <About about={content.about} socialLinks={content.socialLinks} />
         <Experience items={content.experiences} catalogs={catalogs} />
         <HonnorAndAwards awards={content.awards} />
-        <Education education={content.education} />
+        <Education educations={content.educations} />
       </Surface>
     </div>
   );

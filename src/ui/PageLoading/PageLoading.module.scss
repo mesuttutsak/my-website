@@ -1,0 +1,17 @@
+.loadingContainer {
+  @apply flex h-[calc(100vh-96px)] items-center justify-center;
+
+  & > * {
+    animation: rotation 2s;
+  }
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}

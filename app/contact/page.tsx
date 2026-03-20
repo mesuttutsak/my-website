@@ -14,6 +14,7 @@ import FormGroup from "@/src/ui/FormGroup";
 import Section from "@/src/ui/Section";
 import Surface from "@/src/ui/Surface";
 import Text from "@/src/ui/Text";
+import styles from "./page.module.scss";
 
 type FormValues = ContactMessageInput;
 
@@ -58,7 +59,7 @@ const Contact = () => {
 
   return (
         <Surface>
-          <Section theme="light" id="contactPage">
+          <Section customClassname={[styles.contactPage]} theme="light" id="contactPage">
             <div className="mb-5">
               <Link href={"/"}>
                 <BiChevronLeftCircle size={24} />
@@ -77,8 +78,8 @@ const Contact = () => {
               onSubmit={onSubmit}
             >
               {() => (
-                <Form>
-                  <div className="flex flex-row flex-1 gap-3">
+                <Form className={styles.form}>
+                  <div className={styles.formRow}>
                     <FormGroup
                       fieldObject={{
                         type: "text",

@@ -1,41 +1,140 @@
 'use client'
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 
-interface PointerPositionState {
-  x: number;
-  y: number;
-  hasMoved: boolean;
+const finePointerMediaQuery = "(hover: hover) and (pointer: fine)";
+const reducedMotionMediaQuery = "(prefers-reduced-motion: reduce)";
+
+function setBeamPosition(element: HTMLDivElement, x: number, y: number) {
+  element.style.setProperty("--light-beam-x", `${x}px`);
+  element.style.setProperty("--light-beam-y", `${y}px`);
 }
 
-export function usePointerPosition(): PointerPositionState {
-  const [position, setPosition] = useState<PointerPositionState>({
-    x: 0,
-    y: 0,
-    hasMoved: false,
-  });
+function setBeamVisibility(element: HTMLDivElement, isVisible: boolean) {
+  element.dataset.visible = isVisible ? "true" : "false";
+}
+
+function setBeamEnabled(element: HTMLDivElement, isEnabled: boolean) {
+  element.dataset.enabled = isEnabled ? "true" : "false";
+}
+
+export function usePointerPosition() {
+  const beamRef = useRef<HTMLDivElement | null>(null);
+  const frameRef = useRef<number | null>(null);
+  const positionRef = useRef({ x: 0, y: 0 });
+  const hasMovedRef = useRef(false);
 
   useEffect(() => {
-    setPosition({
-      x: window.innerWidth / 2,
-      y: window.innerHeight / 2,
-      hasMoved: false,
-    });
+    const beamElement = beamRef.current;
 
-    const handleMouseMove = (event: MouseEvent) => {
-      setPosition({
-        x: event.clientX,
-        y: event.clientY,
-        hasMoved: true,
-      });
+    if (!beamElement) {
+      return;
+    }
+
+    const finePointerMedia = window.matchMedia(finePointerMediaQuery);
+    const reducedMotionMedia = window.matchMedia(reducedMotionMediaQuery);
+
+    const isEffectEnabled = () =>
+      finePointerMedia.matches && !reducedMotionMedia.matches;
+
+    const setDefaultPosition = () => {
+      const nextPosition = {
+        x: window.innerWidth / 2,
+        y: window.innerHeight / 2,
+      };
+
+      positionRef.current = nextPosition;
+      setBeamPosition(beamElement, nextPosition.x, nextPosition.y);
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
+    const flushPosition = () => {
+      frameRef.current = null;
+
+      setBeamPosition(
+        beamElement,
+        positionRef.current.x,
+        positionRef.current.y
+      );
+    };
+
+    const schedulePositionUpdate = () => {
+      if (frameRef.current !== null) {
+        return;
+      }
+
+      frameRef.current = window.requestAnimationFrame(flushPosition);
+    };
+
+    const syncEffectState = () => {
+      const enabled = isEffectEnabled();
+
+      setBeamEnabled(beamElement, enabled);
+
+      if (!enabled) {
+        hasMovedRef.current = false;
+        setBeamVisibility(beamElement, false);
+
+        if (frameRef.current !== null) {
+          window.cancelAnimationFrame(frameRef.current);
+          frameRef.current = null;
+        }
+
+        return;
+      }
+
+      setDefaultPosition();
+    };
+
+    const handlePointerMove = (event: PointerEvent) => {
+      if (!isEffectEnabled()) {
+        return;
+      }
+
+      positionRef.current = {
+        x: event.clientX,
+        y: event.clientY,
+      };
+
+      if (!hasMovedRef.current) {
+        hasMovedRef.current = true;
+        setBeamVisibility(beamElement, true);
+      }
+
+      schedulePositionUpdate();
+    };
+
+    const handleResize = () => {
+      if (!isEffectEnabled() || hasMovedRef.current) {
+        return;
+      }
+
+      setDefaultPosition();
+    };
+
+    const handlePreferenceChange = () => {
+      syncEffectState();
+    };
+
+    syncEffectState();
+
+    window.addEventListener("pointermove", handlePointerMove, {
+      passive: true,
+    });
+    window.addEventListener("resize", handleResize);
+    finePointerMedia.addEventListener("change", handlePreferenceChange);
+    reducedMotionMedia.addEventListener("change", handlePreferenceChange);
 
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener("resize", handleResize);
+      finePointerMedia.removeEventListener("change", handlePreferenceChange);
+      reducedMotionMedia.removeEventListener("change", handlePreferenceChange);
+
+      if (frameRef.current !== null) {
+        window.cancelAnimationFrame(frameRef.current);
+      }
     };
   }, []);
 
-  return position;
+  return beamRef;
 }

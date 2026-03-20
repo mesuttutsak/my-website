@@ -1,0 +1,7 @@
+.mainLayout {
+  @apply mx-auto p-0 sm:p-12 xl:px-6 2xl:container;
+}
+
+.mainContent {
+  @apply mx-auto h-fit w-full xl:w-1/2;
+}

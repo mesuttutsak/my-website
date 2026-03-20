@@ -1,0 +1,59 @@
+.copiedIcon {
+  @apply relative h-[16px] w-[16px];
+}
+
+.icon {
+  @apply absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2;
+}
+
+.tick {
+  @apply z-[2] h-[0px] w-[0px];
+}
+
+.tickAnimation {
+  animation: fadeIn 2s forwards;
+}
+
+.default {
+  @apply h-[16px] w-[16px];
+}
+
+.tickAnimationReverse {
+  animation: fadeOut 2s forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    @apply -mt-2 h-[0px] w-[0px] opacity-0;
+  }
+
+  20% {
+    @apply mt-0 h-[16px] w-[16px] opacity-100;
+  }
+
+  80% {
+    @apply mt-0 h-[16px] w-[16px] opacity-100;
+  }
+
+  100% {
+    @apply -mt-2 h-[0px] w-[0px] opacity-0;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    @apply mt-0 h-[16px] w-[16px] opacity-100;
+  }
+
+  20% {
+    @apply mt-2 h-[0px] w-[0px] opacity-0;
+  }
+
+  80% {
+    @apply mt-2 h-[0px] w-[0px] opacity-0;
+  }
+
+  100% {
+    @apply mt-0 h-[16px] w-[16px] opacity-100;
+  }
+}

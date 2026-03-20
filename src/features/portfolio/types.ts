@@ -73,7 +73,7 @@ export interface PortfolioContent {
   about: AboutContent;
   socialLinks: SocialLink[];
   experiences: ExperienceItem[];
-  education: EducationContent;
+  educations: EducationContent;
   awards: PortfolioAward[];
 }
 

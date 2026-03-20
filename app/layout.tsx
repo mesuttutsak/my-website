@@ -1,35 +1,105 @@
-import Head from 'next/head'
-import React, { ReactNode } from 'react'
+import type { Metadata, Viewport } from "next";
+import type { ReactNode } from "react";
 
-import '@/src/styles/globals.scss'
-import MainLayout from '@/src/layout/MainLayout'
+import "@/src/styles/globals.scss";
+import MainLayout from "@/src/layout/MainLayout";
+import { siteConfig, siteUrl } from "@/src/server/site-config";
 
-export default function RootLayout({
-    children,
-}: {
-    children: ReactNode
-}) {
-    return (
-        <html lang="en">
+export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: siteConfig.title,
+    template: `%s | ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
+  keywords: [...siteConfig.keywords],
+  authors: [
+    {
+      name: siteConfig.name,
+      url: siteUrl,
+    },
+  ],
+  creator: siteConfig.name,
+  publisher: siteConfig.name,
+  applicationName: siteConfig.name,
+  referrer: "origin-when-cross-origin",
+  alternates: {
+    canonical: "/",
+  },
+  manifest: "/manifest.webmanifest",
+  icons: {
+    icon: [
+      {
+        url: "/favicon.ico",
+      },
+      {
+        url: "/favicon-16x16.png",
+        sizes: "16x16",
+        type: "image/png",
+      },
+      {
+        url: "/favicon-32x32.png",
+        sizes: "32x32",
+        type: "image/png",
+      },
+    ],
+    apple: [
+      {
+        url: "/apple-touch-icon.png",
+        sizes: "180x180",
+      },
+    ],
+  },
+  openGraph: {
+    type: "website",
+    locale: siteConfig.locale,
+    url: "/",
+    siteName: siteConfig.name,
+    title: siteConfig.title,
+    description: siteConfig.description,
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: siteConfig.ogImageAlt,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.title,
+    description: siteConfig.description,
+    images: [
+      {
+        url: "/twitter-image",
+        alt: siteConfig.twitterImageAlt,
+      },
+    ],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+};
 
-            <Head>
-                <title>Mesut Tutsak - Frontend Developer</title>
-                <meta name="description" content="Benim adım Mesut Tutsak, bir Frontend Developer'ım ve bu benim kişisel websitesidir." />
-                <meta name="keywords" content="Mesut Tutsak, Frontend Developer, web developer, websitesi, frontend, HTML, CSS, JavaScript" />
-                <meta name="author" content="Mesut Tutsak" />
+export const viewport: Viewport = {
+  themeColor: siteConfig.themeColor,
+};
 
-                {/* <!-- Favicon --> */}
-                <link rel="icon" href="https://www.mesuttutsak.dev/favicon.ico" sizes="any" />
-                <link rel="apple-touch-icon" sizes="180x180" href="https://www.mesuttutsak.dev/apple-touch-icon.png" />
-                <link rel="icon" type="image/png" sizes="32x32" href="https://www.mesuttutsak.dev/favicon-32x32.png" />
-                <link rel="icon" type="image/png" sizes="16x16" href="https://www.mesuttutsak.dev/favicon-16x16.png" />
-                <link rel="manifest" href="https://www.mesuttutsak.dev/site.webmanifest" />
-            </Head>
-            <body>
-                <MainLayout>
-                    {children}
-                </MainLayout>
-            </body>
-        </html>
-    )
+export default function RootLayout({ children }: { children: ReactNode }) {
+  return (
+    <html lang={siteConfig.language}>
+      <body>
+        <MainLayout>{children}</MainLayout>
+      </body>
+    </html>
+  );
 }

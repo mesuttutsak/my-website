@@ -1,0 +1,11 @@
+.contactPage {
+  @apply flex flex-col gap-6 p-3;
+}
+
+.form {
+  @apply flex flex-col gap-3;
+}
+
+.formRow {
+  @apply flex flex-1 flex-row gap-3;
+}

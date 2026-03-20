@@ -1,0 +1,7 @@
+.homePage {
+  @apply flex flex-col gap-4;
+}
+
+.homePageSurface {
+  @apply flex flex-col gap-6 p-3 rounded-none sm:rounded-[12px];
+}

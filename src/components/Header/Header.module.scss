@@ -1,0 +1,30 @@
+.header {
+  @apply fixed left-1/2 z-50 h-fit w-full max-w-[1280px] -translate-x-1/2;
+}
+
+.headerWrap {
+  @apply left-1/2 flex w-1/2 -translate-x-1/2 flex-row items-center justify-between;
+}
+
+.navList {
+  @apply flex flex-row gap-8;
+}
+
+.navListItem {
+  @apply w-full;
+  color: #aaacbb;
+}
+
+.tooltipParent {
+  @apply relative;
+}
+
+.tooltip {
+  @apply pointer-events-none absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white bg-opacity-50 px-3 py-1 shadow-md opacity-0 duration-300 ease-in select-none;
+}
+
+.tooltipParent:hover {
+  .tooltip {
+    @apply left-1/2 -top-2 -translate-y-full opacity-100;
+  }
+}

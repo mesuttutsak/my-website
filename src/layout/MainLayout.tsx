@@ -1,27 +1,26 @@
 'use client'
-import { ReactNode } from 'react';
-import { Inter } from 'next/font/google';
 
+import { Inter } from "next/font/google";
+import type { ReactNode } from "react";
+
+import FloatingSiteSettings from "@/src/features/site-settings/FloatingPanel";
+import { SiteSettingsProvider } from "@/src/features/site-settings/context";
 import { cn } from "@/src/shared/lib/cn";
 import LightBeam from "@/src/ui/LightBeam";
+import styles from "./MainLayout.module.scss";
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ["latin"] });
 
 const MainLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <>
-        <LightBeam />
-        <div className={cn('mainLayout', inter.className)}>
-            {/* <div className="wrapper"> */}
-                {/* <Header /> */}
-                <main>
-                    {/* <SocialList /> */}
-                    {children}
-                </main>
-            {/* </div> */}
-        </div>
-    </>
-  )
-}
+    <SiteSettingsProvider>
+      <LightBeam />
+      <div className={cn(styles.mainLayout, inter.className)}>
+        <main className={styles.mainContent}>{children}</main>
+      </div>
+      <FloatingSiteSettings />
+    </SiteSettingsProvider>
+  );
+};
 
-export default MainLayout
+export default MainLayout;

@@ -10,10 +10,10 @@ import {
 } from "@/src/server/shared/firestore-collections";
 import { portfolioCollectionNames } from "@/src/server/portfolio/collections";
 
-export async function getEducation(
+export async function getEducations(
   db: Firestore
-): Promise<PortfolioContent["education"]> {
-  const entries = await getCollectionEntries<PortfolioContent["education"]>(
+): Promise<PortfolioContent["educations"]> {
+  const entries = await getCollectionEntries<PortfolioContent["educations"]>(
     db,
     portfolioCollectionNames.educations
   );

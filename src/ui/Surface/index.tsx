@@ -1,7 +1,8 @@
 'use client'
 
-import { SurfaceProps } from "./surface.types";
 import { cn } from "@/src/shared/lib/cn";
+import type { SurfaceProps } from "./surface.types";
+import styles from "./Surface.module.scss";
 
 const Surface = ({
   children,
@@ -16,12 +17,14 @@ const Surface = ({
   return (
     <div
       className={cn(
-        "surface",
-        theme,
-        size && `size_${size}`,
-        inOrder && "inOrder",
-        fit && "fit",
-        select && "selectNone",
+        styles.surface,
+        theme === "dark" && styles.dark,
+        theme && theme !== "dark" && theme,
+        size === "small" && styles.sizeSmall,
+        size && size !== "small" && `size_${size}`,
+        inOrder && styles.inOrder,
+        fit && styles.fit,
+        select && styles.selectNone,
         ...customClassname
       )}
       id={id}
