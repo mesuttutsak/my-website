@@ -3,6 +3,7 @@ import SocialItem from "./Item";
 import { SocialListProps } from "./socialList.types";
 
 import { FaGithub, FaLinkedin } from "react-icons/fa";
+import styles from "./SocialList.module.scss";
 
 const socialIconMap = {
   github: FaGithub,
@@ -11,7 +12,7 @@ const socialIconMap = {
 
 const SocialList = ({ links }: SocialListProps) => {
   return (
-    <div className="socialList">
+    <div className={styles.socialList}>
       {links.map((link, i) => (
         <SocialItem
           key={"s_" + link.platform + i}

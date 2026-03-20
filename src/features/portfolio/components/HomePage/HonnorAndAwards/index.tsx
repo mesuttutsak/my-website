@@ -2,6 +2,7 @@ import type { PortfolioAward } from "@/src/features/portfolio/types";
 import Section, { Headline } from "@/src/ui/Section";
 import Surface from "@/src/ui/Surface";
 import Text from "@/src/ui/Text";
+import styles from "./HonnorAndAwards.module.scss";
 
 interface HonnorAndAwardsSectionProps {
   awards: PortfolioAward[];
@@ -9,7 +10,7 @@ interface HonnorAndAwardsSectionProps {
 
 const HonnorAndAwards = ({ awards }: HonnorAndAwardsSectionProps) => {
   return (
-    <Section draggable id="honnorAndAwards">
+    <Section customClassname={[styles.awards]} draggable id="honnorAndAwards">
       <Headline>
         <Text tag="h3">Awards</Text>
       </Headline>

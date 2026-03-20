@@ -10,6 +10,7 @@ import { LuMove, LuRotateCcw, LuSettings } from "react-icons/lu";
 
 import { useSiteSettings } from "@/src/features/site-settings/context";
 import { useIsMobile } from "@/src/shared/hooks/useIsMobile";
+import styles from "./FloatingPanel.module.scss";
 
 interface TooltipState {
   label: string;
@@ -192,19 +193,19 @@ const FloatingSiteSettings = () => {
   }
 
   return (
-    <div className="siteSettings" ref={panelRef}>
+    <div className={styles.siteSettings} ref={panelRef}>
       <div
         aria-label="Site ayarları"
-        className="siteSettingsDrawer"
+        className={styles.siteSettingsDrawer}
         data-confirming-reset={isConfirmingReset}
         data-open={isOpen}
         role="dialog"
       >
-        <div className="siteSettingsPanel">
+        <div className={styles.siteSettingsPanel}>
           <button
             aria-label="Sürüklemeyi aç veya kapat"
             aria-pressed={isDragEnabled}
-            className="siteSettingsControl"
+            className={styles.siteSettingsControl}
             data-active={isDragEnabled}
             onBlur={hideTooltip}
             onClick={handleToggleDrag}
@@ -213,15 +214,15 @@ const FloatingSiteSettings = () => {
             onMouseLeave={hideTooltip}
             type="button"
           >
-            <LuMove className="siteSettingsControlIcon" size={16} />
-            <span aria-hidden="true" className="siteSettingsStatusDot" />
+            <LuMove className={styles.siteSettingsControlIcon} size={16} />
+            <span aria-hidden="true" className={styles.siteSettingsStatusDot} />
           </button>
 
-          <span aria-hidden="true" className="siteSettingsDivider" />
+          <span aria-hidden="true" className={styles.siteSettingsDivider} />
 
           <button
             aria-label="Ayarları sıfırla"
-            className="siteSettingsIconButton"
+            className={styles.siteSettingsIconButton}
             data-confirming={isConfirmingReset}
             data-resetting={isResetting}
             onBlur={hideTooltip}
@@ -233,7 +234,7 @@ const FloatingSiteSettings = () => {
           >
             <LuRotateCcw size={16} />
             {isConfirmingReset && (
-              <span className="siteSettingsConfirmText">Onayla</span>
+              <span className={styles.siteSettingsConfirmText}>Onayla</span>
             )}
           </button>
         </div>
@@ -243,21 +244,21 @@ const FloatingSiteSettings = () => {
         aria-expanded={isOpen}
         aria-haspopup="dialog"
         aria-label="Site ayarlarını aç"
-        className="siteSettingsTrigger"
+        className={styles.siteSettingsTrigger}
         data-open={isOpen}
         onClick={() => {
           setIsOpen((previousValue) => !previousValue);
         }}
         type="button"
       >
-        <LuSettings className="siteSettingsTriggerIcon" size={22} />
+        <LuSettings className={styles.siteSettingsTriggerIcon} size={22} />
         <span className="sr-only">Ayarlar</span>
       </button>
 
       {tooltip &&
         createPortal(
           <div
-            className="siteSettingsFloatingTooltip"
+            className={styles.siteSettingsFloatingTooltip}
             role="tooltip"
             style={{
               left: tooltip.x,

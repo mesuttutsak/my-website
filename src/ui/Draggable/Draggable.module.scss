@@ -1,0 +1,39 @@
+.draggableElement {
+  @apply relative;
+  will-change: transform;
+
+  &[data-disabled="true"] {
+    .draggableIndicator {
+      cursor: default;
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.92);
+    }
+  }
+
+  &[data-dragging="true"] {
+    @apply z-40 select-none;
+
+    & > * {
+      @apply shadow-lg;
+    }
+
+    .draggableIndicator {
+      @apply text-slate-700 shadow-md;
+      cursor: grabbing;
+      transform: scale(1.05);
+    }
+  }
+}
+
+.draggableIndicator {
+  @apply absolute right-3 top-3 z-10 flex items-center justify-center rounded-full border border-slate-200 bg-white/90 p-2 text-slate-500 shadow-sm;
+  cursor: grab;
+  touch-action: none;
+  opacity: 1;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    color 0.2s ease;
+}

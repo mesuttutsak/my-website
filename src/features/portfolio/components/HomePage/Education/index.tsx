@@ -3,6 +3,7 @@ import { formatDateRange } from "@/src/shared/lib/date";
 import Section, { Headline } from "@/src/ui/Section";
 import Surface from "@/src/ui/Surface";
 import Text from "@/src/ui/Text";
+import styles from "./Education.module.scss";
 
 interface EducationProps {
     educations: EducationContent;
@@ -11,16 +12,16 @@ interface EducationProps {
 const Education = ({ educations }: EducationProps) => {
     const { name, department, grade, startDate, endDate, certificates } = educations;
     return (
-        <Section draggable id="educations" customClassname={['flex flex-col gap-4']}>
+        <Section draggable id="educations" customClassname={[styles.education]}>
             <Headline>
                 <Text tag="h3">Education</Text>
             </Headline>
             <Surface inOrder>
-                <div className="row">
+                <div className={styles.row}>
                     <Text tag="h4">{name}</Text>
                     <Text fontSize="sm">{formatDateRange(startDate, endDate, "year")}</Text>
                 </div>
-                <div className="row">
+                <div className={styles.row}>
                     <Text fontSize="sm">{department} - {grade}</Text>
                 </div>
             </Surface>

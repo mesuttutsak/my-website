@@ -1,5 +1,6 @@
 import { LabelProps } from "./label.types";
 import { cn } from "@/src/shared/lib/cn";
+import textStyles from "@/src/ui/Text/Text.module.scss";
 
 const Label = ({
   children,
@@ -11,7 +12,7 @@ const Label = ({
 }: LabelProps ) => {
   return (
     <label
-      className={cn('text', ...customClassname)}
+      className={cn(textStyles.text, ...customClassname)}
       htmlFor={htmlFor}
       data-fs = {fontSize}
       data-fw = {fontWeight}

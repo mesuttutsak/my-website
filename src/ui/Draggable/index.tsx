@@ -6,6 +6,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useSiteSettings } from "@/src/features/site-settings/context";
 import { getDraggableLayoutStorageKey } from "@/src/features/site-settings/storage";
 import { cn } from "@/src/shared/lib/cn";
+import styles from "./Draggable.module.scss";
 
 interface Position {
   x: number;
@@ -247,7 +248,7 @@ export const DraggableElement = ({
 
   return (
     <div
-      className={cn("draggableElement", ...customClassname)}
+      className={cn(styles.draggableElement, ...customClassname)}
       data-dragging={isDragging}
       data-disabled={isDragDisabled}
       draggable={false}

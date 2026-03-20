@@ -5,6 +5,7 @@ import NavbarItem from "./NavbarItem";
 import { VscAccount } from "react-icons/vsc";
 import { BsStars } from "react-icons/bs";
 import { SiDocsdotrs } from "react-icons/si";
+import styles from "../Header.module.scss";
 
 const Navbar = () => {
   const navList: navListProps[] = [
@@ -14,8 +15,8 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="nav">
-      <ul className="navList">
+    <nav>
+      <ul className={styles.navList}>
         {navList.map(({text, icon, path}, i) => (
           <NavbarItem key={'nav_' + i} text={text} icon={icon} path={path}  />
         ))}

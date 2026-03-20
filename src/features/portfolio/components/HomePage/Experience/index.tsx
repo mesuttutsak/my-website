@@ -3,6 +3,7 @@ import type { ExperienceCatalogs } from "@/src/features/portfolio/catalogs";
 import type { ExperienceItem } from "@/src/features/portfolio/types";
 import Section, { Headline } from "@/src/ui/Section";
 import Text from "@/src/ui/Text";
+import styles from "./Experience.module.scss";
 interface ExperienceSectionProps {
   items: ExperienceItem[];
   catalogs: ExperienceCatalogs;
@@ -10,7 +11,7 @@ interface ExperienceSectionProps {
 
 const Experience = ({ items, catalogs }: ExperienceSectionProps) => {
   return (
-      <Section draggable id="experience">
+      <Section customClassname={[styles.experience]} draggable id="experience">
         <Headline>
           <Text tag="h3">Experience</Text>
         </Headline>

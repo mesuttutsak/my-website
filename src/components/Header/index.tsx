@@ -1,11 +1,12 @@
 import Navbar from "./Navbar";
 
 import Surface from "@/src/ui/Surface";
+import styles from "./Header.module.scss";
 
 const Header = () => {
   return (
-    <header>
-      <Surface customClassname = {['headerWrap']} >
+    <header className={styles.header}>
+      <Surface customClassname = {[styles.headerWrap]} >
  
           <Navbar />
 

@@ -9,6 +9,7 @@ import type { ExperienceItem, ExperiencePeriod } from "@/src/features/portfolio/
 import { formatDateRange } from "@/src/shared/lib/date";
 import Surface from '@/src/ui/Surface';
 import Text from '@/src/ui/Text';
+import styles from "./Experience.module.scss";
 
 const Item = ({
     data,
@@ -19,11 +20,11 @@ const Item = ({
 }) => {
     const { company, website, skills, periods } = data;
     
-    return (
-        <Surface inOrder customClassname={['item']}>
-            <div className='itemContainer'>
-                <div className="itemWrap">
-                    <div className='heading'>
+  return (
+        <Surface inOrder customClassname={[styles.item]}>
+            <div className={styles.itemContainer}>
+                <div className={styles.itemWrap}>
+                    <div className={styles.heading}>
                         <div className='sm:inline-block'>
                             <Text tag="h4" customClassname={['sm:inline-block']} >
                                 <Link href={website} target='_blank' >{company}</Link>
@@ -45,7 +46,7 @@ const Item = ({
 
             {
                 periods.length > 1 && (
-                    <ul className='periods'>
+                    <ul className={styles.periods}>
                     {periods.map(
                         ({
                             title,

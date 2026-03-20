@@ -3,6 +3,7 @@ import { ImSpinner8 } from "react-icons/im";
 
 import { cn } from "@/src/shared/lib/cn";
 import type { ButtonProps } from "./button.types";
+import styles from "./Button.module.scss";
 
 const Button = ({
   children,
@@ -26,7 +27,7 @@ const Button = ({
 
   return (
     <button
-      className={cn("button", ...className)}
+      className={cn(styles.button, ...className)}
       type={type}
       data-theme={accrType(type)?.theme}
       data-size={accrType(type)?.size}
@@ -36,7 +37,7 @@ const Button = ({
       {children}
 
       {isLoading && (
-        <div className="loading">
+        <div className={styles.loading}>
           <ImSpinner8 size="20" color={theme === "light" ? "black" : "white" } />
         </div>
       )}

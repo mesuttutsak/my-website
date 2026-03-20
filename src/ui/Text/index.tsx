@@ -1,6 +1,7 @@
 import type { TextProps } from "./text.types";
 
 import { cn } from "@/src/shared/lib/cn";
+import styles from "./Text.module.scss";
 
 const Text = ({
   children,
@@ -14,7 +15,7 @@ const Text = ({
 
   return (
     <Tag
-      className={cn("text", ...customClassname)}
+      className={cn(styles.text, ...customClassname)}
       data-fs={fontSize}
       data-fw={fontWeight}
       data-c={color}

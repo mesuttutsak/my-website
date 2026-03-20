@@ -1,0 +1,43 @@
+.experience {
+  @apply flex flex-col gap-4;
+}
+
+.row {
+  @apply flex flex-row flex-wrap justify-between;
+}
+
+.item {
+  @apply flex flex-col;
+}
+
+.itemContainer {
+  @apply z-[2] flex flex-row;
+}
+
+.itemWrap {
+  @apply flex-auto;
+}
+
+.heading {
+  @apply flex flex-wrap justify-between gap-x-3;
+}
+
+.periods {
+  @apply relative mt-2 flex flex-col gap-3;
+
+  li {
+    @apply relative ml-3 flex flex-wrap items-center justify-between pl-4;
+
+    &::before {
+      @apply absolute left-0 top-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-slate-300;
+      content: "";
+    }
+
+    & + li {
+      &::after {
+        @apply absolute left-0 top-[6px] h-6 -translate-x-1/2 -translate-y-full border border-gray-300;
+        content: "";
+      }
+    }
+  }
+}

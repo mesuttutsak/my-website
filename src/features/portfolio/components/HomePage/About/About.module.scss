@@ -1,0 +1,31 @@
+.about {
+  @apply flex flex-col gap-10;
+}
+
+.content {
+  @apply flex items-center gap-5 flex-col-reverse sm:flex-row;
+}
+
+.left {
+  @apply flex w-auto flex-auto flex-col justify-center gap-6 text-center sm:text-start;
+}
+
+.bottom {
+  @apply flex flex-wrap justify-center gap-6 sm:justify-between;
+}
+
+.contact {
+  @apply flex flex-row gap-3;
+}
+
+.right {
+  @apply flex items-center;
+}
+
+.img {
+  @apply min-w-[190px] overflow-hidden rounded-full bg-white p-0 shadow-xl;
+
+  img {
+    @apply translate-y-1;
+  }
+}

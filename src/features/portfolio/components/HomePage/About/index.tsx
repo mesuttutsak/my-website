@@ -3,9 +3,12 @@ import Link from "next/link";
 
 import type { AboutContent, SocialLink } from "@/src/features/portfolio/types";
 import SocialList from "../../SocialList";
+import { cn } from "@/src/shared/lib/cn";
 import CopiedButton from "@/src/ui/Button/CopiedButton";
 import Section from "@/src/ui/Section";
 import Text from "@/src/ui/Text";
+import buttonStyles from "@/src/ui/Button/Button.module.scss";
+import styles from "./About.module.scss";
 
 interface AboutProps {
   about: AboutContent;
@@ -15,9 +18,9 @@ interface AboutProps {
 const About = ({ about, socialLinks }: AboutProps) => {
   const aboutElement = (
     <>
-      <div className="content">
-        <div className="left">
-          <div className="top">
+      <div className={styles.content}>
+        <div className={styles.left}>
+          <div>
             <Text tag="h1">
               {about.name}
             </Text>
@@ -27,27 +30,30 @@ const About = ({ about, socialLinks }: AboutProps) => {
             </Text>
           </div>
 
-          <div className="middle">
+          <div>
             <Text>
               I&apos;m based in {about.location}. {about.summary}
             </Text>
           </div>
 
-          <div className="bottom">
+          <div className={styles.bottom}>
             <SocialList links={socialLinks} />
 
-            <div className="contact">
+            <div className={styles.contact}>
               <CopiedButton textToCopy={about.email} />
 
-              <Link className="button dark" href={about.contactHref}>
+              <Link
+                className={cn(buttonStyles.button, buttonStyles.dark)}
+                href={about.contactHref}
+              >
                   Contact Me
               </Link>
             </div>
           </div>
         </div>
 
-        <div className="right">
-          <div className="img">
+        <div className={styles.right}>
+          <div className={styles.img}>
             <Image
               src={about.profileImageSrc}
               width={190}
@@ -63,7 +69,7 @@ const About = ({ about, socialLinks }: AboutProps) => {
 
   return (
     <>
-      <Section draggable id="about" theme="light">{aboutElement}</Section>
+      <Section customClassname={[styles.about]} draggable id="about" theme="light">{aboutElement}</Section>
     </>
   );
 };

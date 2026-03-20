@@ -1,0 +1,40 @@
+.button {
+  @apply relative top-0 flex flex-row items-center justify-center gap-2 overflow-hidden whitespace-nowrap rounded-lg border px-3 py-2 text-xs font-semibold leading-none tracking-tight shadow transition sm:text-sm;
+  background-color: #fff;
+  border-color: #ebeef3;
+  color: #0d0d12;
+
+  &[data-size="large"],
+  &[type="submit"] {
+    @apply px-4 py-3;
+  }
+
+  &[data-size="small"] {
+    @apply px-2 py-1;
+  }
+
+  &[data-theme="dark"],
+  &.dark {
+    @apply bg-black text-white;
+
+    .loading {
+      @apply bg-black text-white;
+    }
+  }
+
+  &:not(:disabled):active {
+    @apply top-1 shadow-sm;
+  }
+}
+
+.dark {
+  @apply bg-black text-white;
+}
+
+.loading {
+  @apply absolute left-1/2 top-1/2 z-10 flex h-full w-full -translate-x-1/2 -translate-y-1/2 items-center justify-center bg-white;
+
+  svg {
+    @apply animate-spin;
+  }
+}
