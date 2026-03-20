@@ -6,7 +6,7 @@ import type {
 } from "react";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { LuMove, LuRotateCcw, LuSettings2 } from "react-icons/lu";
+import { LuMove, LuRotateCcw, LuSettings } from "react-icons/lu";
 
 import { useSiteSettings } from "@/src/features/site-settings/context";
 import { useIsMobile } from "@/src/shared/hooks/useIsMobile";
@@ -250,7 +250,7 @@ const FloatingSiteSettings = () => {
         }}
         type="button"
       >
-        <LuSettings2 className="siteSettingsTriggerIcon" size={22} />
+        <LuSettings className="siteSettingsTriggerIcon" size={22} />
         <span className="sr-only">Ayarlar</span>
       </button>
 
