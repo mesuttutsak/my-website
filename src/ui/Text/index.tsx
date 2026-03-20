@@ -1,22 +1,23 @@
-import { TextProps } from "./text.types";
+import type { TextProps } from "./text.types";
+
 import { cn } from "@/src/shared/lib/cn";
 
 const Text = ({
   children,
-  textAlign = "start",
-  tag = "",
+  tag,
   customClassname = [],
   fontSize = "",
   fontWeight = "",
   color = "",
-}: TextProps ) => {
-    const Tag : any = tag ? tag : 'p';
+}: TextProps) => {
+  const Tag = tag ?? "p";
+
   return (
     <Tag
-      className={cn('text', ...customClassname)}
-      data-fs = {fontSize}
-      data-fw = {fontWeight}
-      data-c = {color}
+      className={cn("text", ...customClassname)}
+      data-fs={fontSize}
+      data-fw={fontWeight}
+      data-c={color}
     >
       {children}
     </Tag>

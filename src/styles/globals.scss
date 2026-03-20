@@ -28,10 +28,6 @@ main {
   @apply xl:w-1/2 w-full h-fit mx-auto;
 }
 
-.wrapper {
-  @apply flex justify-between flex-row;
-}
-
 header {
   @apply fixed z-50 w-full max-w-[1280px] h-fit left-1/2 -translate-x-1/2;
 
@@ -300,29 +296,42 @@ section {
     }
   }
 
-  &#info {
-    @apply flex flex-row gap-3;
-
-    .img {
-      @apply rounded-full overflow-hidden shadow-lg inline-block;
-    }
-
-    .content {
-      @apply flex flex-col gap-1 justify-between;
-    }
-  }
-
   &#contactPage {
     @apply flex flex-col gap-6 p-3;
   }
 }
 
 .draggableElement {
-  &.draggable {
+  @apply relative;
+  will-change: transform;
+
+  .draggableIndicator {
+    @apply absolute right-3 top-3 z-10 flex items-center justify-center rounded-full border border-slate-200 bg-white/90 p-2 text-slate-500 shadow-sm;
+    cursor: grab;
+    touch-action: none;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease,
+      color 0.2s ease;
+  }
+
+  &[data-disabled="true"] {
+    .draggableIndicator {
+      cursor: default;
+    }
+  }
+
+  &[data-dragging="true"] {
     @apply z-40 select-none;
 
     & > * {
-      @apply transition-all shadow-lg;
+      @apply shadow-lg;
+    }
+
+    .draggableIndicator {
+      @apply text-slate-700 shadow-md;
+      cursor: grabbing;
+      transform: scale(1.05);
     }
   }
 }
