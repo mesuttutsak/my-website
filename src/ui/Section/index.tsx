@@ -24,7 +24,7 @@ const Section = ({
 
   if (draggable) {
     return (
-      <DraggableElement>
+      <DraggableElement storageKey={id}>
         <span
           aria-hidden="true"
           className="draggableIndicator"

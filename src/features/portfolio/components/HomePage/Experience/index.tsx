@@ -10,7 +10,7 @@ interface ExperienceSectionProps {
 
 const Experience = ({ items, catalogs }: ExperienceSectionProps) => {
   return (
-      <Section id="experience">
+      <Section draggable id="experience">
         <Headline>
           <Text tag="h3">Experience</Text>
         </Headline>

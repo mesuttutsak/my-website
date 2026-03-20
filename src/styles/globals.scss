@@ -309,7 +309,9 @@ section {
     @apply absolute right-3 top-3 z-10 flex items-center justify-center rounded-full border border-slate-200 bg-white/90 p-2 text-slate-500 shadow-sm;
     cursor: grab;
     touch-action: none;
+    opacity: 1;
     transition:
+      opacity 0.2s ease,
       transform 0.2s ease,
       box-shadow 0.2s ease,
       color 0.2s ease;
@@ -318,6 +320,9 @@ section {
   &[data-disabled="true"] {
     .draggableIndicator {
       cursor: default;
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.92);
     }
   }
 
@@ -333,6 +338,155 @@ section {
       cursor: grabbing;
       transform: scale(1.05);
     }
+  }
+}
+
+.siteSettings {
+  @apply fixed bottom-8 right-8 z-50;
+}
+
+.siteSettingsDrawer {
+  @apply absolute;
+  opacity: 0;
+  pointer-events: none;
+  right: calc(100% + 0.75rem);
+  top: 50%;
+  transform: translateY(-50%) translateX(20px) scale(0.96);
+  transform-origin: right center;
+  transition:
+    opacity 0.24s ease,
+    transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  &[data-open="true"] {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(-50%) translateX(0) scale(1);
+  }
+}
+
+.siteSettingsPanel {
+  @apply flex h-12 items-center gap-1 rounded-2xl px-2;
+  width: 6.5rem;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 10px 40px -10px rgba(15, 23, 42, 0.14);
+  transition: width 0.24s ease;
+}
+
+.siteSettingsDrawer[data-confirming-reset="true"] {
+  .siteSettingsPanel {
+    width: 9.5rem;
+  }
+}
+
+.siteSettingsControl {
+  @apply relative flex h-9 w-9 items-center justify-center rounded-[10px] text-slate-500 transition-colors;
+
+  &:hover {
+    background-color: rgba(15, 23, 42, 0.04);
+    color: #1e293b;
+  }
+
+  &[data-active="true"] {
+    background-color: rgba(59, 130, 246, 0.1);
+    color: #2563eb;
+
+    .siteSettingsControlIcon {
+      color: #2563eb;
+    }
+
+    .siteSettingsStatusDot {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
+
+.siteSettingsControlIcon {
+  @apply text-slate-400 transition-colors;
+}
+
+.siteSettingsStatusDot {
+  @apply absolute right-[7px] top-[7px] h-[6px] w-[6px] rounded-full bg-blue-500;
+  opacity: 0;
+  transform: scale(0.7);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.siteSettingsDivider {
+  @apply mx-1 h-5 w-px bg-slate-200;
+}
+
+.siteSettingsIconButton {
+  @apply flex h-9 items-center justify-center gap-2 rounded-[10px] px-2 text-slate-500 transition-colors;
+  min-width: 2.25rem;
+
+  &:hover {
+    background-color: rgba(15, 23, 42, 0.04);
+    color: #1e293b;
+  }
+
+  &[data-confirming="true"] {
+    background-color: rgba(239, 68, 68, 0.08);
+    color: #dc2626;
+  }
+
+  &[data-resetting="true"] {
+    svg {
+      animation: siteSettingsSpinBack 0.5s ease;
+    }
+  }
+}
+
+.siteSettingsConfirmText {
+  @apply text-xs font-semibold tracking-tight;
+}
+
+.siteSettingsTrigger {
+  @apply flex h-14 w-14 items-center justify-center rounded-2xl border border-slate-100 bg-white text-slate-600 shadow-lg transition-all duration-300;
+
+  &:hover {
+    @apply text-blue-600 shadow-xl;
+  }
+
+  &[data-open="true"] {
+    @apply border-blue-100 bg-blue-50 text-blue-600 shadow-xl;
+  }
+}
+
+.siteSettingsTriggerIcon {
+  transition: transform 0.5s ease;
+}
+
+.siteSettingsTrigger[data-open="true"] {
+  .siteSettingsTriggerIcon {
+    transform: rotate(90deg);
+  }
+}
+
+.siteSettingsFloatingTooltip {
+  @apply pointer-events-none fixed z-[70] whitespace-nowrap rounded-md bg-slate-800 px-2.5 py-1 text-[11px] font-medium text-white;
+  transform: translate(-50%, -100%);
+  box-shadow: 0 10px 24px -12px rgba(15, 23, 42, 0.45);
+}
+
+@keyframes siteSettingsSpinBack {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@media (max-width: 640px) {
+  .siteSettings {
+    @apply bottom-4 right-4 gap-2;
   }
 }
 

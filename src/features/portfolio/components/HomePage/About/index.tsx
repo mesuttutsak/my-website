@@ -63,7 +63,7 @@ const About = ({ about, socialLinks }: AboutProps) => {
 
   return (
     <>
-      <Section id="about" theme="light" >{aboutElement}</Section>
+      <Section draggable id="about" theme="light">{aboutElement}</Section>
     </>
   );
 };

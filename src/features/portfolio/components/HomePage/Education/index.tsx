@@ -11,7 +11,7 @@ interface EducationProps {
 const Education = ({ educations }: EducationProps) => {
     const { name, department, grade, startDate, endDate, certificates } = educations;
     return (
-        <Section id="educations" customClassname={['flex flex-col gap-4']}>
+        <Section draggable id="educations" customClassname={['flex flex-col gap-4']}>
             <Headline>
                 <Text tag="h3">Education</Text>
             </Headline>

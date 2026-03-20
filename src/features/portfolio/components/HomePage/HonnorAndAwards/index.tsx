@@ -9,7 +9,7 @@ interface HonnorAndAwardsSectionProps {
 
 const HonnorAndAwards = ({ awards }: HonnorAndAwardsSectionProps) => {
   return (
-    <Section id="honnorAndAwards" >
+    <Section draggable id="honnorAndAwards">
       <Headline>
         <Text tag="h3">Awards</Text>
       </Headline>
