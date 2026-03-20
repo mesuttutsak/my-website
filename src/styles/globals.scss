@@ -124,11 +124,29 @@ header {
 }
 
 .lightBeam {
+  --light-beam-x: 50vw;
+  --light-beam-y: 50vh;
   @apply opacity-0 fixed left-0 top-0 w-screen h-screen inset-0 pointer-events-none z-[-1];
-  transition: all .75s ease-in-out;
+  background: radial-gradient(
+    100vw at var(--light-beam-x) var(--light-beam-y),
+    rgba(241, 245, 249, 1),
+    transparent 50%
+  );
+  transition: opacity 0.45s ease-in-out;
+  will-change: opacity;
 
-  &.show {
+  &[data-visible="true"] {
     @apply opacity-100;
+  }
+
+  &[data-enabled="false"] {
+    display: none;
+  }
+}
+
+@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .lightBeam {
+    display: none;
   }
 }
 
