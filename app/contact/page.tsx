@@ -43,10 +43,10 @@ const Contact = () => {
     toast.promise(
       postMessage,
       {
-        loading: "Mesaj gonderiliyor...",
-        success: "Mesajin gonderildi.",
+        loading: "Sending message...",
+        success: "Message sent.",
         error: (error) =>
-          error instanceof Error ? error.message : "Mesaj gonderilemedi.",
+          error instanceof Error ? error.message : "Failed to send the message.",
       },
       {
         duration: 1000,
@@ -59,17 +59,17 @@ const Contact = () => {
 
   return (
         <Surface>
-          <Section customClassname={[styles.contactPage]} theme="light" id="contactPage">
+          <Section customClassname={[styles.contactPage]} id="contactPage" variant="flat">
             <div className="mb-5">
               <Link href={"/"}>
                 <BiChevronLeftCircle size={24} />
               </Link>
 
               <Text tag="h1" customClassname={["mt-4"]}>
-                Let&apos;s contact
+                Let&apos;s get in touch
               </Text>
 
-              <Text> if you want to know your ideas or my ideas</Text>
+              <Text>If you&apos;d like to talk about your ideas or hear mine.</Text>
             </div>
 
             <Formik
@@ -108,10 +108,11 @@ const Contact = () => {
                   <Button
                     type="submit"
                     size="large"
+                    className={["w-full"]}
                     isLoading={isLoading}
                     isDisabled={isLoading}
                   >
-                    Gönder
+                    Send
                   </Button>
                 </Form>
               )}

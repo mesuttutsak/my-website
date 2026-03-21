@@ -88,10 +88,10 @@
     }
   
     &[data-c="dark"] {
-      color: vars.$color_primary;
+      color: var(--color-text-primary, #{vars.$color_primary});
     }
     &[data-c="lightdark"] {
-      color: vars.$color_secondary;
+      color: var(--color-text-secondary, #{vars.$color_secondary});
     }
 
     &[data-lh="3"] {

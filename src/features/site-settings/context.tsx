@@ -2,7 +2,6 @@
 
 import {
   createContext,
-  useContext,
   useEffect,
   useMemo,
   useState,
@@ -10,135 +9,155 @@ import {
 import type { ReactNode } from "react";
 
 import {
-  draggableLayoutStoragePrefix,
-  legacySiteSettingsStorageKeys,
-  siteSettingsStorageKey,
-} from "@/src/features/site-settings/storage";
+  applyResolvedTheme,
+  defaultThemeMode,
+  getSystemTheme,
+  resolveThemeMode,
+  type ResolvedTheme,
+  type ThemeMode,
+} from "@/src/features/site-settings/theme";
 
-interface StoredSiteSettings {
+interface SiteSettingsState {
   isDragEnabled: boolean;
+  selectedThemeMode: ThemeMode;
 }
 
-interface SiteSettingsContextValue {
+export interface SiteThemeContextValue {
+  systemTheme: ResolvedTheme;
+  selectedThemeMode: ThemeMode;
+  theme: ResolvedTheme;
+  setSelectedThemeMode: (nextValue: ThemeMode) => void;
+}
+
+export interface SiteDragContextValue {
   isDragEnabled: boolean;
   setDragEnabled: (nextValue: boolean) => void;
   toggleDragEnabled: () => void;
-  resetLayout: () => void;
   layoutResetVersion: number;
 }
 
-const defaultSiteSettings: StoredSiteSettings = {
+export interface SiteSettingsActionsContextValue {
+  resetSiteSettings: () => void;
+  resetLayoutOnly: () => void;
+}
+export interface SiteSettingsContextValue
+  extends SiteThemeContextValue,
+    SiteDragContextValue,
+    SiteSettingsActionsContextValue {}
+
+const defaultSiteSettings: SiteSettingsState = {
   isDragEnabled: false,
+  selectedThemeMode: defaultThemeMode,
 };
 
-const SiteSettingsContext = createContext<SiteSettingsContextValue | null>(null);
-
-function readStoredSiteSettings(): StoredSiteSettings {
-  if (typeof window === "undefined") {
-    return defaultSiteSettings;
-  }
-
-  try {
-    const rawValue = window.localStorage.getItem(siteSettingsStorageKey);
-
-    if (!rawValue) {
-      return defaultSiteSettings;
-    }
-
-    const parsedValue = JSON.parse(rawValue) as Partial<StoredSiteSettings>;
-
-    return {
-      isDragEnabled:
-        typeof parsedValue.isDragEnabled === "boolean"
-          ? parsedValue.isDragEnabled
-          : defaultSiteSettings.isDragEnabled,
-    };
-  } catch {
-    return defaultSiteSettings;
-  }
-}
-
-function clearStoredLayoutPositions() {
-  if (typeof window === "undefined") {
-    return;
-  }
-
-  const keysToDelete: string[] = [];
-
-  for (let index = 0; index < window.localStorage.length; index += 1) {
-    const key = window.localStorage.key(index);
-
-    if (key?.startsWith(draggableLayoutStoragePrefix)) {
-      keysToDelete.push(key);
-    }
-  }
-
-  keysToDelete.forEach((key) => {
-    window.localStorage.removeItem(key);
-  });
-}
-
-function clearLegacySiteSettings() {
-  if (typeof window === "undefined") {
-    return;
-  }
-
-  legacySiteSettingsStorageKeys.forEach((key) => {
-    window.localStorage.removeItem(key);
-  });
-}
+export const SiteThemeContext = createContext<SiteThemeContextValue | null>(null);
+export const SiteDragContext = createContext<SiteDragContextValue | null>(null);
+export const SiteSettingsActionsContext =
+  createContext<SiteSettingsActionsContextValue | null>(null);
 
 export const SiteSettingsProvider = ({
   children,
 }: {
   children: ReactNode;
 }) => {
-  const [isDragEnabled, setDragEnabled] = useState(
-    () => readStoredSiteSettings().isDragEnabled
-  );
+  const [siteSettings, setSiteSettings] = useState(() => ({
+    ...defaultSiteSettings,
+  }));
+  const [systemTheme, setSystemTheme] = useState<ResolvedTheme>(getSystemTheme);
   const [layoutResetVersion, setLayoutResetVersion] = useState(0);
+  const { isDragEnabled, selectedThemeMode } = siteSettings;
+  const theme = resolveThemeMode(selectedThemeMode, systemTheme);
 
   useEffect(() => {
-    clearLegacySiteSettings();
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const syncSystemTheme = (event?: MediaQueryListEvent) => {
+      setSystemTheme((event?.matches ?? mediaQuery.matches) ? "dark" : "light");
+    };
+
+    syncSystemTheme();
+
+    if (typeof mediaQuery.addEventListener === "function") {
+      mediaQuery.addEventListener("change", syncSystemTheme);
+
+      return () => {
+        mediaQuery.removeEventListener("change", syncSystemTheme);
+      };
+    }
+
+    mediaQuery.addListener(syncSystemTheme);
+
+    return () => {
+      mediaQuery.removeListener(syncSystemTheme);
+    };
   }, []);
 
   useEffect(() => {
-    window.localStorage.setItem(
-      siteSettingsStorageKey,
-      JSON.stringify({ isDragEnabled })
-    );
-  }, [isDragEnabled]);
+    applyResolvedTheme(theme);
+  }, [theme]);
 
-  const value = useMemo<SiteSettingsContextValue>(
+  const themeValue = useMemo<SiteThemeContextValue>(
+    () => ({
+      systemTheme,
+      selectedThemeMode,
+      theme,
+      setSelectedThemeMode: (nextValue) => {
+        setSiteSettings((previousValue) => ({
+          ...previousValue,
+          selectedThemeMode: nextValue,
+        }));
+      },
+    }),
+    [selectedThemeMode, systemTheme, theme]
+  );
+
+  const dragValue = useMemo<SiteDragContextValue>(
     () => ({
       isDragEnabled,
-      setDragEnabled,
-      toggleDragEnabled: () => {
-        setDragEnabled((previousValue) => !previousValue);
+      setDragEnabled: (nextValue) => {
+        setSiteSettings((previousValue) => ({
+          ...previousValue,
+          isDragEnabled: nextValue,
+        }));
       },
-      resetLayout: () => {
-        clearStoredLayoutPositions();
-        setDragEnabled(defaultSiteSettings.isDragEnabled);
-        setLayoutResetVersion((previousValue) => previousValue + 1);
+      toggleDragEnabled: () => {
+        setSiteSettings((previousValue) => ({
+          ...previousValue,
+          isDragEnabled: !previousValue.isDragEnabled,
+        }));
       },
       layoutResetVersion,
     }),
     [isDragEnabled, layoutResetVersion]
   );
 
+  const actionsValue = useMemo<SiteSettingsActionsContextValue>(
+    () => ({
+      resetSiteSettings: () => {
+        setSiteSettings({ ...defaultSiteSettings });
+        setLayoutResetVersion((previousValue) => previousValue + 1);
+      },
+      resetLayoutOnly: () => {
+        setSiteSettings((previousValue) => ({
+          ...previousValue,
+          isDragEnabled: defaultSiteSettings.isDragEnabled,
+        }));
+        setLayoutResetVersion((previousValue) => previousValue + 1);
+      },
+    }),
+    []
+  );
+
   return (
-    <SiteSettingsContext.Provider value={value}>
-      {children}
-    </SiteSettingsContext.Provider>
+    <SiteThemeContext.Provider value={themeValue}>
+      <SiteDragContext.Provider value={dragValue}>
+        <SiteSettingsActionsContext.Provider value={actionsValue}>
+          {children}
+        </SiteSettingsActionsContext.Provider>
+      </SiteDragContext.Provider>
+    </SiteThemeContext.Provider>
   );
 };
-
-export function useSiteSettings() {
-  const context = useContext(SiteSettingsContext);
-
-  if (!context) {
-    throw new Error("useSiteSettings must be used within SiteSettingsProvider.");
-  }
-
-  return context;
-}

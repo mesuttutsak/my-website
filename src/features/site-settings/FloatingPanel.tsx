@@ -1,34 +1,69 @@
 'use client'
 
-import type {
-  FocusEvent as ReactFocusEvent,
-  MouseEvent as ReactMouseEvent,
-} from "react";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { LuMove, LuRotateCcw, LuSettings } from "react-icons/lu";
+import {
+  LuMonitor,
+  LuMoon,
+  LuMove,
+  LuRotateCcw,
+  LuSettings,
+  LuSun,
+} from "react-icons/lu";
 
-import { useSiteSettings } from "@/src/features/site-settings/context";
+import type { ThemeMode } from "@/src/features/site-settings/theme";
+import { useFloatingTooltip } from "@/src/features/site-settings/useFloatingTooltip";
+import { useDragSettings } from "@/src/shared/hooks/useDragSettings";
 import { useIsMobile } from "@/src/shared/hooks/useIsMobile";
+import { useSiteSettingsActions } from "@/src/shared/hooks/useSiteSettingsActions";
+import { useTheme } from "@/src/shared/hooks/useTheme";
+import { useResetConfirmation } from "./useResetConfirmation";
 import styles from "./FloatingPanel.module.scss";
 
-interface TooltipState {
+const themeOptions: Array<{
   label: string;
-  x: number;
-  y: number;
-}
+  mode: ThemeMode;
+  Icon: typeof LuSun;
+}> = [
+  {
+    label: "System theme",
+    mode: "system",
+    Icon: LuMonitor,
+  },
+  {
+    label: "Light theme",
+    mode: "light",
+    Icon: LuSun,
+  },
+  {
+    label: "Dark theme",
+    mode: "dark",
+    Icon: LuMoon,
+  },
+];
 
 const FloatingSiteSettings = () => {
   const panelRef = useRef<HTMLDivElement | null>(null);
   const hasResetForMobileRef = useRef(false);
-  const resetTimeoutRef = useRef<number | null>(null);
-  const resetConfirmTimeoutRef = useRef<number | null>(null);
   const [isOpen, setIsOpen] = useState(false);
-  const [isConfirmingReset, setIsConfirmingReset] = useState(false);
-  const [isResetting, setIsResetting] = useState(false);
-  const [tooltip, setTooltip] = useState<TooltipState | null>(null);
   const isMobile = useIsMobile();
-  const { isDragEnabled, toggleDragEnabled, resetLayout } = useSiteSettings();
+  const { createTooltipFocusHandler, createTooltipMouseEnterHandler, hideTooltip, tooltip } =
+    useFloatingTooltip();
+  const { isDragEnabled, toggleDragEnabled } = useDragSettings();
+  const { resetLayoutOnly, resetSiteSettings } = useSiteSettingsActions();
+  const {
+    selectedThemeMode,
+    setSelectedThemeMode,
+  } = useTheme();
+  const {
+    cancelResetConfirmation,
+    handleReset,
+    isConfirmingReset,
+    isResetting,
+    resetResetState,
+  } = useResetConfirmation({
+    onConfirm: resetSiteSettings,
+  });
 
   useEffect(() => {
     if (!isOpen) {
@@ -61,28 +96,11 @@ const FloatingSiteSettings = () => {
   }, [isOpen]);
 
   useEffect(() => {
-    return () => {
-      if (resetTimeoutRef.current !== null) {
-        window.clearTimeout(resetTimeoutRef.current);
-      }
-
-      if (resetConfirmTimeoutRef.current !== null) {
-        window.clearTimeout(resetConfirmTimeoutRef.current);
-      }
-    };
-  }, []);
-
-  useEffect(() => {
     if (!isOpen) {
-      setTooltip(null);
-      setIsConfirmingReset(false);
-
-      if (resetConfirmTimeoutRef.current !== null) {
-        window.clearTimeout(resetConfirmTimeoutRef.current);
-        resetConfirmTimeoutRef.current = null;
-      }
+      hideTooltip();
+      cancelResetConfirmation();
     }
-  }, [isOpen]);
+  }, [cancelResetConfirmation, hideTooltip, isOpen]);
 
   useEffect(() => {
     if (!isMobile) {
@@ -91,102 +109,31 @@ const FloatingSiteSettings = () => {
     }
 
     setIsOpen(false);
-    setTooltip(null);
-    setIsConfirmingReset(false);
-    setIsResetting(false);
-
-    if (resetConfirmTimeoutRef.current !== null) {
-      window.clearTimeout(resetConfirmTimeoutRef.current);
-      resetConfirmTimeoutRef.current = null;
-    }
-
-    if (resetTimeoutRef.current !== null) {
-      window.clearTimeout(resetTimeoutRef.current);
-      resetTimeoutRef.current = null;
-    }
+    hideTooltip();
+    resetResetState();
 
     if (!hasResetForMobileRef.current) {
-      resetLayout();
+      resetLayoutOnly();
       hasResetForMobileRef.current = true;
     }
-  }, [isMobile, resetLayout]);
+  }, [hideTooltip, isMobile, resetLayoutOnly, resetResetState]);
 
   const handleToggleDrag = () => {
     toggleDragEnabled();
-    setTooltip(null);
+    hideTooltip();
   };
 
-  const handleReset = () => {
-    if (!isConfirmingReset) {
-      setIsConfirmingReset(true);
-      setTooltip(null);
-
-      if (resetConfirmTimeoutRef.current !== null) {
-        window.clearTimeout(resetConfirmTimeoutRef.current);
-      }
-
-      resetConfirmTimeoutRef.current = window.setTimeout(() => {
-        setIsConfirmingReset(false);
-        resetConfirmTimeoutRef.current = null;
-      }, 2400);
-
-      return;
-    }
-
-    setIsConfirmingReset(false);
-    resetLayout();
-    setIsResetting(true);
-    setTooltip(null);
-
-    if (resetConfirmTimeoutRef.current !== null) {
-      window.clearTimeout(resetConfirmTimeoutRef.current);
-      resetConfirmTimeoutRef.current = null;
-    }
-
-    if (resetTimeoutRef.current !== null) {
-      window.clearTimeout(resetTimeoutRef.current);
-    }
-
-    resetTimeoutRef.current = window.setTimeout(() => {
-      setIsResetting(false);
-      resetTimeoutRef.current = null;
-    }, 450);
-  };
-
-  const showTooltip = (label: string, element: HTMLElement) => {
-    const rect = element.getBoundingClientRect();
-
-    setTooltip({
-      label,
-      x: rect.left + rect.width / 2,
-      y: rect.top - 12,
-    });
-  };
-
-  const createTooltipMouseEnterHandler =
-    (label: string) => (event: ReactMouseEvent<HTMLElement>) => {
-      showTooltip(label, event.currentTarget);
-    };
-
-  const createTooltipFocusHandler =
-    (label: string) => (event: ReactFocusEvent<HTMLElement>) => {
-      if (!event.currentTarget.matches(":focus-visible")) {
-        return;
-      }
-
-      showTooltip(label, event.currentTarget);
-    };
-
-  const hideTooltip = () => {
-    setTooltip(null);
+  const handleThemeChange = (nextThemeMode: ThemeMode) => {
+    setSelectedThemeMode(nextThemeMode);
+    hideTooltip();
   };
 
   const dragTooltipLabel = isDragEnabled
-    ? "Sürüklemeyi kapat"
-    : "Sürüklemeyi aç";
+    ? "Disable dragging"
+    : "Enable dragging";
   const resetTooltipLabel = isConfirmingReset
-    ? "Tekrar tıkla: sıfırla"
-    : "Ayarları sıfırla";
+    ? "Click again to reset"
+    : "Reset settings";
 
   if (isMobile) {
     return null;
@@ -195,15 +142,39 @@ const FloatingSiteSettings = () => {
   return (
     <div className={styles.siteSettings} ref={panelRef}>
       <div
-        aria-label="Site ayarları"
+        aria-label="Site settings"
         className={styles.siteSettingsDrawer}
         data-confirming-reset={isConfirmingReset}
         data-open={isOpen}
         role="dialog"
       >
         <div className={styles.siteSettingsPanel}>
+          <div aria-label="Theme mode" className={styles.siteSettingsThemeGroup} role="group">
+            {themeOptions.map(({ Icon, label, mode }) => (
+              <button
+                key={mode}
+                aria-label={label}
+                aria-pressed={selectedThemeMode === mode}
+                className={styles.siteSettingsThemeButton}
+                data-active={selectedThemeMode === mode}
+                onBlur={hideTooltip}
+                onClick={() => {
+                  handleThemeChange(mode);
+                }}
+                onFocus={createTooltipFocusHandler(label)}
+                onMouseEnter={createTooltipMouseEnterHandler(label)}
+                onMouseLeave={hideTooltip}
+                type="button"
+              >
+                <Icon size={15} />
+              </button>
+            ))}
+          </div>
+
+          <span aria-hidden="true" className={styles.siteSettingsDivider} />
+
           <button
-            aria-label="Sürüklemeyi aç veya kapat"
+            aria-label="Toggle dragging"
             aria-pressed={isDragEnabled}
             className={styles.siteSettingsControl}
             data-active={isDragEnabled}
@@ -221,12 +192,15 @@ const FloatingSiteSettings = () => {
           <span aria-hidden="true" className={styles.siteSettingsDivider} />
 
           <button
-            aria-label="Ayarları sıfırla"
+            aria-label="Reset settings"
             className={styles.siteSettingsIconButton}
             data-confirming={isConfirmingReset}
             data-resetting={isResetting}
             onBlur={hideTooltip}
-            onClick={handleReset}
+            onClick={() => {
+              handleReset();
+              hideTooltip();
+            }}
             onFocus={createTooltipFocusHandler(resetTooltipLabel)}
             onMouseEnter={createTooltipMouseEnterHandler(resetTooltipLabel)}
             onMouseLeave={hideTooltip}
@@ -234,7 +208,7 @@ const FloatingSiteSettings = () => {
           >
             <LuRotateCcw size={16} />
             {isConfirmingReset && (
-              <span className={styles.siteSettingsConfirmText}>Onayla</span>
+              <span className={styles.siteSettingsConfirmText}>Confirm</span>
             )}
           </button>
         </div>
@@ -243,7 +217,7 @@ const FloatingSiteSettings = () => {
       <button
         aria-expanded={isOpen}
         aria-haspopup="dialog"
-        aria-label="Site ayarlarını aç"
+        aria-label="Open site settings"
         className={styles.siteSettingsTrigger}
         data-open={isOpen}
         onClick={() => {
@@ -252,7 +226,7 @@ const FloatingSiteSettings = () => {
         type="button"
       >
         <LuSettings className={styles.siteSettingsTriggerIcon} size={22} />
-        <span className="sr-only">Ayarlar</span>
+        <span className="sr-only">Settings</span>
       </button>
 
       {tooltip &&

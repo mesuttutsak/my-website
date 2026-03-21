@@ -16,10 +16,10 @@ const CopiedButton = ({ textToCopy }: { textToCopy: string }) => {
     };
 
     return (
-        <Button onClick={handleCopy} isDisabled={copied}>
+        <Button onClick={handleCopy} isDisabled={copied} variant="secondary">
             <span className={styles.copiedIcon}>
                 <FaCheck className={cn('text-green-500', styles.icon, styles.tick, copied && styles.tickAnimation)} size={16} />
-                <IoIosCopy className={cn('text-gray-600', styles.icon, styles.default, copied && styles.tickAnimationReverse)} size={16} />
+                <IoIosCopy className={cn(styles.icon, styles.default, copied && styles.tickAnimationReverse)} size={16} />
             </span>
             Copy Email
         </Button>

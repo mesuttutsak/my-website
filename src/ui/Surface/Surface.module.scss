@@ -1,7 +1,12 @@
 .surface {
-  @apply relative z-[2] rounded-[12px] p-5 shadow-md;
-  background-color: #fff;
-  color: #000;
+  @apply relative z-[2] rounded-[12px] p-5;
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+  box-shadow: var(--shadow-soft);
+
+  &[data-variant="flat"] {
+    box-shadow: none;
+  }
 }
 
 .sizeSmall {
@@ -12,10 +17,6 @@
   @apply w-fit max-w-fit;
 }
 
-.dark {
-  @apply bg-black text-white;
-}
-
 .selectNone {
   user-select: none;
 }
@@ -23,8 +24,10 @@
 .inOrder {
   & + .surface {
     &::before {
-      @apply absolute left-1/2 top-0 z-[0] h-3 border border-gray-400 shadow-md;
+      @apply absolute left-1/2 top-0 z-[0] h-3 border;
       content: "";
+      border-color: var(--color-border-strong);
+      box-shadow: var(--shadow-soft);
       transform: translateY(calc(-100% - 2px));
     }
   }

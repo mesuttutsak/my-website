@@ -16,6 +16,7 @@
 
 .default {
   @apply h-[16px] w-[16px];
+  color: var(--color-text-secondary);
 }
 
 .tickAnimationReverse {

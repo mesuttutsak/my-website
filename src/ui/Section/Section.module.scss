@@ -1,20 +1,21 @@
 .section {
-  @apply rounded-[12px] p-6 shadow-sm;
-  background-color: #f6f8fa;
-}
+  @apply rounded-[12px] p-6;
+  background-color: var(--color-surface-muted);
+  box-shadow: var(--shadow-soft);
 
-.lightTheme {
-  background-color: #fff;
-  box-shadow: none;
+  &[data-variant="flat"] {
+    background-color: var(--color-surface);
+    box-shadow: none;
+  }
 }
 
 .headline {
   @apply relative block w-full whitespace-nowrap pl-5 text-lg font-medium leading-6;
-  color: #353849;
+  color: var(--color-text-primary);
 
   &::before {
     @apply absolute left-0 top-3 h-[.5rem] w-[.5rem] -translate-y-1/2 rounded-full;
     content: "";
-    background-color: #aaacbb;
+    background-color: var(--color-text-secondary);
   }
 }

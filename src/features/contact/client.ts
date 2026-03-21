@@ -17,7 +17,7 @@ export async function submitContactMessage(input: ContactMessageInput) {
     | null;
 
   if (!response.ok) {
-    throw new Error(payload?.message ?? "Mesaj gonderilemedi.");
+    throw new Error(payload?.message ?? "Failed to send the message.");
   }
 
   return payload;

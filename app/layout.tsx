@@ -1,9 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 
+import { getThemeInitializationScript } from "@/src/features/site-settings/theme";
 import "@/src/styles/globals.scss";
 import MainLayout from "@/src/layout/MainLayout";
 import { siteConfig, siteUrl } from "@/src/server/site-config";
+
+const themeInitializationScript = getThemeInitializationScript();
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -91,13 +94,25 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: siteConfig.themeColor,
+  themeColor: [
+    {
+      media: "(prefers-color-scheme: light)",
+      color: siteConfig.themeColors.light,
+    },
+    {
+      media: "(prefers-color-scheme: dark)",
+      color: siteConfig.themeColors.dark,
+    },
+  ],
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang={siteConfig.language}>
+    <html lang={siteConfig.language} suppressHydrationWarning>
       <body>
+        <script
+          dangerouslySetInnerHTML={{ __html: themeInitializationScript }}
+        />
         <MainLayout>{children}</MainLayout>
       </body>
     </html>

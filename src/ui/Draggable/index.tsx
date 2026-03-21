@@ -3,9 +3,8 @@
 import type { PointerEvent as ReactPointerEvent, ReactNode } from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import { useSiteSettings } from "@/src/features/site-settings/context";
-import { getDraggableLayoutStorageKey } from "@/src/features/site-settings/storage";
 import { cn } from "@/src/shared/lib/cn";
+import { useDragSettings } from "@/src/shared/hooks/useDragSettings";
 import styles from "./Draggable.module.scss";
 
 interface Position {
@@ -30,7 +29,6 @@ interface DraggableElementProps {
   customClassname?: string[];
   disabled?: boolean;
   initialPosition?: Position;
-  storageKey?: string;
 }
 
 const defaultPosition: Position = { x: 0, y: 0 };
@@ -50,15 +48,13 @@ export const DraggableElement = ({
   customClassname = [],
   disabled = false,
   initialPosition = defaultPosition,
-  storageKey,
 }: DraggableElementProps) => {
   const elementRef = useRef<HTMLDivElement | null>(null);
   const frameRef = useRef<number | null>(null);
   const dragSessionRef = useRef<DragSession | null>(null);
-  const hasHydratedRef = useRef(false);
   const positionRef = useRef<Position>(initialPosition);
   const [isDragging, setIsDragging] = useState(false);
-  const { isDragEnabled, layoutResetVersion } = useSiteSettings();
+  const { isDragEnabled, layoutResetVersion } = useDragSettings();
   const isDragDisabled = disabled || !isDragEnabled;
 
   const applyPosition = useCallback((position: Position) => {
@@ -71,70 +67,18 @@ export const DraggableElement = ({
     elementRef.current.style.transform = `translate3d(${position.x}px, ${position.y}px, 0)`;
   }, []);
 
-  const persistPosition = useCallback(() => {
-    if (!storageKey || typeof window === "undefined") {
-      return;
-    }
-
-    window.localStorage.setItem(
-      getDraggableLayoutStorageKey(storageKey),
-      JSON.stringify(positionRef.current)
-    );
-  }, [storageKey]);
-
   const endDragging = useCallback(() => {
     dragSessionRef.current = null;
     setIsDragging(false);
   }, []);
 
   useEffect(() => {
-    if (typeof window === "undefined") {
-      return;
-    }
-
-    if (!storageKey) {
-      applyPosition(initialPosition);
-      return;
-    }
-
-    try {
-      const rawValue = window.localStorage.getItem(
-        getDraggableLayoutStorageKey(storageKey)
-      );
-
-      if (!rawValue) {
-        applyPosition(initialPosition);
-        return;
-      }
-
-      const parsedValue = JSON.parse(rawValue) as Partial<Position>;
-
-      if (
-        typeof parsedValue.x === "number" &&
-        typeof parsedValue.y === "number"
-      ) {
-        applyPosition({ x: parsedValue.x, y: parsedValue.y });
-        return;
-      }
-    } catch {
-      // Ignore malformed localStorage values and fallback to defaults.
-    }
-
     applyPosition(initialPosition);
-  }, [applyPosition, initialPosition, storageKey]);
+  }, [applyPosition, initialPosition]);
 
   useEffect(() => {
-    if (!hasHydratedRef.current) {
-      hasHydratedRef.current = true;
-      return;
-    }
-
-    if (storageKey && typeof window !== "undefined") {
-      window.localStorage.removeItem(getDraggableLayoutStorageKey(storageKey));
-    }
-
     applyPosition(initialPosition);
-  }, [applyPosition, initialPosition, layoutResetVersion, storageKey]);
+  }, [applyPosition, initialPosition, layoutResetVersion]);
 
   useEffect(() => {
     return () => {
@@ -146,13 +90,9 @@ export const DraggableElement = ({
 
   useEffect(() => {
     if (isDragDisabled && isDragging && elementRef.current) {
-      if (dragSessionRef.current) {
-        persistPosition();
-      }
-
       endDragging();
     }
-  }, [endDragging, isDragDisabled, isDragging, persistPosition]);
+  }, [endDragging, isDragDisabled, isDragging]);
 
   const schedulePositionUpdate = () => {
     if (frameRef.current !== null) {
@@ -233,7 +173,6 @@ export const DraggableElement = ({
       event.currentTarget.releasePointerCapture(event.pointerId);
     }
 
-    persistPosition();
     endDragging();
   };
 
@@ -242,7 +181,6 @@ export const DraggableElement = ({
       event.currentTarget.releasePointerCapture(event.pointerId);
     }
 
-    persistPosition();
     endDragging();
   };
 
@@ -253,7 +191,6 @@ export const DraggableElement = ({
       data-disabled={isDragDisabled}
       draggable={false}
       onLostPointerCapture={() => {
-        persistPosition();
         endDragging();
       }}
       onPointerCancel={handlePointerCancel}

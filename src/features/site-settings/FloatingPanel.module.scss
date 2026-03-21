@@ -19,39 +19,58 @@
     pointer-events: auto;
     transform: translateY(-50%) translateX(0) scale(1);
   }
-
-  &[data-confirming-reset="true"] {
-    .siteSettingsPanel {
-      width: 9.5rem;
-    }
-  }
 }
 
 .siteSettingsPanel {
-  @apply flex h-12 items-center gap-1 rounded-2xl px-2;
-  width: 6.5rem;
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  @apply inline-flex h-12 items-center gap-2 rounded-2xl px-2;
+  background: var(--color-glass-bg);
+  border: 1px solid var(--color-glass-border);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 10px 40px -10px rgba(15, 23, 42, 0.14);
-  transition: width 0.24s ease;
+  box-shadow: var(--shadow-panel);
 }
 
-.siteSettingsControl {
-  @apply relative flex h-9 w-9 items-center justify-center rounded-[10px] text-slate-500 transition-colors;
+.siteSettingsThemeGroup {
+  @apply flex items-center gap-1 rounded-full p-1;
+  background-color: var(--color-control-hover);
+  border: 1px solid var(--color-border-primary);
+}
+
+.siteSettingsThemeButton,
+.siteSettingsControl,
+.siteSettingsIconButton {
+  @apply flex items-center justify-center rounded-[10px] transition-colors;
+  color: var(--color-text-secondary);
+}
+
+.siteSettingsThemeButton {
+  @apply h-7 w-7 rounded-full;
 
   &:hover {
-    background-color: rgba(15, 23, 42, 0.04);
-    color: #1e293b;
+    background-color: var(--color-control-hover);
+    color: var(--color-text-primary);
   }
 
   &[data-active="true"] {
-    background-color: rgba(59, 130, 246, 0.1);
-    color: #2563eb;
+    background-color: var(--color-accent-soft);
+    color: var(--color-accent);
+  }
+}
+
+.siteSettingsControl {
+  @apply relative h-9 w-9;
+
+  &:hover {
+    background-color: var(--color-control-hover);
+    color: var(--color-text-primary);
+  }
+
+  &[data-active="true"] {
+    background-color: var(--color-accent-soft);
+    color: var(--color-accent);
 
     .siteSettingsControlIcon {
-      color: #2563eb;
+      color: var(--color-accent);
     }
 
     .siteSettingsStatusDot {
@@ -62,11 +81,13 @@
 }
 
 .siteSettingsControlIcon {
-  @apply text-slate-400 transition-colors;
+  color: var(--color-text-muted);
+  transition: color 0.2s ease;
 }
 
 .siteSettingsStatusDot {
-  @apply absolute right-[7px] top-[7px] h-[6px] w-[6px] rounded-full bg-blue-500;
+  @apply absolute right-[7px] top-[7px] h-[6px] w-[6px] rounded-full;
+  background-color: var(--color-status-dot);
   opacity: 0;
   transform: scale(0.7);
   transition:
@@ -75,21 +96,21 @@
 }
 
 .siteSettingsDivider {
-  @apply mx-1 h-5 w-px bg-slate-200;
+  @apply h-5 w-px;
+  background-color: var(--color-divider);
 }
 
 .siteSettingsIconButton {
-  @apply flex h-9 items-center justify-center gap-2 rounded-[10px] px-2 text-slate-500 transition-colors;
-  min-width: 2.25rem;
+  @apply h-9 min-w-[2.25rem] gap-2 px-2;
 
   &:hover {
-    background-color: rgba(15, 23, 42, 0.04);
-    color: #1e293b;
+    background-color: var(--color-control-hover);
+    color: var(--color-text-primary);
   }
 
   &[data-confirming="true"] {
-    background-color: rgba(239, 68, 68, 0.08);
-    color: #dc2626;
+    background-color: var(--color-danger-soft);
+    color: var(--color-danger);
   }
 
   &[data-resetting="true"] {
@@ -104,14 +125,22 @@
 }
 
 .siteSettingsTrigger {
-  @apply flex h-14 w-14 items-center justify-center rounded-2xl border border-slate-100 bg-white text-slate-600 shadow-lg transition-all duration-300;
+  @apply flex h-14 w-14 items-center justify-center rounded-2xl border transition-all duration-300;
+  background-color: var(--color-surface);
+  border-color: var(--color-border-primary);
+  box-shadow: var(--shadow-medium);
+  color: var(--color-text-secondary);
 
   &:hover {
-    @apply text-blue-600 shadow-xl;
+    box-shadow: var(--shadow-medium);
+    color: var(--color-accent);
   }
 
   &[data-open="true"] {
-    @apply border-blue-100 bg-blue-50 text-blue-600 shadow-xl;
+    background-color: var(--color-accent-soft);
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-medium);
+    color: var(--color-accent);
   }
 }
 
@@ -126,9 +155,11 @@
 }
 
 .siteSettingsFloatingTooltip {
-  @apply pointer-events-none fixed z-[70] whitespace-nowrap rounded-md bg-slate-800 px-2.5 py-1 text-[11px] font-medium text-white;
+  @apply pointer-events-none fixed z-[70] whitespace-nowrap rounded-md px-2.5 py-1 text-[11px] font-medium;
+  background-color: var(--color-tooltip-bg);
+  box-shadow: var(--shadow-tooltip);
+  color: var(--color-tooltip-text);
   transform: translate(-50%, -100%);
-  box-shadow: 0 10px 24px -12px rgba(15, 23, 42, 0.45);
 }
 
 @keyframes siteSettingsSpinBack {

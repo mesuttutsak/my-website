@@ -29,14 +29,16 @@
     @apply relative ml-3 flex flex-wrap items-center justify-between pl-4;
 
     &::before {
-      @apply absolute left-0 top-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-slate-300;
+      @apply absolute left-0 top-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full;
       content: "";
+      background-color: var(--color-timeline-dot);
     }
 
     & + li {
       &::after {
-        @apply absolute left-0 top-[6px] h-6 -translate-x-1/2 -translate-y-full border border-gray-300;
+        @apply absolute left-0 top-[6px] h-6 -translate-x-1/2 -translate-y-full border;
         content: "";
+        border-color: var(--color-timeline-line);
       }
     }
   }

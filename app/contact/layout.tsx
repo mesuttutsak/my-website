@@ -4,9 +4,9 @@ import type { ReactNode } from "react";
 import { siteConfig } from "@/src/server/site-config";
 
 export const metadata: Metadata = {
-  title: "İletişim",
+  title: "Contact",
   description:
-    "Mesut Tutsak ile iletişime geçmek, iş birlikleri ve yeni fırsatlar hakkında mesaj göndermek için iletişim sayfası.",
+    "Get in touch with Mesut Tutsak to discuss collaborations, opportunities, and new ideas.",
   alternates: {
     canonical: "/contact",
   },
@@ -14,9 +14,9 @@ export const metadata: Metadata = {
     type: "website",
     locale: siteConfig.locale,
     siteName: siteConfig.name,
-    title: `İletişim | ${siteConfig.name}`,
+    title: `Contact | ${siteConfig.name}`,
     description:
-      "Mesut Tutsak ile iletişime geçmek, iş birlikleri ve yeni fırsatlar hakkında mesaj göndermek için iletişim sayfası.",
+      "Get in touch with Mesut Tutsak to discuss collaborations, opportunities, and new ideas.",
     url: "/contact",
     images: [
       {
@@ -29,9 +29,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `İletişim | ${siteConfig.name}`,
+    title: `Contact | ${siteConfig.name}`,
     description:
-      "Mesut Tutsak ile iletişime geçmek, iş birlikleri ve yeni fırsatlar hakkında mesaj göndermek için iletişim sayfası.",
+      "Get in touch with Mesut Tutsak to discuss collaborations, opportunities, and new ideas.",
     images: [
       {
         url: "/twitter-image",
