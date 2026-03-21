@@ -26,17 +26,17 @@ const themeOptions: Array<{
   Icon: typeof LuSun;
 }> = [
   {
-    label: "Sistem teması",
+    label: "System theme",
     mode: "system",
     Icon: LuMonitor,
   },
   {
-    label: "Açık tema",
+    label: "Light theme",
     mode: "light",
     Icon: LuSun,
   },
   {
-    label: "Koyu tema",
+    label: "Dark theme",
     mode: "dark",
     Icon: LuMoon,
   },
@@ -129,11 +129,11 @@ const FloatingSiteSettings = () => {
   };
 
   const dragTooltipLabel = isDragEnabled
-    ? "Sürüklemeyi kapat"
-    : "Sürüklemeyi aç";
+    ? "Disable dragging"
+    : "Enable dragging";
   const resetTooltipLabel = isConfirmingReset
-    ? "Tekrar tıkla: sıfırla"
-    : "Ayarları sıfırla";
+    ? "Click again to reset"
+    : "Reset settings";
 
   if (isMobile) {
     return null;
@@ -142,14 +142,14 @@ const FloatingSiteSettings = () => {
   return (
     <div className={styles.siteSettings} ref={panelRef}>
       <div
-        aria-label="Site ayarları"
+        aria-label="Site settings"
         className={styles.siteSettingsDrawer}
         data-confirming-reset={isConfirmingReset}
         data-open={isOpen}
         role="dialog"
       >
         <div className={styles.siteSettingsPanel}>
-          <div aria-label="Tema modu" className={styles.siteSettingsThemeGroup} role="group">
+          <div aria-label="Theme mode" className={styles.siteSettingsThemeGroup} role="group">
             {themeOptions.map(({ Icon, label, mode }) => (
               <button
                 key={mode}
@@ -174,7 +174,7 @@ const FloatingSiteSettings = () => {
           <span aria-hidden="true" className={styles.siteSettingsDivider} />
 
           <button
-            aria-label="Sürüklemeyi aç veya kapat"
+            aria-label="Toggle dragging"
             aria-pressed={isDragEnabled}
             className={styles.siteSettingsControl}
             data-active={isDragEnabled}
@@ -192,7 +192,7 @@ const FloatingSiteSettings = () => {
           <span aria-hidden="true" className={styles.siteSettingsDivider} />
 
           <button
-            aria-label="Ayarları sıfırla"
+            aria-label="Reset settings"
             className={styles.siteSettingsIconButton}
             data-confirming={isConfirmingReset}
             data-resetting={isResetting}
@@ -208,7 +208,7 @@ const FloatingSiteSettings = () => {
           >
             <LuRotateCcw size={16} />
             {isConfirmingReset && (
-              <span className={styles.siteSettingsConfirmText}>Onayla</span>
+              <span className={styles.siteSettingsConfirmText}>Confirm</span>
             )}
           </button>
         </div>
@@ -217,7 +217,7 @@ const FloatingSiteSettings = () => {
       <button
         aria-expanded={isOpen}
         aria-haspopup="dialog"
-        aria-label="Site ayarlarını aç"
+        aria-label="Open site settings"
         className={styles.siteSettingsTrigger}
         data-open={isOpen}
         onClick={() => {
@@ -226,7 +226,7 @@ const FloatingSiteSettings = () => {
         type="button"
       >
         <LuSettings className={styles.siteSettingsTriggerIcon} size={22} />
-        <span className="sr-only">Ayarlar</span>
+        <span className="sr-only">Settings</span>
       </button>
 
       {tooltip &&

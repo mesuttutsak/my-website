@@ -43,10 +43,10 @@ const Contact = () => {
     toast.promise(
       postMessage,
       {
-        loading: "Mesaj gonderiliyor...",
-        success: "Mesajin gonderildi.",
+        loading: "Sending message...",
+        success: "Message sent.",
         error: (error) =>
-          error instanceof Error ? error.message : "Mesaj gonderilemedi.",
+          error instanceof Error ? error.message : "Failed to send the message.",
       },
       {
         duration: 1000,
@@ -66,10 +66,10 @@ const Contact = () => {
               </Link>
 
               <Text tag="h1" customClassname={["mt-4"]}>
-                Let&apos;s contact
+                Let&apos;s get in touch
               </Text>
 
-              <Text> if you want to know your ideas or my ideas</Text>
+              <Text>If you&apos;d like to talk about your ideas or hear mine.</Text>
             </div>
 
             <Formik
@@ -112,7 +112,7 @@ const Contact = () => {
                     isLoading={isLoading}
                     isDisabled={isLoading}
                   >
-                    Gönder
+                    Send
                   </Button>
                 </Form>
               )}

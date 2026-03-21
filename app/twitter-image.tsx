@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 
 import { siteConfig } from "@/src/server/site-config";
 
-export const alt = "Mesut Tutsak Twitter önizlemesi";
+export const alt = "Mesut Tutsak Twitter preview";
 export const size = {
   width: 1200,
   height: 630,

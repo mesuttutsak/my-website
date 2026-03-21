@@ -9,7 +9,7 @@ export const siteConfig = {
   role: "Frontend Developer",
   title: "Mesut Tutsak | Frontend Developer",
   description:
-    "Mesut Tutsak'ın frontend development, deneyim ve proje odaklı kişisel portfolyo sitesi.",
+    "Mesut Tutsak's personal portfolio focused on frontend development, experience, and selected projects.",
   keywords: [
     "Mesut Tutsak",
     "Frontend Developer",
@@ -23,9 +23,9 @@ export const siteConfig = {
     light: "#f6f8fa",
     dark: "#10161f",
   },
-  locale: "tr_TR",
-  language: "tr",
+  locale: "en_US",
+  language: "en",
   domainLabel: "mesuttutsak.dev",
-  ogImageAlt: "Mesut Tutsak portfolyo önizleme görseli",
-  twitterImageAlt: "Mesut Tutsak Twitter önizleme görseli",
+  ogImageAlt: "Mesut Tutsak portfolio preview image",
+  twitterImageAlt: "Mesut Tutsak Twitter preview image",
 } as const;

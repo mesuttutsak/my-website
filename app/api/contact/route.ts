@@ -17,7 +17,7 @@ export async function POST(request: Request) {
     payload = await request.json();
   } catch {
     return NextResponse.json(
-      { message: "Gecersiz istek govdesi gonderildi." },
+      { message: "Invalid request body." },
       { status: 400 }
     );
   }
@@ -28,7 +28,7 @@ export async function POST(request: Request) {
     await sendContactMessage(validatedPayload);
 
     return NextResponse.json(
-      { message: "Mesajin basariyla gonderildi." },
+      { message: "Message sent successfully." },
       { status: 201 }
     );
   } catch (error) {
@@ -39,10 +39,10 @@ export async function POST(request: Request) {
         {
           message:
             error.code === "config"
-              ? "EmailJS ayarlari tamamlanmamis."
+              ? "EmailJS configuration is incomplete."
               : error.code === "restricted_environment"
-                ? "EmailJS hesabinda non-browser API access kapali. Dashboard uzerinden etkinlestirmen gerekiyor."
-                : "Mesaj gonderilirken bir hata olustu.",
+                ? "Non-browser API access is disabled in your EmailJS account. Enable it from the dashboard."
+                : "An error occurred while sending the message.",
         },
         { status: 500 }
       );
@@ -50,13 +50,13 @@ export async function POST(request: Request) {
 
     const validationMessage = getContactValidationMessage(error);
 
-    if (validationMessage !== "Lutfen tum alanlari gecerli sekilde doldurun.") {
+    if (validationMessage !== "Please fill out all fields correctly.") {
       return NextResponse.json({ message: validationMessage }, { status: 400 });
     }
 
     if (!hasEmailJsConfig) {
       return NextResponse.json(
-        { message: "EmailJS ayarlari tamamlanmamis." },
+        { message: "EmailJS configuration is incomplete." },
         { status: 500 }
       );
     }
