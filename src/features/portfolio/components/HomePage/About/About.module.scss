@@ -23,11 +23,11 @@
 }
 
 .img {
-  @apply min-w-[190px] overflow-hidden rounded-full p-0;
+  @apply h-[190px] w-[190px] shrink-0 overflow-hidden rounded-full p-0;
   background-color: var(--color-surface);
   box-shadow: var(--shadow-medium);
 
   img {
-    @apply translate-y-1;
+    @apply block h-full w-full object-cover;
   }
 }
