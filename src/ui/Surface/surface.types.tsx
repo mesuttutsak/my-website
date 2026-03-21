@@ -1,8 +1,10 @@
 import { ReactNode } from "react";
 
+export type SurfaceVariant = "default" | "flat";
+
 export interface SurfaceProps {
     children: ReactNode;
-    theme?: string;
+    variant?: SurfaceVariant;
     id?: string;
     select?: boolean;
     size?: string;

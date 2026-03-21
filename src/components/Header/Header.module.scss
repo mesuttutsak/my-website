@@ -12,7 +12,7 @@
 
 .navListItem {
   @apply w-full;
-  color: #aaacbb;
+  color: var(--color-text-secondary);
 }
 
 .tooltipParent {
@@ -20,7 +20,13 @@
 }
 
 .tooltip {
-  @apply pointer-events-none absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white bg-opacity-50 px-3 py-1 shadow-md opacity-0 duration-300 ease-in select-none;
+  @apply pointer-events-none absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 rounded-full px-3 py-1 opacity-0 duration-300 ease-in select-none;
+  background: var(--color-glass-bg);
+  border: 1px solid var(--color-glass-border);
+  box-shadow: var(--shadow-soft);
+  color: var(--color-text-primary);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .tooltipParent:hover {

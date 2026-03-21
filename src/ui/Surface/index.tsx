@@ -7,7 +7,7 @@ import styles from "./Surface.module.scss";
 const Surface = ({
   children,
   id,
-  theme = "",
+  variant = "default",
   fit = false,
   select = false,
   size = "",
@@ -18,8 +18,6 @@ const Surface = ({
     <div
       className={cn(
         styles.surface,
-        theme === "dark" && styles.dark,
-        theme && theme !== "dark" && theme,
         size === "small" && styles.sizeSmall,
         size && size !== "small" && `size_${size}`,
         inOrder && styles.inOrder,
@@ -27,6 +25,7 @@ const Surface = ({
         select && styles.selectNone,
         ...customClassname
       )}
+      data-variant={variant}
       id={id}
     >
       {children}

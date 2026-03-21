@@ -8,29 +8,19 @@ import styles from "./Button.module.scss";
 const Button = ({
   children,
   type = "button",
-  theme = "light",
+  variant = "primary",
   size,
   isLoading,
   isDisabled = false,
   onClick,
   className = [],
 }: ButtonProps) => {
-
-  function accrType(btnType: ButtonProps['type']) {
-    let obj;
-
-    if (!btnType || btnType === 'button') obj = { theme: theme, size: size }
-    else if (btnType == 'submit') obj = { theme: "dark", size: "large" }
-
-    return obj;
-  }
-
   return (
     <button
       className={cn(styles.button, ...className)}
       type={type}
-      data-theme={accrType(type)?.theme}
-      data-size={accrType(type)?.size}
+      data-size={size}
+      data-variant={variant}
       onClick={onClick}
       disabled={isDisabled || isLoading}
     >
@@ -38,7 +28,7 @@ const Button = ({
 
       {isLoading && (
         <div className={styles.loading}>
-          <ImSpinner8 size="20" color={theme === "light" ? "black" : "white" } />
+          <ImSpinner8 className={styles.spinner} size={20} />
         </div>
       )}
     </button>

@@ -59,7 +59,7 @@ const Contact = () => {
 
   return (
         <Surface>
-          <Section customClassname={[styles.contactPage]} theme="light" id="contactPage">
+          <Section customClassname={[styles.contactPage]} id="contactPage" variant="flat">
             <div className="mb-5">
               <Link href={"/"}>
                 <BiChevronLeftCircle size={24} />
@@ -108,6 +108,7 @@ const Contact = () => {
                   <Button
                     type="submit"
                     size="large"
+                    className={["w-full"]}
                     isLoading={isLoading}
                     isDisabled={isLoading}
                   >

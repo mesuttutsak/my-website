@@ -43,7 +43,7 @@ const About = ({ about, socialLinks }: AboutProps) => {
               <CopiedButton textToCopy={about.email} />
 
               <Link
-                className={cn(buttonStyles.button, buttonStyles.dark)}
+                className={cn(buttonStyles.button, buttonStyles.primary)}
                 href={about.contactHref}
               >
                   Contact Me
@@ -69,7 +69,7 @@ const About = ({ about, socialLinks }: AboutProps) => {
 
   return (
     <>
-      <Section customClassname={[styles.about]} draggable id="about" theme="light">{aboutElement}</Section>
+      <Section customClassname={[styles.about]} draggable id="about" variant="flat">{aboutElement}</Section>
     </>
   );
 };

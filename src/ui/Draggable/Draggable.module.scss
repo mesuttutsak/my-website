@@ -19,7 +19,8 @@
     }
 
     .draggableIndicator {
-      @apply text-slate-700 shadow-md;
+      box-shadow: var(--shadow-soft);
+      color: var(--color-drag-handle-text-active);
       cursor: grabbing;
       transform: scale(1.05);
     }
@@ -27,10 +28,16 @@
 }
 
 .draggableIndicator {
-  @apply absolute right-3 top-3 z-10 flex items-center justify-center rounded-full border border-slate-200 bg-white/90 p-2 text-slate-500 shadow-sm;
+  @apply absolute right-3 top-3 z-10 flex items-center justify-center rounded-full border p-2;
+  background: var(--color-drag-handle-bg);
+  border-color: var(--color-drag-handle-border);
+  box-shadow: var(--shadow-soft);
+  color: var(--color-drag-handle-text);
   cursor: grab;
   touch-action: none;
   opacity: 1;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   transition:
     opacity 0.2s ease,
     transform 0.2s ease,

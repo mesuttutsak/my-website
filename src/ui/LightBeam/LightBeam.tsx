@@ -6,7 +6,12 @@ import styles from "./LightBeam.module.scss";
 const LightBeam = () => {
   const beamRef = usePointerPosition();
 
-  return <div aria-hidden="true" className={styles.lightBeam} ref={beamRef}></div>;
+  return (
+    <div aria-hidden="true" className={styles.lightBeam} ref={beamRef}>
+      <div className={styles.gridBase} />
+      <div className={styles.gridActive} />
+    </div>
+  );
 };
 
 export default LightBeam;

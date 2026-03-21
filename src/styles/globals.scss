@@ -4,6 +4,92 @@
 
 @import "./mixins.scss";
 
+:root {
+  color-scheme: light;
+  --color-page-bg: #f6f8fa;
+  --color-page-pattern: rgba(148, 163, 184, 0.22);
+  --color-grid-dot-active: rgba(53, 56, 73, 0.58);
+  --color-text-primary: #353849;
+  --color-text-secondary: #8e98ab;
+  --color-text-muted: #94a3b8;
+  --color-text-inverse: #f8fafc;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f6f8fa;
+  --color-surface-strong: #0d0d12;
+  --color-surface-strong-text: #ffffff;
+  --color-border-primary: #ebeef3;
+  --color-border-strong: #cbd5e1;
+  --color-divider: #e2e8f0;
+  --color-input-bg: #edf2f7;
+  --color-input-text: #353849;
+  --color-input-placeholder: #94a3b8;
+  --color-accent: #2563eb;
+  --color-accent-soft: rgba(37, 99, 235, 0.12);
+  --color-control-hover: rgba(15, 23, 42, 0.04);
+  --color-danger: #dc2626;
+  --color-danger-soft: rgba(239, 68, 68, 0.08);
+  --color-tooltip-bg: #0f172a;
+  --color-tooltip-text: #ffffff;
+  --color-glass-bg: rgba(255, 255, 255, 0.85);
+  --color-glass-border: rgba(255, 255, 255, 0.4);
+  --color-status-dot: #3b82f6;
+  --color-drag-handle-bg: rgba(255, 255, 255, 0.9);
+  --color-drag-handle-border: #e2e8f0;
+  --color-drag-handle-text: #64748b;
+  --color-drag-handle-text-active: #334155;
+  --color-timeline-dot: #cbd5e1;
+  --color-timeline-line: #d1d5db;
+  --grid-dot-size: 1.05px;
+  --grid-dot-spacing: 2rem;
+  --grid-focus-radius: 19rem;
+  --shadow-soft: 0 10px 24px -16px rgba(15, 23, 42, 0.25);
+  --shadow-medium: 0 18px 38px -18px rgba(15, 23, 42, 0.24);
+  --shadow-panel: 0 10px 40px -10px rgba(15, 23, 42, 0.14);
+  --shadow-tooltip: 0 10px 24px -12px rgba(15, 23, 42, 0.45);
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --color-page-bg: #10161f;
+  --color-page-pattern: rgba(148, 163, 184, 0.12);
+  --color-grid-dot-active: rgba(237, 242, 247, 0.74);
+  --color-text-primary: #e7edf7;
+  --color-text-secondary: #96a4ba;
+  --color-text-muted: #7f8ca1;
+  --color-text-inverse: #0f172a;
+  --color-surface: #151d29;
+  --color-surface-muted: #111824;
+  --color-surface-strong: #e8eef7;
+  --color-surface-strong-text: #0f172a;
+  --color-border-primary: #253041;
+  --color-border-strong: #334155;
+  --color-divider: #2b384b;
+  --color-input-bg: #131c28;
+  --color-input-text: #e7edf7;
+  --color-input-placeholder: #708096;
+  --color-accent: #7db0ff;
+  --color-accent-soft: rgba(125, 176, 255, 0.16);
+  --color-control-hover: rgba(148, 163, 184, 0.08);
+  --color-danger: #f87171;
+  --color-danger-soft: rgba(248, 113, 113, 0.14);
+  --color-tooltip-bg: #edf2f7;
+  --color-tooltip-text: #0f172a;
+  --color-glass-bg: rgba(21, 29, 41, 0.82);
+  --color-glass-border: rgba(148, 163, 184, 0.14);
+  --color-status-dot: #7db0ff;
+  --color-drag-handle-bg: rgba(21, 29, 41, 0.92);
+  --color-drag-handle-border: #334155;
+  --color-drag-handle-text: #a7b3c7;
+  --color-drag-handle-text-active: #e7edf7;
+  --color-timeline-dot: #475569;
+  --color-timeline-line: #334155;
+  --grid-focus-radius: 20rem;
+  --shadow-soft: 0 10px 24px -16px rgba(2, 6, 23, 0.72);
+  --shadow-medium: 0 18px 38px -18px rgba(2, 6, 23, 0.76);
+  --shadow-panel: 0 14px 44px -18px rgba(2, 6, 23, 0.62);
+  --shadow-tooltip: 0 12px 32px -18px rgba(2, 6, 23, 0.8);
+}
+
 html {
   *::-webkit-scrollbar {
     display: none;
@@ -11,35 +97,34 @@ html {
 }
 
 body {
-  @apply bg-slate-200 leading-relaxed text-white bg-slate-100 overflow-auto;
-  background-color: #f6f8fa;
-  background-image: radial-gradient(rgb(175, 167, 167) 1px, transparent 0);
-  background-position: left top;
-  background-size: 2rem 2rem;
-  background-repeat: repeat;
-
-  &:before {
-    @apply content-[''] absolute left-0 top-0 w-screen h-screen;
-  }
+  @apply leading-relaxed overflow-auto;
+  background-color: var(--color-page-bg);
+  color: var(--color-text-primary);
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
 }
 
 h1 {
   @apply tracking-tight text-4xl font-semibold;
+  color: var(--color-text-primary);
   @include textProperties();
 }
 
 h2 {
   @apply tracking-tight sm:text-base text-sm font-semibold;
+  color: var(--color-text-primary);
   @include textProperties();
 }
 
 h4 {
   @apply tracking-tight sm:text-lg text-base sm:leading-7 leading-6 font-normal;
+  color: var(--color-text-primary);
   @include textProperties();
 }
 
 p {
   @apply tracking-tight sm:text-base sm:leading-7 leading-6 font-normal;
-  color: #aaacbb;
+  color: var(--color-text-secondary);
   @include textProperties();
 }

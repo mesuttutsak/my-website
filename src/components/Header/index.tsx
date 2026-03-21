@@ -10,7 +10,7 @@ const Header = () => {
  
           <Navbar />
 
-          {/* <Surface theme="dark" fit size="small">
+          {/* <Surface fit size="small">
             Copied
           </Surface> */}
           

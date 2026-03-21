@@ -18,7 +18,7 @@ export const Default: Story = {
   args: {
     children: 'Button',
     type: 'button',
-    theme: 'light',
+    variant: 'primary',
     className: [],
   },
 };

@@ -19,7 +19,10 @@ export const siteConfig = {
     "Portfolio",
     "Web Developer",
   ],
-  themeColor: "#f6f8fa",
+  themeColors: {
+    light: "#f6f8fa",
+    dark: "#10161f",
+  },
   locale: "tr_TR",
   language: "tr",
   domainLabel: "mesuttutsak.dev",

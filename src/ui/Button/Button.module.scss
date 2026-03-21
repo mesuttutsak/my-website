@@ -1,11 +1,17 @@
 .button {
-  @apply relative top-0 flex flex-row items-center justify-center gap-2 overflow-hidden whitespace-nowrap rounded-lg border px-3 py-2 text-xs font-semibold leading-none tracking-tight shadow transition sm:text-sm;
-  background-color: #fff;
-  border-color: #ebeef3;
-  color: #0d0d12;
+  @apply relative top-0 flex flex-row items-center justify-center gap-2 overflow-hidden whitespace-nowrap rounded-lg border px-3 py-2 text-xs font-semibold leading-none tracking-tight transition sm:text-sm;
+  background-color: var(--color-surface);
+  border-color: var(--color-border-primary);
+  color: var(--color-text-primary);
+  box-shadow: var(--shadow-soft);
+  transition:
+    top 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease;
 
-  &[data-size="large"],
-  &[type="submit"] {
+  &[data-size="large"] {
     @apply px-4 py-3;
   }
 
@@ -13,13 +19,23 @@
     @apply px-2 py-1;
   }
 
-  &[data-theme="dark"],
-  &.dark {
-    @apply bg-black text-white;
+  &[data-variant="primary"] {
+    background-color: var(--color-surface-strong);
+    border-color: var(--color-surface-strong);
+    color: var(--color-surface-strong-text);
+  }
 
-    .loading {
-      @apply bg-black text-white;
-    }
+  &[data-variant="outline"] {
+    background-color: transparent;
+    border-color: var(--color-border-primary);
+    color: var(--color-text-primary);
+  }
+
+  &[data-variant="ghost"] {
+    background-color: transparent;
+    border-color: transparent;
+    box-shadow: none;
+    color: var(--color-text-primary);
   }
 
   &:not(:disabled):active {
@@ -27,14 +43,22 @@
   }
 }
 
-.dark {
-  @apply bg-black text-white;
+.primary {
+  background-color: var(--color-surface-strong);
+  border-color: var(--color-surface-strong);
+  color: var(--color-surface-strong-text);
 }
 
 .loading {
-  @apply absolute left-1/2 top-1/2 z-10 flex h-full w-full -translate-x-1/2 -translate-y-1/2 items-center justify-center bg-white;
+  @apply absolute left-1/2 top-1/2 z-10 flex h-full w-full -translate-x-1/2 -translate-y-1/2 items-center justify-center;
+  background-color: inherit;
+  color: inherit;
 
   svg {
     @apply animate-spin;
   }
+}
+
+.spinner {
+  color: currentColor;
 }

@@ -1,26 +1,65 @@
 .lightBeam {
-  --light-beam-x: 50vw;
-  --light-beam-y: 50vh;
-  @apply fixed inset-0 left-0 top-0 z-[-1] h-screen w-screen opacity-0 pointer-events-none;
-  background: radial-gradient(
-    100vw at var(--light-beam-x) var(--light-beam-y),
-    rgba(241, 245, 249, 1),
-    transparent 50%
+  --grid-focus-x: 50vw;
+  --grid-focus-y: 50vh;
+  @apply fixed inset-0 left-0 top-0 z-[-1] h-screen w-screen pointer-events-none;
+}
+
+.gridBase,
+.gridActive {
+  @apply absolute inset-0;
+  background-position: left top;
+  background-repeat: repeat;
+  background-size: var(--grid-dot-spacing) var(--grid-dot-spacing);
+}
+
+.gridBase {
+  background-image: radial-gradient(
+    circle,
+    var(--color-page-pattern) var(--grid-dot-size),
+    transparent calc(var(--grid-dot-size) + 0.7px)
   );
-  transition: opacity 0.45s ease-in-out;
-  will-change: opacity;
+}
 
-  &[data-visible="true"] {
-    @apply opacity-100;
+.gridActive {
+  background-image: radial-gradient(
+    circle,
+    var(--color-grid-dot-active) var(--grid-dot-size),
+    transparent calc(var(--grid-dot-size) + 0.85px)
+  );
+  opacity: 0;
+  transition: opacity 0.32s ease;
+  -webkit-mask-image: radial-gradient(
+    circle var(--grid-focus-radius) at var(--grid-focus-x) var(--grid-focus-y),
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.96) 18%,
+    rgba(0, 0, 0, 0.72) 42%,
+    rgba(0, 0, 0, 0.28) 68%,
+    transparent 84%
+  );
+  mask-image: radial-gradient(
+    circle var(--grid-focus-radius) at var(--grid-focus-x) var(--grid-focus-y),
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.96) 18%,
+    rgba(0, 0, 0, 0.72) 42%,
+    rgba(0, 0, 0, 0.28) 68%,
+    transparent 84%
+  );
+}
+
+.lightBeam[data-visible="true"] {
+  .gridActive {
+    opacity: 1;
   }
+}
 
-  &[data-enabled="false"] {
+.lightBeam[data-enabled="false"] {
+  .gridActive {
     display: none;
   }
 }
 
 @media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
-  .lightBeam {
+  .gridActive {
     display: none;
   }
 }

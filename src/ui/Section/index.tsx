@@ -1,3 +1,5 @@
+'use client'
+
 import type { ReactNode } from "react";
 import { LuMove } from "react-icons/lu";
 
@@ -14,7 +16,7 @@ export const Headline = ({ children }: { children: ReactNode }) => (
 const Section = ({
   children,
   id,
-  theme = "",
+  variant = "default",
   draggable = false,
   customClassname = [],
 }: SectionProps) => {
@@ -22,11 +24,9 @@ const Section = ({
     <section
       className={cn(
         styles.section,
-        theme === "light" && styles.lightTheme,
-        theme && theme !== "light" && theme,
         ...customClassname
       )}
-      data-theme={theme}
+      data-variant={variant}
       id={id}
     >
       {children}
@@ -35,7 +35,7 @@ const Section = ({
 
   if (draggable) {
     return (
-      <DraggableElement storageKey={id}>
+      <DraggableElement>
         <span
           aria-hidden="true"
           className={draggableStyles.draggableIndicator}
