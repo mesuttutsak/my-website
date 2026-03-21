@@ -1,0 +1,89 @@
+{
+  "contact": {
+    "api": {
+      "configIncomplete": "EmailJS yapılandırması eksik.",
+      "invalidBody": "Geçersiz istek gövdesi.",
+      "messageSent": "Mesaj başarıyla gönderildi.",
+      "restrictedEnvironment": "EmailJS hesabınızda tarayıcı dışı API erişimi kapalı. Bunu panel üzerinden etkinleştirin.",
+      "sendError": "Mesaj gönderilirken bir hata oluştu."
+    },
+    "description": "Bir şey sormak, fikir paylaşmak ya da sadece selam vermek istersen...",
+    "form": {
+      "emailPlaceholder": "E-posta *",
+      "messagePlaceholder": "Mesaj *",
+      "namePlaceholder": "İsim *",
+      "send": "Gönder"
+    },
+    "metadata": {
+      "description": "İş birlikleri, fırsatlar ve yeni fikirler için Mesut Tutsak ile iletişime geçin.",
+      "title": "İletişim"
+    },
+    "title": "Yazmak istersen, buyur :)",
+    "toasts": {
+      "loading": "Mesaj gönderiliyor...",
+      "sendError": "Mesaj gönderilemedi.",
+      "success": "Mesaj gönderildi."
+    },
+    "validation": {
+      "emailInvalid": "Lütfen geçerli bir e-posta adresi girin.",
+      "emailRequired": "E-posta zorunludur.",
+      "invalid": "Lütfen tüm alanları doğru şekilde doldurun.",
+      "messageRequired": "Mesaj zorunludur.",
+      "nameRequired": "İsim zorunludur."
+    }
+  },
+  "home": {
+    "about": {
+      "contactMe": "İletişim",
+      "copiedEmail": "Kopyalandı",
+      "copyEmail": "Email",
+      "profileAltSuffix": "profili",
+      "summary": "{location}'da yaşıyorum. {summary}"
+    },
+    "experience": {
+      "present": "Devam ediyor",
+      "skills": "Yetenekler"
+    },
+    "sections": {
+      "awards": "Ödüller",
+      "education": "Eğitim",
+      "experience": "Deneyim"
+    }
+  },
+  "settings": {
+    "confirm": "Onayla",
+    "dragDisabled": "Sürüklemeyi aç",
+    "dragEnabled": "Sürüklemeyi kapat",
+    "languageLabel": "Dil",
+    "openSiteSettings": "Site ayarlarını aç",
+    "resetConfirm": "Sıfırlamak için tekrar tıklayın",
+    "resetSettings": "Ayarları sıfırla",
+    "siteSettings": "Site ayarları",
+    "themeDark": "Koyu tema",
+    "themeLabel": "Tema modu",
+    "themeLight": "Açık tema",
+    "themeSystem": "Sistem teması"
+  },
+  "site": {
+    "description": "Mesut Tutsak'ın frontend geliştirme, deneyim ve seçili projelere odaklanan kişisel portfolyosu.",
+    "domainLabel": "mesuttutsak.dev",
+    "keywords": [
+      "Mesut Tutsak",
+      "Frontend Geliştirici",
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Portfolyo",
+      "Web Geliştirici"
+    ],
+    "language": "tr",
+    "locale": "tr_TR",
+    "ogImageAlt": "Mesut Tutsak portfolyo önizleme görseli",
+    "previewBadge": "Portfolyo",
+    "previewSections": "İletişim / Deneyim / Ödüller",
+    "previewStack": "React / Next.js / TypeScript",
+    "role": "Frontend Geliştirici",
+    "title": "Mesut Tutsak | Frontend Geliştirici",
+    "twitterImageAlt": "Mesut Tutsak Twitter önizleme görseli"
+  }
+}

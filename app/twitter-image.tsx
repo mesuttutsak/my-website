@@ -1,8 +1,8 @@
 import { ImageResponse } from "next/og";
 
-import { siteConfig } from "@/src/server/site-config";
+import { defaultSiteConfig } from "@/src/server/site-config";
 
-export const alt = "Mesut Tutsak Twitter preview";
+export const alt = defaultSiteConfig.twitterImageAlt;
 export const size = {
   width: 1200,
   height: 630,
@@ -52,7 +52,7 @@ export default function TwitterImage() {
                 color: "#334155",
               }}
             >
-              {siteConfig.name}
+              {defaultSiteConfig.name}
             </div>
             <div
               style={{
@@ -64,7 +64,7 @@ export default function TwitterImage() {
                 color: "#64748b",
               }}
             >
-              Portfolio
+              {defaultSiteConfig.previewBadge}
             </div>
           </div>
 
@@ -84,7 +84,7 @@ export default function TwitterImage() {
                 lineHeight: 1,
               }}
             >
-              {siteConfig.role}
+              {defaultSiteConfig.role}
             </div>
             <div
               style={{
@@ -94,7 +94,7 @@ export default function TwitterImage() {
                 color: "#475569",
               }}
             >
-              {siteConfig.description}
+              {defaultSiteConfig.description}
             </div>
           </div>
 
@@ -107,8 +107,8 @@ export default function TwitterImage() {
               color: "#64748b",
             }}
           >
-            <div style={{ display: "flex" }}>{siteConfig.domainLabel}</div>
-            <div style={{ display: "flex" }}>Contact / Experience / Awards</div>
+            <div style={{ display: "flex" }}>{defaultSiteConfig.domainLabel}</div>
+            <div style={{ display: "flex" }}>{defaultSiteConfig.previewSections}</div>
           </div>
         </div>
       </div>

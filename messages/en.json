@@ -1,0 +1,89 @@
+{
+  "contact": {
+    "api": {
+      "configIncomplete": "EmailJS configuration is incomplete.",
+      "invalidBody": "Invalid request body.",
+      "messageSent": "Message sent successfully.",
+      "restrictedEnvironment": "Non-browser API access is disabled in your EmailJS account. Enable it from the dashboard.",
+      "sendError": "An error occurred while sending the message."
+    },
+    "description": "If you'd like to talk about your ideas or hear mine.",
+    "form": {
+      "emailPlaceholder": "Email *",
+      "messagePlaceholder": "Message *",
+      "namePlaceholder": "Name *",
+      "send": "Send"
+    },
+    "metadata": {
+      "description": "Get in touch with Mesut Tutsak to discuss collaborations, opportunities, and new ideas.",
+      "title": "Contact"
+    },
+    "title": "Let's get in touch",
+    "toasts": {
+      "loading": "Sending message...",
+      "sendError": "Failed to send the message.",
+      "success": "Message sent."
+    },
+    "validation": {
+      "emailInvalid": "Please enter a valid email address.",
+      "emailRequired": "Email is required.",
+      "invalid": "Please fill out all fields correctly.",
+      "messageRequired": "Message is required.",
+      "nameRequired": "Name is required."
+    }
+  },
+  "home": {
+    "about": {
+      "contactMe": "Contact Me",
+      "copiedEmail": "Copied",
+      "copyEmail": "Email",
+      "profileAltSuffix": "profile",
+      "summary": "I'm based in {location}. {summary}"
+    },
+    "experience": {
+      "present": "Present",
+      "skills": "Skills"
+    },
+    "sections": {
+      "awards": "Awards",
+      "education": "Education",
+      "experience": "Experience"
+    }
+  },
+  "settings": {
+    "confirm": "Confirm",
+    "dragDisabled": "Enable dragging",
+    "dragEnabled": "Disable dragging",
+    "languageLabel": "Language",
+    "openSiteSettings": "Open site settings",
+    "resetConfirm": "Click again to reset",
+    "resetSettings": "Reset settings",
+    "siteSettings": "Site settings",
+    "themeDark": "Dark theme",
+    "themeLabel": "Theme mode",
+    "themeLight": "Light theme",
+    "themeSystem": "System theme"
+  },
+  "site": {
+    "description": "Mesut Tutsak's personal portfolio focused on frontend development, experience, and selected projects.",
+    "domainLabel": "mesuttutsak.dev",
+    "keywords": [
+      "Mesut Tutsak",
+      "Frontend Developer",
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Portfolio",
+      "Web Developer"
+    ],
+    "language": "en",
+    "locale": "en_US",
+    "ogImageAlt": "Mesut Tutsak portfolio preview image",
+    "previewBadge": "Portfolio",
+    "previewSections": "Contact / Experience / Awards",
+    "previewStack": "React / Next.js / TypeScript",
+    "role": "Frontend Developer",
+    "title": "Mesut Tutsak | Frontend Developer",
+    "twitterImageAlt": "Mesut Tutsak Twitter preview image"
+  }
+}

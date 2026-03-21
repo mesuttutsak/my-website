@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
+import { getTranslations } from "next-intl/server";
 
+import { resolveAppLocale } from "@/src/i18n/config";
 import {
   getContactValidationMessage,
   parseContactMessageInput,
@@ -11,24 +13,30 @@ import {
 } from "@/src/server/contact";
 
 export async function POST(request: Request) {
+  const locale = resolveAppLocale(request.headers.get("x-app-locale"));
+  const t = await getTranslations({ locale, namespace: "contact" });
+  const tValidation = await getTranslations({
+    locale,
+    namespace: "contact.validation",
+  });
   let payload: unknown;
 
   try {
     payload = await request.json();
   } catch {
     return NextResponse.json(
-      { message: "Invalid request body." },
+      { message: t("api.invalidBody") },
       { status: 400 }
     );
   }
 
   try {
-    const validatedPayload = await parseContactMessageInput(payload);
+    const validatedPayload = await parseContactMessageInput(payload, tValidation);
 
     await sendContactMessage(validatedPayload);
 
     return NextResponse.json(
-      { message: "Message sent successfully." },
+      { message: t("api.messageSent") },
       { status: 201 }
     );
   } catch (error) {
@@ -39,24 +47,24 @@ export async function POST(request: Request) {
         {
           message:
             error.code === "config"
-              ? "EmailJS configuration is incomplete."
+              ? t("api.configIncomplete")
               : error.code === "restricted_environment"
-                ? "Non-browser API access is disabled in your EmailJS account. Enable it from the dashboard."
-                : "An error occurred while sending the message.",
+                ? t("api.restrictedEnvironment")
+                : t("api.sendError"),
         },
         { status: 500 }
       );
     }
 
-    const validationMessage = getContactValidationMessage(error);
+    const validationMessage = getContactValidationMessage(error, tValidation);
 
-    if (validationMessage !== "Please fill out all fields correctly.") {
+    if (validationMessage !== tValidation("invalid")) {
       return NextResponse.json({ message: validationMessage }, { status: 400 });
     }
 
     if (!hasEmailJsConfig) {
       return NextResponse.json(
-        { message: "EmailJS configuration is incomplete." },
+        { message: t("api.configIncomplete") },
         { status: 500 }
       );
     }

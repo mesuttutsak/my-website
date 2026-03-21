@@ -2,6 +2,8 @@ import "server-only";
 
 import type { Firestore } from "firebase-admin/firestore";
 
+import type { AppLocale } from "@/src/i18n/config";
+import { resolveLocalizedData } from "@/src/i18n/localized";
 import type { PortfolioPageData } from "@/src/features/portfolio/types";
 import { toCatalogRecord } from "@/src/features/portfolio/catalogs";
 import {
@@ -10,7 +12,12 @@ import {
 } from "@/src/server/shared/firestore-collections";
 import { portfolioCollectionNames } from "@/src/server/portfolio/collections";
 
-type CatalogEntry = CollectionEntry<{ label: string }>;
+type CatalogEntry = CollectionEntry<Record<string, unknown>>;
+type CatalogLabelEntry = { id: string; label: string };
+
+function hasStringLabel(entry: CatalogEntry): entry is CatalogEntry & CatalogLabelEntry {
+  return typeof entry.label === "string";
+}
 
 function toCatalogEntries(entries: CatalogEntry[], collectionName: string) {
   if (entries.length === 0) {
@@ -18,7 +25,7 @@ function toCatalogEntries(entries: CatalogEntry[], collectionName: string) {
   }
 
   const catalogEntries = entries
-    .filter((entry) => typeof entry.label === "string")
+    .filter(hasStringLabel)
     .map(({ id, label }) => ({ id, label }));
 
   if (catalogEntries.length === 0) {
@@ -31,33 +38,43 @@ function toCatalogEntries(entries: CatalogEntry[], collectionName: string) {
 }
 
 export async function getPortfolioCatalogs(
-  db: Firestore
+  db: Firestore,
+  locale: AppLocale
 ): Promise<PortfolioPageData["catalogs"]> {
   const [skillEntries, workingTypeEntries, employmentTypeEntries] = await Promise.all([
-    getCollectionEntries<{ label: string }>(db, portfolioCollectionNames.skills),
-    getCollectionEntries<{ label: string }>(
+    getCollectionEntries<Record<string, unknown>>(db, portfolioCollectionNames.skills),
+    getCollectionEntries<Record<string, unknown>>(
       db,
       portfolioCollectionNames.workingTypes
     ),
-    getCollectionEntries<{ label: string }>(
+    getCollectionEntries<Record<string, unknown>>(
       db,
       portfolioCollectionNames.employmentTypes
     ),
   ]);
+  const resolvedSkillEntries = resolveLocalizedData(skillEntries, locale) as CatalogEntry[];
+  const resolvedWorkingTypeEntries = resolveLocalizedData(
+    workingTypeEntries,
+    locale
+  ) as CatalogEntry[];
+  const resolvedEmploymentTypeEntries = resolveLocalizedData(
+    employmentTypeEntries,
+    locale
+  ) as CatalogEntry[];
 
   return {
     skills: toCatalogRecord(
-      toCatalogEntries(skillEntries, portfolioCollectionNames.skills)
+      toCatalogEntries(resolvedSkillEntries, portfolioCollectionNames.skills)
     ),
     workingTypes: toCatalogRecord(
       toCatalogEntries(
-        workingTypeEntries,
+        resolvedWorkingTypeEntries,
         portfolioCollectionNames.workingTypes
       )
     ),
     employmentTypes: toCatalogRecord(
       toCatalogEntries(
-        employmentTypeEntries,
+        resolvedEmploymentTypeEntries,
         portfolioCollectionNames.employmentTypes
       )
     ),

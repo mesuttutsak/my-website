@@ -1,16 +1,16 @@
 import type { MetadataRoute } from "next";
 
-import { siteConfig } from "@/src/server/site-config";
+import { defaultSiteConfig } from "@/src/server/site-config";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: siteConfig.title,
-    short_name: siteConfig.name,
-    description: siteConfig.description,
+    name: defaultSiteConfig.title,
+    short_name: defaultSiteConfig.name,
+    description: defaultSiteConfig.description,
     start_url: "/",
     display: "standalone",
-    background_color: siteConfig.themeColors.light,
-    theme_color: siteConfig.themeColors.light,
+    background_color: defaultSiteConfig.themeColors.light,
+    theme_color: defaultSiteConfig.themeColors.light,
     icons: [
       {
         src: "/favicon-16x16.png",

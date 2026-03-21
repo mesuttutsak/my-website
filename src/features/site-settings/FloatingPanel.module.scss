@@ -31,20 +31,63 @@
 }
 
 .siteSettingsThemeGroup {
-  @apply flex items-center gap-1 rounded-full p-1;
-  background-color: var(--color-control-hover);
-  border: 1px solid var(--color-border-primary);
+  @apply relative flex items-center rounded-full;
 }
 
-.siteSettingsThemeButton,
+.siteSettingsLocaleGroup {
+  @apply relative flex items-center rounded-full;
+}
+
+.siteSettingsSelectTrigger,
 .siteSettingsControl,
 .siteSettingsIconButton {
   @apply flex items-center justify-center rounded-[10px] transition-colors;
   color: var(--color-text-secondary);
 }
 
-.siteSettingsThemeButton {
-  @apply h-7 w-7 rounded-full;
+.siteSettingsSelectTrigger {
+  @apply h-9 gap-2 rounded-full px-3;
+  background-color: var(--color-control-hover);
+  border: 1px solid var(--color-border-primary);
+
+  &:hover {
+    background-color: var(--color-control-hover);
+    color: var(--color-text-primary);
+  }
+
+  &[data-open="true"] {
+    background-color: var(--color-accent-soft);
+    color: var(--color-accent);
+  }
+}
+
+.siteSettingsSelectTriggerValue {
+  @apply flex items-center justify-center text-[11px] font-semibold uppercase tracking-[0.08em];
+}
+
+.siteSettingsSelectChevron {
+  transition: transform 0.2s ease;
+}
+
+.siteSettingsSelectTrigger[data-open="true"] {
+  .siteSettingsSelectChevron {
+    transform: rotate(180deg);
+  }
+}
+
+.siteSettingsSelectPopover {
+  @apply absolute bottom-[calc(100%+0.6rem)] left-0 grid gap-1 rounded-2xl p-2;
+  background: var(--color-glass-bg);
+  border: 1px solid var(--color-glass-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-panel);
+  min-width: max-content;
+}
+
+.siteSettingsSelectOption {
+  @apply flex items-center gap-2 rounded-xl px-3 py-2 text-left text-xs font-medium transition-colors;
+  color: var(--color-text-secondary);
 
   &:hover {
     background-color: var(--color-control-hover);
@@ -55,6 +98,22 @@
     background-color: var(--color-accent-soft);
     color: var(--color-accent);
   }
+
+  &[data-has-icon="false"] {
+    @apply justify-center;
+  }
+
+  &[data-has-icon="true"] {
+    min-width: 2.5rem;
+  }
+}
+
+.siteSettingsSelectOptionIcon {
+  @apply inline-flex items-center justify-center;
+}
+
+.siteSettingsSelectOptionLabel {
+  @apply inline-flex items-center;
 }
 
 .siteSettingsControl {

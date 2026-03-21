@@ -8,7 +8,15 @@ import { FaCheck } from 'react-icons/fa';
 import { IoIosCopy } from "react-icons/io";
 import styles from "./CopiedButton.module.scss";
 
-const CopiedButton = ({ textToCopy }: { textToCopy: string }) => {
+const CopiedButton = ({
+  textToCopy,
+  copyLabel = "Copy",
+  copiedLabel = "Copied",
+}: {
+  textToCopy: string;
+  copyLabel?: string;
+  copiedLabel?: string;
+}) => {
     const { copied, copy } = useClipboard(textToCopy);
 
     const handleCopy = () => {
@@ -21,7 +29,7 @@ const CopiedButton = ({ textToCopy }: { textToCopy: string }) => {
                 <FaCheck className={cn('text-green-500', styles.icon, styles.tick, copied && styles.tickAnimation)} size={16} />
                 <IoIosCopy className={cn(styles.icon, styles.default, copied && styles.tickAnimationReverse)} size={16} />
             </span>
-            Copy Email
+            {copied ? copiedLabel : copyLabel}
         </Button>
     )
 }

@@ -6,7 +6,7 @@ import type {
 } from "react";
 import { useCallback, useState } from "react";
 
-interface TooltipState {
+export interface TooltipState {
   label: string;
   x: number;
   y: number;

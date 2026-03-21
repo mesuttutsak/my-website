@@ -1,4 +1,6 @@
+import { useLocale, useTranslations } from "next-intl";
 import type { EducationContent } from "@/src/features/portfolio/types";
+import type { AppLocale } from "@/src/i18n/config";
 import { formatDateRange } from "@/src/shared/lib/date";
 import Section, { Headline } from "@/src/ui/Section";
 import Surface from "@/src/ui/Surface";
@@ -10,16 +12,18 @@ interface EducationProps {
 }
 
 const Education = ({ educations }: EducationProps) => {
+    const locale = useLocale() as AppLocale;
+    const t = useTranslations("home.sections");
     const { name, department, grade, startDate, endDate, certificates } = educations;
     return (
         <Section draggable id="educations" customClassname={[styles.education]}>
             <Headline>
-                <Text tag="h3">Education</Text>
+                <Text tag="h3">{t("education")}</Text>
             </Headline>
             <Surface inOrder>
                 <div className={styles.row}>
                     <Text tag="h4">{name}</Text>
-                    <Text fontSize="sm">{formatDateRange(startDate, endDate, "year")}</Text>
+                    <Text fontSize="sm">{formatDateRange(startDate, endDate, "year", "", locale)}</Text>
                 </div>
                 <div className={styles.row}>
                     <Text fontSize="sm">{department} - {grade}</Text>

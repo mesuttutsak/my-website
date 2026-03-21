@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import type { PortfolioAward } from "@/src/features/portfolio/types";
 import Section, { Headline } from "@/src/ui/Section";
 import Surface from "@/src/ui/Surface";
@@ -9,10 +10,12 @@ interface HonnorAndAwardsSectionProps {
 }
 
 const HonnorAndAwards = ({ awards }: HonnorAndAwardsSectionProps) => {
+  const t = useTranslations("home.sections");
+
   return (
     <Section customClassname={[styles.awards]} draggable id="honnorAndAwards">
       <Headline>
-        <Text tag="h3">Awards</Text>
+        <Text tag="h3">{t("awards")}</Text>
       </Headline>
       {awards.map((award: PortfolioAward, i) => {
         const { name, degree, title, regulated_by } = award;

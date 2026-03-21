@@ -1,8 +1,8 @@
 import { ImageResponse } from "next/og";
 
-import { siteConfig } from "@/src/server/site-config";
+import { defaultSiteConfig } from "@/src/server/site-config";
 
-export const alt = "Mesut Tutsak portfolio preview";
+export const alt = defaultSiteConfig.ogImageAlt;
 export const size = {
   width: 1200,
   height: 630,
@@ -69,7 +69,7 @@ export default function OpenGraphImage() {
               color: "#475569",
             }}
           >
-            Portfolio
+            {defaultSiteConfig.previewBadge}
           </div>
 
           <div
@@ -88,7 +88,7 @@ export default function OpenGraphImage() {
                 lineHeight: 1,
               }}
             >
-              {siteConfig.name}
+              {defaultSiteConfig.name}
             </div>
             <div
               style={{
@@ -98,7 +98,7 @@ export default function OpenGraphImage() {
                 color: "#334155",
               }}
             >
-              {siteConfig.role}
+              {defaultSiteConfig.role}
             </div>
             <div
               style={{
@@ -108,7 +108,7 @@ export default function OpenGraphImage() {
                 color: "#475569",
               }}
             >
-              {siteConfig.description}
+              {defaultSiteConfig.description}
             </div>
           </div>
 
@@ -121,8 +121,8 @@ export default function OpenGraphImage() {
               color: "#64748b",
             }}
           >
-            <div style={{ display: "flex" }}>{siteConfig.domainLabel}</div>
-            <div style={{ display: "flex" }}>React / Next.js / TypeScript</div>
+            <div style={{ display: "flex" }}>{defaultSiteConfig.domainLabel}</div>
+            <div style={{ display: "flex" }}>{defaultSiteConfig.previewStack}</div>
           </div>
         </div>
       </div>

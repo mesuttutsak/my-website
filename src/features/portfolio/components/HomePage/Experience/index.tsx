@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import Item from "./Item";
 import type { ExperienceCatalogs } from "@/src/features/portfolio/catalogs";
 import type { ExperienceItem } from "@/src/features/portfolio/types";
@@ -10,14 +11,20 @@ interface ExperienceSectionProps {
 }
 
 const Experience = ({ items, catalogs }: ExperienceSectionProps) => {
+  const t = useTranslations("home.sections");
+
   return (
       <Section customClassname={[styles.experience]} draggable id="experience">
         <Headline>
-          <Text tag="h3">Experience</Text>
+          <Text tag="h3">{t("experience")}</Text>
         </Headline>
         {items.map(
           (job: ExperienceItem, i) => (
-            <Item key={'j_' + i} data={job} catalogs={catalogs} />
+            <Item
+              key={'j_' + i}
+              catalogs={catalogs}
+              data={job}
+            />
           )
         )}
       </Section>
