@@ -1,15 +1,28 @@
+import {
+  defaultAppLocale,
+  type AppLocale,
+} from "@/src/i18n/config";
+
 type DateDisplayPrecision = "monthYear" | "year";
 
-const monthYearFormatter = new Intl.DateTimeFormat("en-US", {
-  month: "short",
-  year: "numeric",
-  timeZone: "UTC",
-});
+function getDateTimeLocale(locale: AppLocale) {
+  return locale === "tr" ? "tr-TR" : "en-US";
+}
 
-const yearFormatter = new Intl.DateTimeFormat("en-US", {
-  year: "numeric",
-  timeZone: "UTC",
-});
+function getMonthYearFormatter(locale: AppLocale) {
+  return new Intl.DateTimeFormat(getDateTimeLocale(locale), {
+    month: "short",
+    year: "numeric",
+    timeZone: "UTC",
+  });
+}
+
+function getYearFormatter(locale: AppLocale) {
+  return new Intl.DateTimeFormat(getDateTimeLocale(locale), {
+    year: "numeric",
+    timeZone: "UTC",
+  });
+}
 
 function parseDateValue(value: string) {
   const parsed = new Date(value);
@@ -24,7 +37,8 @@ function parseDateValue(value: string) {
 export function formatDateLabel(
   value?: string | null,
   precision: DateDisplayPrecision = "monthYear",
-  fallback = ""
+  fallback = "",
+  locale: AppLocale = defaultAppLocale
 ) {
   if (!value) {
     return fallback;
@@ -43,19 +57,20 @@ export function formatDateLabel(
   }
 
   return precision === "year"
-    ? yearFormatter.format(parsedDate)
-    : monthYearFormatter.format(parsedDate);
+    ? getYearFormatter(locale).format(parsedDate)
+    : getMonthYearFormatter(locale).format(parsedDate);
 }
 
 export function formatDateRange(
   startDate?: string | null,
   endDate?: string | null,
   precision: DateDisplayPrecision = "monthYear",
-  presentLabel = "Present"
+  presentLabel = "Present",
+  locale: AppLocale = defaultAppLocale
 ) {
-  const startLabel = formatDateLabel(startDate, precision);
+  const startLabel = formatDateLabel(startDate, precision, "", locale);
   const endLabel = endDate
-    ? formatDateLabel(endDate, precision)
+    ? formatDateLabel(endDate, precision, "", locale)
     : presentLabel;
 
   if (!startLabel && !endLabel) {

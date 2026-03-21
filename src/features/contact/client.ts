@@ -1,13 +1,19 @@
+import type { AppLocale } from "@/src/i18n/config";
 import type {
   ContactApiResponse,
   ContactMessageInput,
 } from "@/src/features/contact/types";
 
-export async function submitContactMessage(input: ContactMessageInput) {
+export async function submitContactMessage(
+  input: ContactMessageInput,
+  locale: AppLocale,
+  fallbackErrorMessage: string
+) {
   const response = await fetch("/api/contact", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      "X-App-Locale": locale,
     },
     body: JSON.stringify(input),
   });
@@ -17,7 +23,7 @@ export async function submitContactMessage(input: ContactMessageInput) {
     | null;
 
   if (!response.ok) {
-    throw new Error(payload?.message ?? "Failed to send the message.");
+    throw new Error(payload?.message ?? fallbackErrorMessage);
   }
 
   return payload;

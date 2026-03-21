@@ -17,8 +17,11 @@ const HomePageComponent = ({
   return (
     <div className={styles.homePage}>
       <Surface customClassname={[styles.homePageSurface]} id="homePage">
-        <About about={content.about} socialLinks={content.socialLinks} />
-        <Experience items={content.experiences} catalogs={catalogs} />
+        <About
+          about={content.about}
+          socialLinks={content.socialLinks}
+        />
+        <Experience catalogs={catalogs} items={content.experiences} />
         <HonnorAndAwards awards={content.awards} />
         <Education educations={content.educations} />
       </Surface>

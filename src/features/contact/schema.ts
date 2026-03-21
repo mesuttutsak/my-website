@@ -2,30 +2,56 @@ import * as Yup from "yup";
 
 import type { ContactMessageInput } from "@/src/features/contact/types";
 
-export const contactMessageSchema = Yup.object({
-  from_name: Yup.string().trim().max(100).required("Name is required."),
-  from_email: Yup.string()
-    .trim()
-    .max(320)
-    .email("Please enter a valid email address.")
-    .required("Email is required."),
-  message: Yup.string()
-    .trim()
-    .max(2000)
-    .required("Message is required."),
-});
+const contactValidationKeys = [
+  "emailInvalid",
+  "emailRequired",
+  "invalid",
+  "messageRequired",
+  "nameRequired",
+] as const;
 
-export async function parseContactMessageInput(payload: unknown) {
-  return contactMessageSchema.validate(payload, {
+type ContactValidationKey = (typeof contactValidationKeys)[number];
+
+type ContactValidationTranslator = (key: ContactValidationKey) => string;
+
+export function getContactMessageSchema(t: ContactValidationTranslator) {
+
+  return Yup.object({
+    from_name: Yup.string()
+      .trim()
+      .max(100)
+      .required(t("nameRequired")),
+    from_email: Yup.string()
+      .trim()
+      .max(320)
+      .email(t("emailInvalid"))
+      .required(t("emailRequired")),
+    message: Yup.string()
+      .trim()
+      .max(2000)
+      .required(t("messageRequired")),
+  });
+}
+
+export async function parseContactMessageInput(
+  payload: unknown,
+  t: ContactValidationTranslator
+) {
+  return getContactMessageSchema(t).validate(payload, {
     abortEarly: true,
     stripUnknown: true,
   }) as Promise<ContactMessageInput>;
 }
 
-export function getContactValidationMessage(error: unknown) {
+export function getContactValidationMessage(
+  error: unknown,
+  t: ContactValidationTranslator
+) {
+  const fallbackMessage = t("invalid");
+
   if (error instanceof Yup.ValidationError) {
-    return error.message || "Please fill out all fields correctly.";
+    return error.message || fallbackMessage;
   }
 
-  return "Please fill out all fields correctly.";
+  return fallbackMessage;
 }

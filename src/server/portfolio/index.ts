@@ -1,5 +1,7 @@
 import "server-only";
 
+import type { AppLocale } from "@/src/i18n/config";
+import { defaultAppLocale } from "@/src/i18n/config";
 import type {
   PortfolioContent,
   PortfolioPageData,
@@ -21,17 +23,19 @@ export {
   getSocialLinks,
 };
 
-export async function getPortfolioPageData(): Promise<PortfolioPageData> {
+export async function getPortfolioPageData(
+  locale: AppLocale = defaultAppLocale
+): Promise<PortfolioPageData> {
   const db = getRequiredFirestoreDb();
 
   const [about, socialLinks, experiences, educations, awards, catalogs] =
     await Promise.all([
-      getAbout(db),
-      getSocialLinks(db),
-      getExperiences(db),
-      getEducations(db),
-      getAwards(db),
-      getPortfolioCatalogs(db),
+      getAbout(db, locale),
+      getSocialLinks(db, locale),
+      getExperiences(db, locale),
+      getEducations(db, locale),
+      getAwards(db, locale),
+      getPortfolioCatalogs(db, locale),
     ]);
 
   return {
@@ -46,7 +50,9 @@ export async function getPortfolioPageData(): Promise<PortfolioPageData> {
   };
 }
 
-export async function getPortfolioContent(): Promise<PortfolioContent> {
-  const { content } = await getPortfolioPageData();
+export async function getPortfolioContent(
+  locale: AppLocale = defaultAppLocale
+): Promise<PortfolioContent> {
+  const { content } = await getPortfolioPageData(locale);
   return content;
 }

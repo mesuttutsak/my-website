@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { useLocale, useTranslations } from "next-intl";
 
 import {
     ExperienceCatalogs,
@@ -6,6 +7,7 @@ import {
     getSkillLabel,
 } from "@/src/features/portfolio/catalogs";
 import type { ExperienceItem, ExperiencePeriod } from "@/src/features/portfolio/types";
+import type { AppLocale } from "@/src/i18n/config";
 import { formatDateRange } from "@/src/shared/lib/date";
 import Surface from '@/src/ui/Surface';
 import Text from '@/src/ui/Text';
@@ -18,6 +20,8 @@ const Item = ({
     data: ExperienceItem;
     catalogs: ExperienceCatalogs;
 }) => {
+    const locale = useLocale() as AppLocale;
+    const t = useTranslations("home.experience");
     const { company, website, skills, periods } = data;
     
   return (
@@ -34,12 +38,12 @@ const Item = ({
                         </div>
                         { periods.length == 1 &&
                             <Text fontSize='sm' customClassname={['whitespace-nowrap']}>
-                                {formatDateRange(periods[0].start_date, periods[0].end_date)}
+                                {formatDateRange(periods[0].start_date, periods[0].end_date, "monthYear", t("present"), locale)}
                             </Text>
                         }
                     </div>
 
-                    <Text fontSize='sm'>Skills: {skills.map((skill) => getSkillLabel(skill, catalogs)).join(" · ")} </Text>
+                    <Text fontSize='sm'>{t("skills")}: {skills.map((skill) => getSkillLabel(skill, catalogs)).join(" · ")} </Text>
                 </div>
             </div>
             {/* {location} */}
@@ -55,7 +59,7 @@ const Item = ({
                             end_date,
                         }: ExperiencePeriod ) => (
                             <li key={'jp_'+title+start_date}>
-                                <Text fontSize='md'>{title} - {getEmploymentTypeLabel(employment_type, catalogs)}</Text> <Text fontSize='sm' customClassname={['whitespace-nowrap']}>{formatDateRange(start_date, end_date)}</Text>
+                                <Text fontSize='md'>{title} - {getEmploymentTypeLabel(employment_type, catalogs)}</Text> <Text fontSize='sm' customClassname={['whitespace-nowrap']}>{formatDateRange(start_date, end_date, "monthYear", t("present"), locale)}</Text>
                             </li>
                         )
                     )}

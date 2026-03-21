@@ -1,10 +1,17 @@
+import { getCurrentLocale } from "@/src/i18n/server";
 import HomePageComponent from "@/src/features/portfolio/components/HomePage";
 import { getPortfolioPageData } from "@/src/server/portfolio";
 
 const HomePage = async () => {
-  const pageData = await getPortfolioPageData();
+  const locale = await getCurrentLocale();
+  const pageData = await getPortfolioPageData(locale);
 
-  return <HomePageComponent content={pageData.content} catalogs={pageData.catalogs} />;
+  return (
+    <HomePageComponent
+      catalogs={pageData.catalogs}
+      content={pageData.content}
+    />
+  );
 };
 
 export default HomePage;

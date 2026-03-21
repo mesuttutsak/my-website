@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 import type { AboutContent, SocialLink } from "@/src/features/portfolio/types";
 import SocialList from "../../SocialList";
@@ -15,7 +16,16 @@ interface AboutProps {
   socialLinks: SocialLink[];
 }
 
-const About = ({ about, socialLinks }: AboutProps) => {
+const About = ({
+  about,
+  socialLinks,
+}: AboutProps) => {
+  const t = useTranslations("home.about");
+  const summaryText = t("summary", {
+    location: about.location,
+    summary: about.summary,
+  });
+
   const aboutElement = (
     <>
       <div className={styles.content}>
@@ -32,7 +42,7 @@ const About = ({ about, socialLinks }: AboutProps) => {
 
           <div>
             <Text>
-              I&apos;m based in {about.location}. {about.summary}
+              {summaryText}
             </Text>
           </div>
 
@@ -40,13 +50,17 @@ const About = ({ about, socialLinks }: AboutProps) => {
             <SocialList links={socialLinks} />
 
             <div className={styles.contact}>
-              <CopiedButton textToCopy={about.email} />
+              <CopiedButton
+                copiedLabel={t("copiedEmail")}
+                copyLabel={t("copyEmail")}
+                textToCopy={about.email}
+              />
 
               <Link
                 className={cn(buttonStyles.button, buttonStyles.primary)}
                 href={about.contactHref}
               >
-                  Contact Me
+                  {t("contactMe")}
               </Link>
             </div>
           </div>
@@ -58,7 +72,7 @@ const About = ({ about, socialLinks }: AboutProps) => {
               src={about.profileImageSrc}
               width={190}
               height={190}
-              alt={`${about.name} profile`}
+              alt={`${about.name} ${t("profileAltSuffix")}`}
               priority
             />
           </div>
