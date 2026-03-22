@@ -1,14 +1,12 @@
 import Image from "next/image";
-import Link from "next/link";
 import { useTranslations } from "next-intl";
 
 import type { AboutContent, SocialLink } from "@/src/features/portfolio/types";
 import SocialList from "../../SocialList";
-import { cn } from "@/src/shared/lib/cn";
 import CopiedButton from "@/src/ui/Button/CopiedButton";
+import Link from "@/src/ui/Link";
 import Section from "@/src/ui/Section";
 import Text from "@/src/ui/Text";
-import buttonStyles from "@/src/ui/Button/Button.module.scss";
 import styles from "./About.module.scss";
 
 interface AboutProps {
@@ -56,11 +54,8 @@ const About = ({
                 textToCopy={about.email}
               />
 
-              <Link
-                className={cn(buttonStyles.button, buttonStyles.primary)}
-                href={about.contactHref}
-              >
-                  {t("contactMe")}
+              <Link href={about.contactHref}>
+                {t("contactMe")}
               </Link>
             </div>
           </div>

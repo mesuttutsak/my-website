@@ -7,13 +7,13 @@ import styles from "./Button.module.scss";
 
 const Button = ({
   children,
+  className = [],
+  isDisabled = false,
+  isLoading,
+  onClick,
+  size,
   type = "button",
   variant = "primary",
-  size,
-  isLoading,
-  isDisabled = false,
-  onClick,
-  className = [],
 }: ButtonProps) => {
   return (
     <button
