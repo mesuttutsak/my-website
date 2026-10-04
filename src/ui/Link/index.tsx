@@ -1,6 +1,6 @@
 'use client'
 
-import NextLink from "next/link";
+import { Link as NextLink } from "@/src/i18n/navigation";
 import { ImSpinner8 } from "react-icons/im";
 
 import { cn } from "@/src/shared/lib/cn";

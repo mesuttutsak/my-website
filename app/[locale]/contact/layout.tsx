@@ -1,12 +1,19 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
-import { getCurrentLocale } from "@/src/i18n/server";
+import type { AppLocale } from "@/src/i18n/config";
+import { getLocalizedAlternates, getLocalizedPath } from "@/src/i18n/metadata";
 import { getSiteConfig } from "@/src/server/site-config";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getCurrentLocale();
+type ContactLayoutProps = {
+  children: ReactNode;
+  params: { locale: AppLocale };
+};
+
+export async function generateMetadata({
+  params: { locale },
+}: Omit<ContactLayoutProps, "children">): Promise<Metadata> {
   const siteConfig = getSiteConfig(locale);
   const t = await getTranslations({ locale, namespace: "contact.metadata" });
   const metadataTitle = t("title");
@@ -15,16 +22,14 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: metadataTitle,
     description: metadataDescription,
-    alternates: {
-      canonical: "/contact",
-    },
+    alternates: getLocalizedAlternates(locale, "/contact"),
     openGraph: {
       type: "website",
       locale: siteConfig.locale,
       siteName: siteConfig.name,
       title: `${metadataTitle} | ${siteConfig.name}`,
       description: metadataDescription,
-      url: "/contact",
+      url: getLocalizedPath(locale, "/contact"),
       images: [
         {
           url: "/opengraph-image",
@@ -48,6 +53,11 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function ContactLayout({ children }: { children: ReactNode }) {
+export default function ContactLayout({
+  children,
+  params,
+}: ContactLayoutProps) {
+  setRequestLocale(params.locale);
+
   return children;
 }

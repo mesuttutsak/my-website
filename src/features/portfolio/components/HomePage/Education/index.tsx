@@ -18,11 +18,11 @@ const Education = ({ educations }: EducationProps) => {
     return (
         <Section draggable id="educations" customClassname={[styles.education]}>
             <Headline>
-                <Text tag="h3">{t("education")}</Text>
+                <Text tag="h2">{t("education")}</Text>
             </Headline>
             <Surface inOrder>
                 <div className={styles.row}>
-                    <Text tag="h4">{name}</Text>
+                    <Text tag="h3">{name}</Text>
                     <Text fontSize="sm">{formatDateRange(startDate, endDate, "year", "", locale)}</Text>
                 </div>
                 <div className={styles.row}>
@@ -35,7 +35,7 @@ const Education = ({ educations }: EducationProps) => {
 
                     return (
                         <div key={'p_' + i} className="flex flex-col gap-3" >
-                            <Text tag="h4" fontSize="md">{title}</Text>
+                            <Text tag="h3" fontSize="md">{title}</Text>
                             <ul className="flex flex-col gap-2 ml-3 pl-3">
                                 {period.map((e, i) => <li key={'p2_' + i} className="d-block">
                                     <Text fontSize="sm">{e}</Text>

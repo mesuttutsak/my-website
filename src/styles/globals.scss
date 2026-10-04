@@ -111,13 +111,7 @@ h1 {
   @include textProperties();
 }
 
-h2 {
-  @apply tracking-tight sm:text-base text-sm font-semibold;
-  color: var(--color-text-primary);
-  @include textProperties();
-}
-
-h4 {
+h3 {
   @apply tracking-tight sm:text-lg text-base sm:leading-7 leading-6 font-normal;
   color: var(--color-text-primary);
   @include textProperties();

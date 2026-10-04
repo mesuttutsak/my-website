@@ -6,13 +6,20 @@ import { SocialItemProps } from './socialList.types';
 const SocialItem: React.FC<SocialItemProps> = ({
     url = "",
     text,
+    label,
     icon: Icon
 }) => {
     
     
   return (
-    <Link href={url} target='_blank' className='flex flex-row gap-2 items-center'>
-        {Icon && <Icon size={25} />}
+    <Link
+        href={url}
+        target='_blank'
+        rel='noopener noreferrer'
+        aria-label={text ? undefined : label}
+        className='flex flex-row gap-2 items-center'
+    >
+        {Icon && <Icon size={25} aria-hidden />}
         {text && text}
     </Link>
   )

@@ -1,10 +1,10 @@
 'use client'
 
 import { useEffect, useRef, useState, useTransition } from "react";
-import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
 
-import { localeCookieName, type AppLocale } from "@/src/i18n/config";
+import type { AppLocale } from "@/src/i18n/config";
+import { usePathname, useRouter } from "@/src/i18n/navigation";
 import type { ThemeMode } from "@/src/features/site-settings/theme";
 import { useFloatingTooltip } from "@/src/features/site-settings/useFloatingTooltip";
 import { useResetConfirmation } from "@/src/features/site-settings/useResetConfirmation";
@@ -21,6 +21,7 @@ export function useFloatingPanel() {
   const isMobile = useIsMobile();
   const locale = useLocale() as AppLocale;
   const router = useRouter();
+  const pathname = usePathname();
   const { createTooltipFocusHandler, createTooltipMouseEnterHandler, hideTooltip, tooltip } =
     useFloatingTooltip();
   const { isDragEnabled, toggleDragEnabled } = useDragSettings();
@@ -105,10 +106,9 @@ export function useFloatingPanel() {
       return;
     }
 
-    document.cookie = `${localeCookieName}=${nextLocale}; path=/; max-age=31536000; samesite=lax`;
     hideTooltip();
     startLocaleTransition(() => {
-      router.refresh();
+      router.replace(pathname, { locale: nextLocale });
     });
   };
 

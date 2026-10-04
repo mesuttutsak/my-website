@@ -7,8 +7,12 @@
       "restrictedEnvironment": "Non-browser API access is disabled in your EmailJS account. Enable it from the dashboard.",
       "sendError": "An error occurred while sending the message."
     },
+    "back": "Back to home",
     "description": "If you'd like to talk about your ideas or hear mine.",
     "form": {
+      "emailLabel": "Email",
+      "messageLabel": "Message",
+      "nameLabel": "Name",
       "emailPlaceholder": "Email *",
       "messagePlaceholder": "Message *",
       "namePlaceholder": "Name *",

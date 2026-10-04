@@ -9,4 +9,5 @@ export interface SocialItemProps {
     url?: string
     icon?: IconType;
     text?: string | null;
+    label?: string;
 }

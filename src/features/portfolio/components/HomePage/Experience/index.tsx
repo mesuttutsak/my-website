@@ -16,7 +16,7 @@ const Experience = ({ items, catalogs }: ExperienceSectionProps) => {
   return (
       <Section customClassname={[styles.experience]} draggable id="experience">
         <Headline>
-          <Text tag="h3">{t("experience")}</Text>
+          <Text tag="h2">{t("experience")}</Text>
         </Headline>
         {items.map(
           (job: ExperienceItem, i) => (

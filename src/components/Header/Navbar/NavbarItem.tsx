@@ -2,7 +2,7 @@ import { navItemProps } from "./navbar.types";
 
 import { cn } from "@/src/shared/lib/cn";
 import Text from "@/src/ui/Text";
-import Link from "next/link";
+import { Link } from "@/src/i18n/navigation";
 import styles from "../Header.module.scss";
 
 const NavbarItem: React.FC<navItemProps> = ({ text, path, icon: Icon }) => {

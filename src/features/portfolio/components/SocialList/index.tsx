@@ -10,6 +10,11 @@ const socialIconMap = {
   linkedin: FaLinkedin,
 };
 
+const socialLabelMap = {
+  github: "GitHub",
+  linkedin: "LinkedIn",
+};
+
 const SocialList = ({ links }: SocialListProps) => {
   return (
     <div className={styles.socialList}>
@@ -18,6 +23,7 @@ const SocialList = ({ links }: SocialListProps) => {
           key={"s_" + link.platform + i}
           icon={socialIconMap[link.platform as keyof typeof socialIconMap]}
           text={link.text ?? null}
+          label={socialLabelMap[link.platform as keyof typeof socialLabelMap]}
           url={link.url}
         />
       ))}

@@ -5,6 +5,8 @@ export interface FormGroupProps {
     fieldObject: {
         type?: string;
         placeholder?: string;
+        autoComplete?: string;
+        ariaLabel?: string;
     };
     name: string;
 }

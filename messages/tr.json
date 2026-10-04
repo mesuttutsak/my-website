@@ -7,8 +7,12 @@
       "restrictedEnvironment": "EmailJS hesabınızda tarayıcı dışı API erişimi kapalı. Bunu panel üzerinden etkinleştirin.",
       "sendError": "Mesaj gönderilirken bir hata oluştu."
     },
+    "back": "Ana sayfaya dön",
     "description": "Bir şey sormak, fikir paylaşmak ya da sadece selam vermek istersen...",
     "form": {
+      "emailLabel": "E-posta",
+      "messageLabel": "Mesaj",
+      "nameLabel": "İsim",
       "emailPlaceholder": "E-posta *",
       "messagePlaceholder": "Mesaj *",
       "namePlaceholder": "İsim *",

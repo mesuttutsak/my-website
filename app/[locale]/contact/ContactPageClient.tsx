@@ -3,10 +3,10 @@
 import { Formik, Form, FormikHelpers } from "formik";
 import { useLocale, useTranslations } from "next-intl";
 import toast, { Toaster } from "react-hot-toast";
-import Link from "next/link";
 import { BiChevronLeftCircle } from "react-icons/bi";
 
 import { submitContactMessage } from "@/src/features/contact/client";
+import { Link } from "@/src/i18n/navigation";
 import { getContactMessageSchema } from "@/src/features/contact/schema";
 import type { ContactMessageInput } from "@/src/features/contact/types";
 import { useAsyncAction } from "@/src/shared/hooks/useAsyncAction";
@@ -65,8 +65,8 @@ const ContactPageClient = () => {
     <Surface>
       <Section customClassname={[styles.contactPage]} id="contactPage" variant="flat">
         <div className="mb-5">
-          <Link href={"/"}>
-            <BiChevronLeftCircle size={24} />
+          <Link href={"/"} aria-label={t("back")}>
+            <BiChevronLeftCircle size={24} aria-hidden />
           </Link>
 
           <Text tag="h1" customClassname={["mt-4"]}>
@@ -82,20 +82,24 @@ const ContactPageClient = () => {
           onSubmit={onSubmit}
         >
           {() => (
-            <Form className={styles.form}>
+            <Form className={styles.form} noValidate>
               <div className={styles.formRow}>
                 <FormGroup
                   fieldObject={{
                     type: "text",
                     placeholder: t("form.namePlaceholder"),
+                    ariaLabel: t("form.nameLabel"),
+                    autoComplete: "name",
                   }}
                   name="from_name"
                 />
 
                 <FormGroup
                   fieldObject={{
-                    type: "text",
+                    type: "email",
                     placeholder: t("form.emailPlaceholder"),
+                    ariaLabel: t("form.emailLabel"),
+                    autoComplete: "email",
                   }}
                   name="from_email"
                 />
@@ -105,6 +109,7 @@ const ContactPageClient = () => {
                 fieldObject={{
                   type: "textarea",
                   placeholder: t("form.messagePlaceholder"),
+                  ariaLabel: t("form.messageLabel"),
                 }}
                 name="message"
               />

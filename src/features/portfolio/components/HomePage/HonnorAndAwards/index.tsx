@@ -15,14 +15,14 @@ const HonnorAndAwards = ({ awards }: HonnorAndAwardsSectionProps) => {
   return (
     <Section customClassname={[styles.awards]} draggable id="honnorAndAwards">
       <Headline>
-        <Text tag="h3">{t("awards")}</Text>
+        <Text tag="h2">{t("awards")}</Text>
       </Headline>
       {awards.map((award: PortfolioAward, i) => {
         const { name, degree, title, regulated_by } = award;
 
         return (
           <Surface key={'exp_' + regulated_by.short_name + name + i}>
-            <Text tag="h4">{name}</Text>
+            <Text tag="h3">{name}</Text>
             <Text fontSize="sm">{degree} {title && '- ' + title} </Text>
           </Surface>
         )
